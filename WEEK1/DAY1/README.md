@@ -14,6 +14,8 @@ Elements Practiced:
 
     Understanding block vs inline elements
 
+Live Preview: https://minahil-rana.vercel.app/day1-html-practice.html    
+
 Goal:
 Hands-on practice to strengthen your understanding of core HTML tags and how they behave on a webpage.
 
@@ -34,6 +36,8 @@ Included Sections:
     Projects (if applicable)
 
     Contact Details
+
+Live Preview: https://minahil-rana.vercel.app/resume.html    
 
 Goal:
 To practice structuring content using semantic tags like <section>, <article>, <header>, and <footer> while creating a clean layout.
