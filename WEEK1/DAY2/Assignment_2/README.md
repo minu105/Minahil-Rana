@@ -36,5 +36,5 @@ This project is a pixel-perfect HTML & CSS replica of a professional resume, clo
 
 Live preview
 
-
+https://minahil-rana-week1day2assignment2.vercel.app/resume.html
 
