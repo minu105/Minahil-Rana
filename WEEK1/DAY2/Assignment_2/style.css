@@ -1,0 +1,181 @@
+body {
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 15px;
+  color: #111;
+  background: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+.resume-container {
+  max-width: 820px;
+  margin: 32px auto;
+  background: #fff;
+  padding: 0 32px 32px 32px;
+}
+
+.resume-header {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.resume-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -1px;
+}
+
+.resume-header .subtitle {
+  font-size: 1rem;
+  margin-top: 4px;
+  margin-bottom: 10px;
+}
+
+.contact-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  gap: 6px;
+}
+
+.contact-item i, .profile i {
+  font-size: 18px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 6px;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.icon.linkedin { color: #0077b5; }
+.icon.github { color: #181717; }
+.icon.stackoverflow { color: #f48024; }
+.icon.location,
+.icon.phone,
+.icon.email,
+.icon.globe { color: #222; filter: grayscale(1); }
+
+hr {
+  border: none;
+  border-top: 1.5px solid #222;
+  margin: 18px 0 18px 0;
+}
+
+.row {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 0;
+}
+
+.section-title {
+  min-width: 120px;
+  font-weight: 700;
+  font-size: 15px;
+  margin-right: 24px;
+  margin-top: 2px;
+}
+
+.profiles {
+  display: flex;
+  gap: 168px; 
+  margin-bottom: 2px;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 90px;
+}
+
+.profile-username {
+  font-size: 15px;
+  font-weight: 400;
+  margin-bottom: 0;
+}
+
+.profile-label {
+  font-size: 13px;
+  color: #555;
+  margin-top: 0;
+}
+
+.exp-header, .edu-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.exp-dates, .edu-dates {
+  text-align: right;
+  font-size: 15px;
+}
+
+.edu-row > div:first-child {
+  flex: 1;
+}
+
+.edu-row > .edu-dates {
+  min-width: 220px;
+  text-align: right;
+}
+
+ul {
+  margin: 8px 0 8px 0;
+  padding-left: 22px;
+}
+
+ul li {
+  margin-bottom: 2px;
+  color: #222;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.resume-link {
+  color: #1a7f37;
+  text-decoration: underline;
+  font-size: 15px;
+  word-break: break-all;
+}
+
+.projects, .skills, .certs, .langs {
+  display: flex;
+  gap: 32px;
+}
+
+.projects > div, .skills > div, .certs > div, .langs > div {
+  flex: 1;
+  min-width: 180px;
+}
+
+@media (max-width: 900px) {
+  .resume-container { padding: 0 8px 24px 8px; }
+  .profiles { gap: 24px; }
+  .projects, .skills, .certs, .langs { gap: 12px; }
+}
+
+@media (max-width: 700px) {
+  .row { flex-direction: column; }
+  .section-title { margin-bottom: 6px; }
+  .profiles { flex-direction: column; gap: 8px; }
+  .projects, .skills, .certs, .langs { flex-direction: column; gap: 8px; }
+  .exp-header, .edu-row { flex-direction: column; align-items: flex-start; }
+  .exp-dates, .edu-dates { text-align: left; }
+}

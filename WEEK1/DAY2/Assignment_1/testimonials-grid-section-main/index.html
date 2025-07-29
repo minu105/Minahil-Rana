@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Testimonials Grid Section</title>
+    <!-- Import Barlow Semi Condensed font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link href="style.css" rel="stylesheet" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = { darkMode: 'class' }
+    </script>
+    <style>
+      body {
+        font-family: "Barlow Semi Condensed", Arial, sans-serif;
+      }
+    </style>
+  </head>
+  <!--  iused flexbox to align the main section in the center of the page -->
+  <body class="bg-[hsl(214,17%,92%)] dark:bg-[hsl(219,29%,14%)] font-sans text-[13px] text-[hsl(217,19%,35%)] dark:text-white transition-colors duration-300">
+    <main class="min-h-screen flex items-center justify-center p-6">
+      <div class="relative w-full max-w-7xl flex flex-col items-center">
+        <!--  light or dark mode toggle button -->
+        <button
+          id="theme-toggle"
+          class="mb-4 p-2 rounded-full bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 shadow transition-colors z-50"
+          aria-label="Toggle dark mode"
+          type="button"
+        >
+          <!-- Sun icon aka light mode -->
+          <svg id="icon-sun" class="w-6 h-6 block dark:hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5"/>
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+          </svg>
+          <!-- Moon icon aka drak mode -->
+          <svg id="icon-moon" class="w-6 h-6 hidden dark:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/>
+          </svg>
+        </button>
+        <script>
+          document.getElementById('theme-toggle').onclick = function() {
+            document.documentElement.classList.toggle('dark');
+          };
+        </script>
+        <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2 mt-8">
+          <!-- for each testimonial card I used Tailwind css calsses to style it also, I used the mentioned text size, colours and font which was mentioned in style guide to keep the style as exact as the preview image -->
+          <!-- Daniel Clifford card -->
+          <div class="bg-[hsl(263,55%,52%)] dark:bg-[hsl(263,55%,32%)] text-white p-6 rounded-lg lg:col-span-2 relative overflow-hidden transition-transform transition-shadow duration-300 hover:shadow-2xl hover:-translate-y-1">
+            <img
+              src="images/bg-pattern-quotation.svg"
+              alt=""
+              class="absolute top-6 right-8 w-24 h-24 opacity-50 pointer-events-none select-none"
+              style="z-index:1;"
+              aria-hidden="true"
+            />
+            <div class="mb-4 relative z-10 flex items-center">
+              <img
+                src="images/image-daniel.jpg"
+                class="w-10 h-10 rounded-full inline-block mr-3"
+                alt="Daniel Clifford"
+              />
+              <div>
+                <span class="font-bold block leading-tight">Daniel Clifford</span>
+                <span class="text-[13px] opacity-50 block leading-tight">Verified Graduate</span>
+              </div>
+            </div>
+            <blockquote class="text-lg font-semibold mb-2 relative z-10">
+              I received a job offer mid-course, and the subjects I learned were current, if not more so, in the company I joined. I honestly feel I got every penny’s worth.
+            </blockquote>
+            <p class="text-[13px] opacity-70 mt-4 relative z-10">
+              “I was an EMT for many years before I joined the bootcamp. I’ve been looking to make a transition and have heard some people had an amazing experience here. I signed up for the free intro course and found it incredibly fun! I enrolled shortly thereafter. The next 12 weeks was the best—and most grueling—time of my life. Since completing the course, I’ve successfully switched careers, working as a Software Engineer at a VR startup.”
+            </p>
+          </div>
+
+          <!-- Jonathan Walters card -->
+          <div class="bg-[hsl(217,19%,35%)] dark:bg-[hsl(217,19%,25%)] text-white p-6 rounded-lg transition-transform transition-shadow duration-300 hover:shadow-2xl hover:-translate-y-1">
+            <div class="mb-4 flex items-center">
+              <img
+                src="images/image-jonathan.jpg"
+                class="w-10 h-10 rounded-full inline-block mr-3"
+                alt="Jonathan Walters"
+              />
+              <div>
+                <span class="font-bold block leading-tight">Jonathan Walters</span>
+                <span class="text-[13px] opacity-50 block leading-tight">Verified Graduate</span>
+              </div>
+            </div>
+            <blockquote class="text-lg font-semibold mb-2">
+              The team was very supportive and kept me motivated
+            </blockquote>
+            <p class="text-[13px] opacity-70 mt-4">
+              “I started as a total newbie with virtually no coding skills. I now work as a mobile engineer for a big company. This was one of the best investments I’ve made in myself.”
+            </p>
+          </div>
+
+          <!-- Kira Whittle  card -->
+          <div class="bg-white dark:bg-[hsl(219,29%,20%)] text-[hsl(217,19%,35%)] dark:text-white p-6 rounded-lg lg:row-span-2 shadow-lg transition-transform transition-shadow duration-300 hover:shadow-2xl hover:-translate-y-1">
+            <div class="mb-4 flex items-center">
+              <img
+                src="images/image-kira.jpg"
+                class="w-10 h-10 rounded-full inline-block mr-3"
+                alt="Kira Whittle"
+              />
+              <div>
+                <span class="font-bold block leading-tight">Kira Whittle</span>
+                <span class="text-[13px] text-[hsl(224,10%,45%)] dark:text-gray-300 block leading-tight">Verified Graduate</span>
+              </div>
+            </div>
+            <blockquote class="text-lg font-semibold mb-2">
+              Such a life-changing experience. Highly recommended!
+            </blockquote>
+            <p class="text-[13px] opacity-70 mt-4">
+              “Before joining the bootcamp, I’ve never written a line of code. I needed some structure from professionals who can help me learn programming step by step. I was encouraged to enroll by a former student of theirs who can only say wonderful things about the program. The entire curriculum and staff did not disappoint. They were very hands-on and I never had to wait long for assistance. The agile team project, in particular, was outstanding. It took my learning to the next level in a way that no tutorial could ever have. In fact, I’ve often referred to it during interviews as an example of my development experience. It certainly helped me land a job as a full-stack developer after receiving multiple offers. 100% recommend!”
+            </p>
+          </div>
+
+          <!-- Jeanette Harmon card -->
+          <div class="bg-white dark:bg-[hsl(219,29%,20%)] p-6 rounded-lg shadow text-[hsl(217,19%,35%)] dark:text-white transition-transform transition-shadow duration-300 hover:shadow-2xl hover:-translate-y-1">
+            <div class="mb-4 flex items-center">
+              <img
+                src="images/image-jeanette.jpg"
+                class="w-10 h-10 rounded-full inline-block mr-3"
+                alt="Jeanette Harmon"
+              />
+              <div>
+                <span class="font-bold block leading-tight">Jeanette Harmon</span>
+                <span class="text-[13px] text-[hsl(224,10%,45%)] dark:text-gray-300 block leading-tight">Verified Graduate</span>
+              </div>
+            </div>
+            <blockquote class="text-lg font-semibold mb-2">
+              An overall wonderful and rewarding experience
+            </blockquote>
+            <p class="text-[13px] opacity-70 mt-4">
+              “Thank you for the wonderful experience! I now have a job I really enjoy, and make a good living while doing something I love.”
+            </p>
+          </div>
+
+          <!-- Patrick Abrams card -->
+          <div class="bg-[hsl(219,29%,14%)] dark:bg-black text-white p-6 rounded-lg lg:col-span-2 transition-transform transition-shadow duration-300 hover:shadow-2xl hover:-translate-y-1">
+            <div class="mb-4 flex items-center">
+              <img
+                src="images/image-patrick.jpg"
+                class="w-10 h-10 rounded-full inline-block mr-3"
+                alt="Patrick Abrams"
+              />
+              <div>
+                <span class="font-bold block leading-tight">Patrick Abrams</span>
+                <span class="text-[13px] opacity-50 block leading-tight">Verified Graduate</span>
+              </div>
+            </div>
+            <blockquote class="text-lg font-semibold mb-2">
+              Awesome teaching support from TAs who did the bootcamp themselves. Getting guidance from them and learning from their experiences was easy.
+            </blockquote>
+            <p class="text-[13px] opacity-70 mt-4">
+              “The staff seem genuinely concerned about my progress which I find really refreshing. The program gave me the confidence necessary to be able to go out in the world and present myself as a capable junior developer. The standard is above the rest. You will get the personal attention you need from an incredible community of smart and amazing people.”
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
