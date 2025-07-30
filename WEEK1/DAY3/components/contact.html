@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact WhatsApp CTA</title>
+
+  <!-- Local Tailwind CSS -->
+  <link href="../output.css" rel="stylesheet">
+
+  <!-- Load Poppins Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* Custom Tailwind Config */
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+
+    @layer utilities {
+      .text-whatsappHeading {
+        font-size: 36px;
+        line-height: 1.06;
+      }
+      .text-whatsappButton {
+        font-size: 24px;
+        line-height: 1.06;
+      }
+      .tracking-tightCustom {
+        letter-spacing: -0.01em;
+      }
+      .shadow-whatsappShine {
+        box-shadow: inset 0 12px 8px rgba(255,255,255,0.4), inset 0 -12px 8px rgba(255,255,255,0.4);
+      }
+      .rounded-pill {
+        border-radius: 127px;
+      }
+      .rounded-button {
+        border-radius: 15px;
+      }
+      .font-poppins {
+        font-family: 'Poppins', sans-serif;
+      }
+    }
+
+    /* Custom responsive adjustments */
+    @media (max-width: 639px) {
+      .whatsapp-cta {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body class="bg-black flex items-center justify-center min-h-screen font-poppins p-4">
+
+  <!-- WhatsApp CTA - Now Responsive -->
+  <div class="w-full max-w-[1393px] h-auto min-h-[100px] sm:h-[180px] md:h-[220px] lg:h-[247px] bg-gradient-to-r from-[#047F01] to-[#047E01] rounded-pill shadow-whatsappShine px-6 sm:px-8 md:px-[60px] flex flex-col sm:flex-row items-center justify-between py-6 sm:py-0 whatsapp-cta">
+
+    <!-- Left Text -->
+    <h2 class="text-white text-2xl sm:text-3xl lg:text-whatsappHeading font-semibold tracking-tightCustom px-2 sm:px-0">
+      Contact us on Whatsapp
+    </h2>
+
+    <!-- Right Button -->
+    <button class="w-[160px] sm:w-[180px] md:w-[200px] lg:w-[231px] h-[50px] sm:h-[60px] md:h-[70px] lg:h-[76px] bg-white rounded-button flex items-center justify-center hover:bg-gray-100 transition-colors">
+      <span class="text-[#047E01] text-lg sm:text-xl lg:text-whatsappButton font-normal tracking-tightCustom">
+        Start Chat
+      </span>
+    </button>
+
+  </div>
+
+</body>
+</html>

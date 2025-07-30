@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Footer</title>
+
+  <!-- Link to your Tailwind build -->
+  <link href="../output.css" rel="stylesheet">
+
+  <!-- Load Poppins from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Extend Tailwind to include Poppins -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            poppins: ['Poppins', 'sans-serif']
+          },
+          fontSize: {
+            'custom': '25px'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-black m-0 p-0 font-poppins">
+
+  <!-- Footer -->
+  <footer class="w-full bg-[#222222] px-6 py-10">
+    <div class="max-w-[1512px] mx-auto flex flex-wrap sm:flex-nowrap justify-start sm:justify-between items-start gap-y-10">
+
+      <!-- Logo -->
+      <div class="w-full sm:w-auto flex justify-center sm:justify-start mb-6 sm:mb-0 sm:mr-20">
+        <img src="/WEEK1/DAY3/logo.png" alt="Saudi Logo" class="w-[200px] sm:w-[267px] h-auto object-contain" />
+      </div>
+
+      <!-- Columns Wrapper -->
+      <div class="flex flex-wrap sm:flex-nowrap gap-x-10 sm:gap-x-16 text-white">
+
+        <!-- About -->
+        <div class="flex flex-col gap-2 min-w-[120px]">
+          <h3 class="font-semibold text-custom">About</h3>
+          <a href="#" class="font-normal text-custom hover:underline">About us</a>
+          <a href="#" class="font-normal text-custom hover:underline">Features</a>
+          <a href="#" class="font-normal text-custom hover:underline">News & Blogs</a>
+        </div>
+
+        <!-- Contact -->
+        <div class="flex flex-col gap-2 min-w-[120px]">
+          <h3 class="font-semibold text-custom">Contact</h3>
+          <a href="#" class="font-normal text-custom hover:underline">Instagram</a>
+          <a href="#" class="font-normal text-custom hover:underline">Twitter</a>
+          <a href="#" class="font-normal text-custom hover:underline">Facebook</a>
+        </div>
+
+        <!-- Support -->
+        <div class="flex flex-col gap-2 min-w-[120px]">
+          <h3 class="font-semibold text-custom">Support</h3>
+          <a href="#" class="font-normal text-custom hover:underline">FAQs</a>
+          <a href="#" class="font-normal text-custom hover:underline">Support Centre</a>
+          <a href="#" class="font-normal text-custom hover:underline">Feedback</a>
+        </div>
+
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

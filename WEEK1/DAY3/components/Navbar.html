@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navbar</title>
+    <link href="../output.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif']
+                    },
+                    fontSize: {
+                        'custom': '25px'
+                    }
+                }
+            }
+        }
+    </script>
+  </head>
+  <body
+    class="relative min-h-screen overflow-hidden font-poppins text-white bg-cover bg-center transition-all duration-300"
+    style="background-image: url('../page1-main.png')"
+  >
+    <img
+      src="../logo.png"
+      alt="Logo"
+      class="absolute"
+      style="width: 213px; height: 118px; top: 80px; left: 91px; opacity: 1"
+    />
+    <div
+      class="absolute flex items-center"
+      style="width: 462px; height: 36px; top: 87px; left: 864px; gap: 55px"
+    >
+      <!-- Toggle Button -->
+      <button
+        id="theme-toggle"
+        class="flex items-center bg-white rounded-[20px] w-[76px] h-[32px] p-[2px] transition-colors duration-300"
+        aria-label="Toggle dark mode"
+        type="button"
+      >
+        <span
+          id="moon-wrap"
+          class="flex items-center justify-center h-[28px] rounded-[16px] transition-all duration-300"
+          style="width: 32px"
+        >
+          <svg
+            id="moon-icon"
+            class="w-5 h-5 text-black transition-colors"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" />
+          </svg>
+        </span>
+        <span
+          id="sun-wrap"
+          class="flex items-center justify-center h-[28px] ml-1 rounded-[16px] transition-all duration-300"
+          style="width: 32px"
+        >
+          <svg
+            id="sun-icon"
+            class="w-5 h-5 text-black transition-colors"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <circle cx="12" cy="12" r="5" />
+            <path
+              d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+            />
+          </svg>
+        </span>
+      </button>
+      <!-- Menu Items -->
+      <div class="flex gap-[55px] text-white text-base">
+        <div class="w-[86px] h-[36px] flex items-center">
+          Destinations
+        </div>
+        <div class="w-[86px] h-[36px] flex items-center">
+          Members
+        </div>
+        <div class="w-[86px] h-[36px] flex items-center">
+          Gallery
+        </div>
+      </div>
+    </div>
+    <script>
+      function setToggleUI(isDark) {
+        if (isDark) {
+          document
+            .getElementById("moon-wrap")
+            .classList.add("bg-black", "w-20");
+          document.getElementById("moon-wrap").classList.remove("w-8", "w-12");
+          document.getElementById("moon-icon").classList.add("text-white");
+          document.getElementById("moon-icon").classList.remove("text-black");
+          document
+            .getElementById("sun-wrap")
+            .classList.remove("bg-black", "w-20", "w-12");
+          document.getElementById("sun-wrap").classList.add("w-8");
+          document.getElementById("sun-icon").classList.remove("text-white");
+          document.getElementById("sun-icon").classList.add("text-black");
+        } else {
+          document.getElementById("sun-wrap").classList.add("bg-black", "w-20");
+          document.getElementById("sun-wrap").classList.remove("w-8", "w-12");
+          document.getElementById("sun-icon").classList.add("text-white");
+          document.getElementById("sun-icon").classList.remove("text-black");
+          document
+            .getElementById("moon-wrap")
+            .classList.remove("bg-black", "w-20", "w-12");
+          document.getElementById("moon-wrap").classList.add("w-8");
+          document.getElementById("moon-icon").classList.remove("text-white");
+          document.getElementById("moon-icon").classList.add("text-black");
+        }
+      }
+
+      setToggleUI(document.documentElement.classList.contains("dark"));
+      document.getElementById("theme-toggle").onclick = function () {
+        document.documentElement.classList.toggle("dark");
+        setToggleUI(document.documentElement.classList.contains("dark"));
+      };
+    </script>
+  </body>
+</html>
