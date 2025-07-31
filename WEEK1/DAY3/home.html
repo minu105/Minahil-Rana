@@ -157,7 +157,7 @@
 
         <!-- History and People Section -->
         <div class="w-[1349px] h-[139px] flex justify-between text-white">
-          <!-- History Box -->
+    
           <div class="w-[331px] h-[138px] flex flex-col gap-[10px]">
             <h2 class="text-[32px] font-medium leading-[116%]">History and Heritage</h2>
             <p class="text-[16px] font-normal leading-[136%]">
@@ -200,16 +200,15 @@
 
   <!-- ================== HISMA DESERT COMPONENT ================== -->
   <div class="relative w-full animate-slide-up animate-delay-400 slide-up">
-    <!-- Background Section -->
+
     <div class="relative w-full h-[982px] overflow-hidden bg-cover bg-center" style="background-image: url('./Desert.jpg');">
-      <!-- Top Black Gradient Overlay -->
+
       <div class="absolute top-0 left-0 w-full h-[460px] bg-gradient-to-b from-black to-transparent opacity-90 z-10"></div>
-      <!-- Bottom Black Gradient Overlay -->
+
       <div class="absolute bottom-0 left-0 w-full h-[460px] bg-gradient-to-t from-black to-transparent opacity-250 z-10"></div>
-      <!-- Bottom Content (Text & Profile) -->
-      <!-- We wrap the content in a slide-up inner wrapper -->
+    
       <div class="absolute bottom-[40px] inset-x-0 flex justify-between items-end px-[105px] z-20">
-        <!-- Description -->
+
         <div class="slide-up delay-200">
           <h1 class="font-[Imperial_Script] font-normal text-[100px] leading-[125%] tracking-[0.035em] text-white">
             Hisma
@@ -218,7 +217,7 @@
             Desert
           </h2>
         </div>
-        <!-- Profile Component -->
+  
         <div class="w-[259px] h-[79px] flex items-center gap-[14px] pb-[100px] pr-[175px] slide-up delay-300">
           <img src="Wazeem.png" alt="Profile" class="w-[72px] h-[69px] rounded-full object-cover" />
           <div class="w-[143px] h-[42px] flex flex-col justify-center gap-[10px]">
@@ -230,7 +229,7 @@
         </div>
       </div>
     </div>
-    <!-- Overlapping Text Section with 15% overlap -->
+    
     <div class="relative z-30 -mt-[48px] bg-black w-full">
       <p class="px-[105px] py-[30px] text-white slide-up delay-400">
         The Hisma Desert in Saudi Arabia is a realm of ethereal beauty that captivates the senses. Its vast expanse of golden sand dunes, sculpted by the winds of time, creates a mesmerizing landscape that stretches as far as the eye can see. As the sun sets, painting the sky with vivid hues.
@@ -383,20 +382,19 @@
         document.documentElement.classList.remove('dark');
         document.body.classList.remove('bg-black', 'text-white');
         document.body.classList.add('bg-grey-800', 'text-gray-900');
-        
-        // Update footer
+
         const footer = document.querySelector('footer');
         footer.classList.remove('bg-[#222222]');
         footer.classList.add('bg-gray-500');
         
-        // Update text in footer
+
         const footerLinks = document.querySelectorAll('footer a, footer h3');
         footerLinks.forEach(link => {
           link.classList.remove('text-white');
           link.classList.add('text-gray-800');
         });
         
-        // Update Hisma Desert text section
+ 
         const himsaText = document.querySelector('.relative.z-30.-mt-\\[48px\\] p');
         himsaText.classList.remove('text-white');
         himsaText.classList.add('text-white');
@@ -407,24 +405,23 @@
         document.body.classList.remove('bg-white', 'text-gray-900');
         document.body.classList.add('bg-black', 'text-white');
         
-        // Revert footer
+
         const footer = document.querySelector('footer');
         footer.classList.remove('bg-gray-100');
         footer.classList.add('bg-[#222222]');
         
-        // Revert text in footer
         const footerLinks = document.querySelectorAll('footer a, footer h3');
         footerLinks.forEach(link => {
           link.classList.remove('text-gray-800');
           link.classList.add('text-white');
         });
         
-        // Revert Hisma Desert text section
+
         const himsaText = document.querySelector('.relative.z-30.-mt-\\[48px\\] p');
         himsaText.classList.remove('text-gray-800');
         himsaText.classList.add('text-white');
         
-        // Revert logo section background
+
         const logoSection = document.querySelector('.min-h-\\[555px\\]');
         logoSection.classList.remove('bg-white');
         logoSection.classList.add('bg-black');
@@ -470,7 +467,6 @@
       });
     }
 
-    // Initialize - default is dark mode
     let isLightMode = false;
     setToggleUI(isLightMode);
 
@@ -488,7 +484,7 @@
       localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
     });
 
-    // Check for saved theme preference
+
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'light') {
       isLightMode = true;
