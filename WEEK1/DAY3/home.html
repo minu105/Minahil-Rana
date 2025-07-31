@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Complete Page</title>
+
+  <!-- Tailwind CSS -->
+  <link href="./output.css" rel="stylesheet">
+
+  <!-- Google Fonts: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Imperial+Script&display=swap" rel="stylesheet">
+
+  <style>
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+
+    @layer utilities {
+      .rounded-pill { border-radius: 127px; }
+      .rounded-button { border-radius: 15px; }
+      .text-whatsappHeading { font-size: 36px; line-height: 1.06; }
+      .text-whatsappButton { font-size: 24px; line-height: 1.06; }
+      .tracking-tightCustom { letter-spacing: -0.01em; }
+      .shadow-whatsappShine {
+        box-shadow: inset 0 12px 8px rgba(255,255,255,0.4),
+                    inset 0 -12px 8px rgba(255,255,255,0.4);
+      }
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      @apply transition-colors duration-300;
+    }
+
+    @media (max-width: 639px) {
+      .whatsapp-cta {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem;
+        gap: 1rem;
+      }
+    }
+
+    @media (min-width: 1264px) {
+      .slider-container {
+        width: 1264px;
+        height: 420px;
+      }
+      .slide {
+        width: 1264px;
+        height: 420px;
+      }
+      .slider-track {
+        width: 3792px;
+      }
+    }
+
+    @keyframes slideUpFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .slide-up {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  }
+
+  .slide-up.show {
+    animation: slideUpFadeIn 0.8s ease-out forwards;
+  }
+  </style>
+</head>
+
+<body class="bg-black text-white font-poppins m-0 p-0">
+
+  <!-- ========== REPLACED NAVBAR + HERO SECTION ========== -->
+  <div class="relative w-screen h-screen bg-cover bg-center overflow-hidden font-[Poppins]" style="background-image: url('./page1-main.png');">
+    <img src="logo.png" alt="Logo" class="absolute w-[213px] h-[118px] top-[83px] left-[79px] lg:block hidden" />
+    <img src="logo.png" alt="Logo" class="absolute w-[80px] h-[45px] top-[20px] left-[20px] block lg:hidden z-50" />
+
+    <div class="absolute top-[22px] right-[20px] flex items-center gap-3 z-30 lg:hidden">
+      <button id="theme-toggle-mobile" class="flex items-center bg-white rounded-[20px] w-[50px] h-[22px] p-[2px]" aria-label="Toggle dark mode" type="button">
+        <span id="moon-wrap-mobile" class="flex items-center justify-center h-[18px] rounded-[16px] transition-all">
+          <svg id="moon-icon-mobile" class="w-3.5 h-3.5 text-black transition-all" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" />
+          </svg>
+        </span>
+        <span id="sun-wrap-mobile" class="flex items-center justify-center h-[18px] ml-1 rounded-[16px] transition-all">
+          <svg id="sun-icon-mobile" class="w-3.5 h-3.5 text-black transition-all" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5" />
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+          </svg>
+        </span>
+      </button>
+
+      <button id="hamburger" class="w-6 h-6 text-white focus:outline-none">
+        <svg id="open-icon" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="absolute top-[87px] left-[864px] gap-[55px] h-[36px] items-center hidden lg:flex z-50 pl-20">
+      <button id="theme-toggle" class="flex items-center bg-white rounded-[20px] w-[76px] h-[32px] p-[2px]" aria-label="Toggle dark mode" type="button">
+        <span id="moon-wrap" class="flex items-center justify-center h-[28px] rounded-[16px] transition-all">
+          <svg id="moon-icon" class="w-5 h-5 text-black transition-all" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" />
+          </svg>
+        </span>
+        <span id="sun-wrap" class="flex items-center justify-center h-[28px] ml-1 rounded-[16px] transition-all">
+          <svg id="sun-icon" class="w-5 h-5 text-black transition-all" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5" />
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+          </svg>
+        </span>
+      </button>
+
+      <div class="flex items-center gap-[55px] text-white text-[24px] leading-[100%] font-medium">
+<a href="destinations.html" class="w-[151px] h-[36px] flex items-center hover:underline">Destinations</a>
+<a href="path/to/members.html" class="w-[115px] h-[36px] flex items-center hover:underline">Members</a>
+<a href="path/to/gallery.html" class="w-[86px] h-[36px] flex items-center hover:underline">Gallery</a>
+
+      </div>
+    </div>
+
+    <div id="mobile-menu" class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-90 -translate-x-full transition-transform duration-300 z-40 lg:hidden flex flex-col items-center justify-center space-y-10 text-[24px] font-medium">
+<a href="destinations.html" class="hover:underline">Destinations</a>
+<a href="path/to/members.html" class="hover:underline">Members</a>
+<a href="path/to/gallery.html" class="hover:underline">Gallery</a>
+
+    </div>
+
+  <!-- Hero Section -->
+  <div class="relative flex flex-col items-center justify-center h-full px-4 text-center animate-slide-up animate-delay-100s slide-up">
+    <div class="max-w-2xl mx-auto flex flex-col items-center gap-4 text-white z-30">
+      <h1 class="text-4xl sm:text-6xl lg:text-[98px] font-bold leading-tight">
+        Explore<br class="hidden sm:block" />Saudi Arabia
+      </h1>
+      <p class="text-base sm:text-lg lg:text-xl leading-relaxed">
+        Saudi Arabia is rich in heritage and history. The country is<br class="hidden sm:block" />
+        home to hundreds of historically important sites.
+      </p>
+    </div>
+
+
+        <!-- History and People Section -->
+        <div class="w-[1349px] h-[139px] flex justify-between text-white">
+          <!-- History Box -->
+          <div class="w-[331px] h-[138px] flex flex-col gap-[10px]">
+            <h2 class="text-[32px] font-medium leading-[116%]">History and Heritage</h2>
+            <p class="text-[16px] font-normal leading-[136%]">
+              Saudi Arabia has long occupied an important role at the center of the<br />
+              Islamic and Arab worlds. Located at <br>the heart of three continents.
+            </p>
+          </div>
+
+          <!-- People Box -->
+          <div class="w-[309px] h-[139px] flex flex-col gap-[10px]">
+            <h2 class="text-[32px] font-medium leading-[116%]">People and Culture</h2>
+            <p class="text-[16px] font-normal leading-[136%]">
+              Saudi Arabia has a rich Culture<br />
+              Shaped by the diversity of its people,<br />
+              which has formed the basis of its<br />
+              cultural identity.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="absolute bottom-0 left-0 w-full h-[206px] opacity-[0.9] z-20 bg-[linear-gradient(to_top,#000000_0%,rgba(0,0,0,0)_100%)]"></div>
+    </div>
+
+    <!-- Gradient Overlay -->
+    <div class="absolute bottom-0 left-0 w-full h-52 bg-gradient-to-t from-black to-transparent z-20"></div>
+  </div>
+</div>
+
+<!-- icons  -->
+
+    <div class="min-h-[555px] flex items-center justify-center bg-black text-white py-10 animate-slide-up animate-delay-300 slide-up">
+        <div class="w-full lg:w-[1327px] lg:h-[121px] flex flex-wrap lg:flex-nowrap justify-center lg:justify-start items-center gap-6 lg:gap-[71px] px-4 py-0">
+            <img src="AlSaudia.png" alt="Logo 1" class="w-[180px] h-[60px] sm:w-[200px] sm:h-[70px] md:w-[240px] md:h-[80px] lg:w-[290px] lg:h-[88px] opacity-200" />
+            <img src="AlRajhi.png" alt="Logo 2" class="w-[200px] h-[70px] sm:w-[240px] sm:h-[90px] md:w-[280px] md:h-[100px] lg:w-[340px] lg:h-[121px] opacity-200" />
+            <img src="STC.png" alt="Logo 3" class="w-[160px] h-[60px] sm:w-[190px] sm:h-[80px] md:w-[210px] md:h-[95px] lg:w-[230px] lg:h-[115px] opacity-200" />
+            <img src="AlMarai.png" alt="Logo 4" class="w-[180px] h-[65px] sm:w-[210px] sm:h-[85px] md:w-[230px] md:h-[95px] lg:w-[254px] lg:h-[118px] opacity-200" />
+        </div>
+    </div>
+
+
+  <!-- ================== HISMA DESERT COMPONENT ================== -->
+  <div class="relative w-full animate-slide-up animate-delay-400 slide-up">
+    <!-- Background Section -->
+    <div class="relative w-full h-[982px] overflow-hidden bg-cover bg-center" style="background-image: url('./Desert.jpg');">
+      <!-- Top Black Gradient Overlay -->
+      <div class="absolute top-0 left-0 w-full h-[460px] bg-gradient-to-b from-black to-transparent opacity-90 z-10"></div>
+      <!-- Bottom Black Gradient Overlay -->
+      <div class="absolute bottom-0 left-0 w-full h-[460px] bg-gradient-to-t from-black to-transparent opacity-250 z-10"></div>
+      <!-- Bottom Content (Text & Profile) -->
+      <!-- We wrap the content in a slide-up inner wrapper -->
+      <div class="absolute bottom-[40px] inset-x-0 flex justify-between items-end px-[105px] z-20">
+        <!-- Description -->
+        <div class="slide-up delay-200">
+          <h1 class="font-[Imperial_Script] font-normal text-[100px] leading-[125%] tracking-[0.035em] text-white">
+            Hisma
+          </h1>
+          <h2 class="font-[Poppins] font-semibold text-[100px] leading-[125%] tracking-[-0.01em] text-white -mt-[35px]">
+            Desert
+          </h2>
+        </div>
+        <!-- Profile Component -->
+        <div class="w-[259px] h-[79px] flex items-center gap-[14px] pb-[100px] pr-[175px] slide-up delay-300">
+          <img src="Wazeem.png" alt="Profile" class="w-[72px] h-[69px] rounded-full object-cover" />
+          <div class="w-[143px] h-[42px] flex flex-col justify-center gap-[10px]">
+            <p class="w-[143px] h-[30px] text-base text-white opacity-80 leading-tight">
+              <span class="font-bold block">Wazeem Al Mulk</span>
+              <span class="text-sm block">Traveler</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Overlapping Text Section with 15% overlap -->
+    <div class="relative z-30 -mt-[48px] bg-black w-full">
+      <p class="px-[105px] py-[30px] text-white slide-up delay-400">
+        The Hisma Desert in Saudi Arabia is a realm of ethereal beauty that captivates the senses. Its vast expanse of golden sand dunes, sculpted by the winds of time, creates a mesmerizing landscape that stretches as far as the eye can see. As the sun sets, painting the sky with vivid hues.
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SLIDER SECTION ========== -->
+  <section class="flex mt-16 justify-center p-4 animate-slide-up animate-delay-500 slide-up">
+    <div class="slider-container relative w-full max-w-[1264px] h-[180px] sm:h-[300px] md:h-[380px] overflow-hidden mx-auto">
+      <div id="sliderTrack" class="slider-track flex transition-transform duration-700 ease-in-out h-full">
+        <!-- Slide 1 -->
+        <div class="slide relative w-full h-full flex-shrink-0">
+          <img src="./Explore.png" class="w-full h-full object-cover" alt="Explore Saudi Arabia" />
+          <div class="absolute left-0 top-1/2 -translate-y-1/2 flex items-center w-[90%] max-w-[1118px] pl-4 sm:pl-6 md:pl-10 text-white">
+            <h2 class="text-2xl sm:text-4xl md:text-5xl lg:text-[60px] font-semibold">Explore<br />Saudi Arabia</h2>
+          </div>
+        </div>
+        <!-- Slide 2 -->
+        <div class="slide relative w-full h-full flex-shrink-0">
+          <img src="./Neom.png" class="w-full h-full object-cover" alt="NEOM" />
+          <div class="absolute left-0 top-1/2 -translate-y-1/2 flex items-center w-[90%] max-w-[1118px] pl-4 sm:pl-6 md:pl-10 text-white">
+            <h2 class="text-2xl sm:text-4xl md:text-5xl lg:text-[60px] font-semibold">Made To Change<br />NEOM</h2>
+          </div>
+        </div>
+        <!-- Slide 3 -->
+        <div class="slide relative w-full h-full flex-shrink-0">
+          <img src="./KSA.png" class="w-full h-full object-cover" alt="KSA" />
+          <div class="absolute left-0 top-1/2 -translate-y-1/2 flex items-center w-[90%] max-w-[1118px] pl-4 sm:pl-6 md:pl-10 text-white">
+            <h2 class="text-2xl sm:text-4xl md:text-5xl lg:text-[60px] font-semibold">Rules of Behaviour<br />KSA</h2>
+          </div>
+        </div>
+      </div>
+      <!-- Manual Slide Button -->
+      <button onclick="manualNextSlide()" class="absolute right-4 sm:right-8 md:right-[70px] top-1/2 -translate-y-1/2 z-10 text-white hover:text-gray-300">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="0.7" stroke="currentColor" class="w-8 h-8 sm:w-12 sm:h-12 md:w-20 md:h-20">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m12.75 15 3-3m0 0-3-3m3 3h-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="py-10 w-full mt-16 bg-[#222222] px-6 py-10 animate-slide-up animate-delay-600 slide-up">
+    <div class="max-w-[1512px] mx-auto flex flex-wrap sm:flex-nowrap justify-start sm:justify-between items-start gap-y-10">
+      <!-- Logo -->
+      <div class="w-full sm:w-auto flex justify-center sm:justify-start mb-6 sm:mb-0 sm:mr-20">
+        <img src="logo.png" alt="Saudi Logo" class="w-[200px] sm:w-[267px] h-auto object-contain" />
+      </div>
+      <!-- Footer Links -->
+      <div class="flex flex-wrap sm:flex-nowrap gap-x-10 sm:gap-x-16 text-white">
+        <div class="flex flex-col gap-2 min-w-[120px]">
+          <h3 class="font-semibold text-[25px]">About</h3>
+          <a href="about.html" class="hover:underline">About us</a>
+          <a href="#" class="hover:underline">Features</a>
+          <a href="#" class="hover:underline">News & Blogs</a>
+        </div>
+        <div class="flex flex-col gap-2 min-w-[120px]">
+          <h3 class="font-semibold text-[25px]">Contact</h3>
+          <a href="#" class="hover:underline">Instagram</a>
+          <a href="#" class="hover:underline">Twitter</a>
+          <a href="#" class="hover:underline">Facebook</a>
+        </div>
+        <div class="flex flex-col gap-2 min-w-[120px]">
+          <h3 class="font-semibold text-[25px]">Support</h3>
+          <a href="#" class="hover:underline">FAQs</a>
+          <a href="#" class="hover:underline">Support Centre</a>
+          <a href="#" class="hover:underline">Feedback</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Slider Script -->
+  <script>
+    const sliderTrack = document.getElementById('sliderTrack');
+    let currentSlide = 0;
+    let autoSlideTimer;
+    const totalSlides = 3;
+
+    function getSlideWidth() {
+      return window.innerWidth >= 1264 ? 1264 : 100;
+    }
+
+    function updateSlide() {
+      const slideWidth = getSlideWidth();
+      const translateValue = window.innerWidth >= 1264 
+        ? `translateX(-${currentSlide * slideWidth}px)`
+        : `translateX(-${currentSlide * slideWidth}%)`;
+      sliderTrack.style.transform = translateValue;
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateSlide();
+    }
+
+    function startAutoSlide() {
+      autoSlideTimer = setInterval(() => {
+        nextSlide();
+      }, 5000);
+    }
+
+    function resetAutoSlide() {
+      clearInterval(autoSlideTimer);
+      startAutoSlide();
+    }
+
+    function manualNextSlide() {
+      nextSlide();
+      resetAutoSlide();
+    }
+
+    sliderTrack.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, {passive: true});
+
+    sliderTrack.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+      resetAutoSlide();
+    }, {passive: true});
+
+    function handleSwipe() {
+      const threshold = 50;
+      if (touchEndX < touchStartX - threshold) {
+        nextSlide();
+      } else if (touchEndX > touchStartX + threshold) {
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        updateSlide();
+      }
+    }
+
+    window.addEventListener('resize', updateSlide);
+
+    const sliderContainer = document.querySelector('.slider-container');
+    sliderContainer.addEventListener('mouseenter', () => clearInterval(autoSlideTimer));
+    sliderContainer.addEventListener('mouseleave', resetAutoSlide);
+
+    startAutoSlide();
+    
+  </script>
+
+  <script>
+    const themeToggleDesktop = document.getElementById("theme-toggle");
+    const themeToggleMobile = document.getElementById("theme-toggle-mobile");
+
+    function setLightMode(isLight) {
+      if (isLight) {
+        document.documentElement.classList.remove('dark');
+        document.body.classList.remove('bg-black', 'text-white');
+        document.body.classList.add('bg-grey-800', 'text-gray-900');
+        
+        // Update footer
+        const footer = document.querySelector('footer');
+        footer.classList.remove('bg-[#222222]');
+        footer.classList.add('bg-gray-500');
+        
+        // Update text in footer
+        const footerLinks = document.querySelectorAll('footer a, footer h3');
+        footerLinks.forEach(link => {
+          link.classList.remove('text-white');
+          link.classList.add('text-gray-800');
+        });
+        
+        // Update Hisma Desert text section
+        const himsaText = document.querySelector('.relative.z-30.-mt-\\[48px\\] p');
+        himsaText.classList.remove('text-white');
+        himsaText.classList.add('text-white');
+        
+
+      } else {
+        document.documentElement.classList.add('dark');
+        document.body.classList.remove('bg-white', 'text-gray-900');
+        document.body.classList.add('bg-black', 'text-white');
+        
+        // Revert footer
+        const footer = document.querySelector('footer');
+        footer.classList.remove('bg-gray-100');
+        footer.classList.add('bg-[#222222]');
+        
+        // Revert text in footer
+        const footerLinks = document.querySelectorAll('footer a, footer h3');
+        footerLinks.forEach(link => {
+          link.classList.remove('text-gray-800');
+          link.classList.add('text-white');
+        });
+        
+        // Revert Hisma Desert text section
+        const himsaText = document.querySelector('.relative.z-30.-mt-\\[48px\\] p');
+        himsaText.classList.remove('text-gray-800');
+        himsaText.classList.add('text-white');
+        
+        // Revert logo section background
+        const logoSection = document.querySelector('.min-h-\\[555px\\]');
+        logoSection.classList.remove('bg-white');
+        logoSection.classList.add('bg-black');
+      }
+    }
+
+    function setToggleUI(isLight) {
+      const toggles = [
+        {
+          moonWrap: document.getElementById("moon-wrap"),
+          moonIcon: document.getElementById("moon-icon"),
+          sunWrap: document.getElementById("sun-wrap"),
+          sunIcon: document.getElementById("sun-icon"),
+        },
+        {
+          moonWrap: document.getElementById("moon-wrap-mobile"),
+          moonIcon: document.getElementById("moon-icon-mobile"),
+          sunWrap: document.getElementById("sun-wrap-mobile"),
+          sunIcon: document.getElementById("sun-icon-mobile"),
+        },
+      ];
+
+      toggles.forEach(({ moonWrap, moonIcon, sunWrap, sunIcon }) => {
+        if (!moonWrap || !moonIcon || !sunWrap || !sunIcon) return;
+
+        if (isLight) {
+          moonWrap.classList.remove("bg-black", "w-[60px]");
+          moonWrap.classList.add("w-[32px]");
+          moonIcon.classList.replace("text-white", "text-black");
+
+          sunWrap.classList.add("bg-black", "w-[60px]");
+          sunWrap.classList.remove("w-[32px]");
+          sunIcon.classList.replace("text-black", "text-white");
+        } else {
+          sunWrap.classList.remove("bg-black", "w-[60px]");
+          sunWrap.classList.add("w-[32px]");
+          sunIcon.classList.replace("text-white", "text-black");
+
+          moonWrap.classList.add("bg-black", "w-[60px]");
+          moonWrap.classList.remove("w-[32px]");
+          moonIcon.classList.replace("text-black", "text-white");
+        }
+      });
+    }
+
+    // Initialize - default is dark mode
+    let isLightMode = false;
+    setToggleUI(isLightMode);
+
+    themeToggleDesktop?.addEventListener("click", () => {
+      isLightMode = !isLightMode;
+      setLightMode(isLightMode);
+      setToggleUI(isLightMode);
+      localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
+    });
+
+    themeToggleMobile?.addEventListener("click", () => {
+      isLightMode = !isLightMode;
+      setLightMode(isLightMode);
+      setToggleUI(isLightMode);
+      localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
+    });
+
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+      isLightMode = true;
+      setLightMode(true);
+      setToggleUI(true);
+    }
+
+    const hamburger = document.getElementById("hamburger");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const openIcon = document.getElementById("open-icon");
+    const closeIcon = document.getElementById("close-icon");
+
+    hamburger.addEventListener("click", () => {
+      const isOpen = mobileMenu.classList.contains("-translate-x-full");
+      mobileMenu.classList.toggle("-translate-x-full");
+      openIcon.classList.toggle("hidden");
+      closeIcon.classList.toggle("hidden");
+    });
+  </script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const slideUps = document.querySelectorAll('.slide-up');
+
+    const observer = new IntersectionObserver((entries, observerRef) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          observerRef.unobserve(entry.target);
+        }
+      });
+    }, {
+      root: null,
+      threshold: 0.5 
+    });
+
+    slideUps.forEach(el => {
+      observer.observe(el);
+    });
+  });
+</script>
+
+</body>
+</html>

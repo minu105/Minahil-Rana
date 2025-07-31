@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Complete Page</title>
+
+  <!-- Tailwind CSS -->
+  <link href="./output.css" rel="stylesheet">
+
+  <!-- Google Fonts: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+
+    @layer utilities {
+      .rounded-pill { border-radius: 127px; }
+      .rounded-button { border-radius: 15px; }
+      .text-whatsappHeading { font-size: 36px; line-height: 1.06; }
+      .text-whatsappButton { font-size: 24px; line-height: 1.06; }
+      .tracking-tightCustom { letter-spacing: -0.01em; }
+      .shadow-whatsappShine {
+        box-shadow: inset 0 12px 8px rgba(255,255,255,0.4),
+                    inset 0 -12px 8px rgba(255,255,255,0.4);
+      }
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    @media (max-width: 639px) {
+      .whatsapp-cta {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem;
+        gap: 1rem;
+      }
+    }
+
+    @media (min-width: 1264px) {
+      .slider-container {
+        width: 1264px;
+        height: 420px;
+      }
+      .slide {
+        width: 1264px;
+        height: 420px;
+      }
+      .slider-track {
+        width: 3792px;
+      }
+    }
+
+   @keyframes slideUpFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .slide-up {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  }
+
+  .slide-up.show {
+    animation: slideUpFadeIn 0.8s ease-out forwards;
+  }
+  </style>
+</head>
+
+<body class="bg-black text-white font-poppins m-0 p-0">
+
+  <!-- ========== REPLACED NAVBAR + HERO SECTION ========== -->
+  <div class="relative w-screen h-screen bg-cover bg-center overflow-hidden font-[Poppins] " style="background-image: url('./aboutbg.jpg');">
+    <img src="logo.png" alt="Logo" class="absolute w-[213px] h-[118px] top-[83px] left-[79px] lg:block hidden" />
+    <img src="logo.png" alt="Logo" class="absolute w-[80px] h-[45px] top-[20px] left-[20px] block lg:hidden z-50" />
+
+    <div class="absolute top-[22px] right-[20px] flex items-center gap-3 z-30 lg:hidden">
+      <button id="theme-toggle-mobile" class="flex items-center bg-white rounded-[20px] w-[50px] h-[22px] p-[2px]" aria-label="Toggle dark mode" type="button">
+        <span id="moon-wrap-mobile" class="flex items-center justify-center h-[18px] rounded-[16px] transition-all">
+          <svg id="moon-icon-mobile" class="w-3.5 h-3.5 text-black transition-all" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" />
+          </svg>
+        </span>
+        <span id="sun-wrap-mobile" class="flex items-center justify-center h-[18px] ml-1 rounded-[16px] transition-all">
+          <svg id="sun-icon-mobile" class="w-3.5 h-3.5 text-black transition-all" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5" />
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+          </svg>
+        </span>
+      </button>
+
+      <button id="hamburger" class="w-6 h-6 text-white focus:outline-none">
+        <svg id="open-icon" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="absolute top-[87px] left-[864px] gap-[55px] h-[36px] items-center hidden lg:flex z-50 pl-20">
+      <button id="theme-toggle" class="flex items-center bg-white rounded-[20px] w-[76px] h-[32px] p-[2px]" aria-label="Toggle dark mode" type="button">
+        <span id="moon-wrap" class="flex items-center justify-center h-[28px] rounded-[16px] transition-all">
+          <svg id="moon-icon" class="w-5 h-5 text-black transition-all" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" />
+          </svg>
+        </span>
+        <span id="sun-wrap" class="flex items-center justify-center h-[28px] ml-1 rounded-[16px] transition-all">
+          <svg id="sun-icon" class="w-5 h-5 text-black transition-all" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5" />
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+          </svg>
+        </span>
+      </button>
+
+      <div class="flex items-center gap-[55px] text-white text-[24px] leading-[100%] font-medium">
+        <div class="w-[151px] h-[36px] flex items-center">Destinations</div>
+        <div class="w-[115px] h-[36px] flex items-center">Members</div>
+        <div class="w-[86px] h-[36px] flex items-center">Gallery</div>
+      </div>
+    </div>
+
+    <div id="mobile-menu" class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-90 -translate-x-full transition-transform duration-300 z-40 lg:hidden flex flex-col items-center justify-center space-y-10 text-[24px] font-medium">
+      <div>Destinations</div>
+      <div>Members</div>
+      <div>Gallery</div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="relative flex flex-col items-center justify-center h-full px-4 text-center animate-slide-up animate-delay-100 slide-up">
+      <div class="w-[752px] h-[278px] flex flex-col items-center gap-[4px] text-center text-white z-30">
+        <h1 class="text-[98px] font-bold leading-[116%] mt-[90px]">About Us</h1>
+        <p class="text-[20px] font-normal leading-[116%] w-full">
+          Discover the country's hidden gems and breathtaking landscapes
+        </p>
+      </div>
+      <div class="w-[1349px] h-[139px] flex justify-between text-white"></div>
+      <div class="absolute bottom-0 left-0 w-full h-[206px] opacity-[0.9] z-20 bg-[linear-gradient(to_top,#000000_0%,rgba(0,0,0,0)_100%)]"></div>
+    </div>
+  </div>
+
+
+    <!-- Bottom gradient -->
+    <div class="absolute bottom-0 left-0 w-full h-[200px] bg-gradient-to-t from-black to-transparent opacity-90 z-20"></div>
+  </div>
+</div>
+
+<!-- text section -->
+<div class="text-white text-center px-4 py-10 sm:py-14 md:py-16 animate-slide-up animate-delay-200 slide-up">
+  <h2 class="text-3xl sm:text-4xl md:text-5xl leading-[116%] font-semibold font-[Poppins]">
+    Saudi, a kingdom that inspires
+  </h2>
+  <p class="text-lg sm:text-xl md:text-2xl leading-[125%] font-light font-[Poppins] mt-2 sm:mt-3 md:mt-4 max-w-xl sm:max-w-2xl mx-auto">
+    a uniquely saudi experience waits in winters
+  </p>
+</div>
+
+
+
+ <!-- ========== TRADITIONS SECTION (Updated & Responsive) ========== -->
+<section class="max-w-[1320px] mx-auto px-4 pt-8 pb-24 animate-slide-up animate-delay-300 slide-up">
+  <!-- Title -->
+  <h1 class="text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight mb-16">
+    Traditions of Saudi Arabia
+  </h1>
+
+  <!-- Grid wrapper -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-16 gap-x-12 items-start">
+    <!-- Language Image -->
+    <div class="w-full max-w-[520px] mx-auto aspect-[5/4] rounded-[28px] overflow-hidden">
+      <img
+        id="languageImage"
+        src="./about1.jpg"
+        alt="Language"
+        class="w-full h-full object-cover"
+      />
+    </div>
+
+    <!-- Language Text -->
+    <div class="relative">
+      <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold mb-4">Language</h2>
+      <p class="text-base sm:text-lg md:text-xl leading-relaxed text-justify mb-10">
+        Arabic is the official language of Saudi Arabia and the primary language used in all dealings and public transactions. English serves as an informal second language in the Kingdom and is spoken by a large section of its society. All road signs are bilingual, showing information in both Arabic and English.
+      </p>
+
+      <!-- Language Arrow -->
+      <button
+        onclick="nextLanguageSlide()"
+        class="absolute -bottom-2 right-0 translate-y-[50%] w-16 h-16 sm:w-[72px] sm:h-[72px] text-white"
+      >
+        <!-- SVG Arrow -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="0.7"
+          stroke="currentColor"
+          class="w-full h-full"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="m12.75 15 3-3m0 0-3-3m3 3h-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Culture Text -->
+    <div class="relative self-start">
+      <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold mb-4">Culture</h2>
+      <p class="text-base sm:text-lg md:text-xl leading-relaxed text-justify mb-10">
+        Saudi Arabia's rich heritage and traditions have been shaped by its position as a historic trade hub and the birthplace of Islam. In recent years, the Kingdom has undergone a significant cultural transformation, evolving century-old customs to fit the contemporary world we live in today.
+      </p>
+
+      <!-- Culture Arrow -->
+      <button
+        onclick="nextCultureSlide()"
+        class="absolute -bottom-14 -right-4 w-16 h-16 sm:w-[72px] sm:h-[72px] text-white"
+      >
+        <!-- SVG Arrow -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="0.7"
+          stroke="currentColor"
+          class="w-full h-full"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="m12.75 15 3-3m0 0-3-3m3 3h-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Culture Image -->
+    <div class="w-full max-w-[520px] mx-auto aspect-[5/4] rounded-[28px] overflow-hidden self-end ">
+      <img
+        id="cultureImage"
+        src="./about2.jpg"
+        alt="Culture"
+        class="w-full h-full object-cover"
+      />
+    </div>
+  </div>
+</section>
+
+
+<!-- ========== WHATSAPP CONTACT  ========== -->
+<section class="flex items-center justify-center p-4 animate-slide-up animate-delay-400 slide-up">
+  <div
+    class="w-full max-w-[1393px] h-auto min-h-[80px] sm:h-[140px] md:h-[180px] lg:h-[200px] bg-gradient-to-r from-[#047F01] to-[#047E01] rounded-pill shadow-whatsappShine px-4 sm:px-6 md:px-10 flex flex-col sm:flex-row items-center justify-between py-4 sm:py-2 whatsapp-cta"
+  >
+    <h2
+      class="text-white text-xl sm:text-2xl lg:text-[28px] font-semibold tracking-tightCustom px-2 sm:px-0"
+    >
+      Contact us on Whatsapp
+    </h2>
+    <button
+      class="w-[140px] sm:w-[160px] md:w-[180px] lg:w-[200px] h-[40px] sm:h-[50px] md:h-[55px] lg:h-[60px] bg-white rounded-button flex items-center justify-center hover:bg-gray-100 transition-colors"
+    >
+      <span
+        class="text-[#047E01] text-base sm:text-lg lg:text-[18px] font-normal tracking-tightCustom"
+        >Start Chat</span
+      >
+    </button>
+  </div>
+</section>
+
+
+  <!-- ========== SLIDER SECTION ========== -->
+  <section class="flex mt-16 justify-center p-4">
+    <div class="slider-container relative w-full max-w-[1264px] h-[180px] sm:h-[300px] md:h-[380px] overflow-hidden mx-auto animate-slide-up animate-delay-500 slide-up">
+      <div id="sliderTrack" class="slider-track flex transition-transform duration-700 ease-in-out h-full">
+        <!-- Slide 1 -->
+        <div class="slide relative w-full h-full flex-shrink-0">
+          <img src="./Explore.png" class="w-full h-full object-cover" alt="Explore Saudi Arabia" />
+          <div class="absolute left-0 top-1/2 -translate-y-1/2 flex items-center w-[90%] max-w-[1118px] pl-4 sm:pl-6 md:pl-10 text-white">
+            <h2 class="text-2xl sm:text-4xl md:text-5xl lg:text-[60px] font-semibold">Explore<br />Saudi Arabia</h2>
+          </div>
+        </div>
+        <!-- Slide 2 -->
+        <div class="slide relative w-full h-full flex-shrink-0">
+          <img src="./Neom.png" class="w-full h-full object-cover" alt="NEOM" />
+          <div class="absolute left-0 top-1/2 -translate-y-1/2 flex items-center w-[90%] max-w-[1118px] pl-4 sm:pl-6 md:pl-10 text-white">
+            <h2 class="text-2xl sm:text-4xl md:text-5xl lg:text-[60px] font-semibold">Made To Change<br />NEOM</h2>
+          </div>
+        </div>
+        <!-- Slide 3 -->
+        <div class="slide relative w-full h-full flex-shrink-0">
+          <img src="./KSA.png" class="w-full h-full object-cover" alt="KSA" />
+          <div class="absolute left-0 top-1/2 -translate-y-1/2 flex items-center w-[90%] max-w-[1118px] pl-4 sm:pl-6 md:pl-10 text-white">
+            <h2 class="text-2xl sm:text-4xl md:text-5xl lg:text-[60px] font-semibold">Rules of Behaviour<br />KSA</h2>
+          </div>
+        </div>
+      </div>
+      <!-- Manual Slide Button -->
+      <button onclick="manualNextSlide()" class="absolute right-4 sm:right-8 md:right-[70px] top-1/2 -translate-y-1/2 z-10 text-white hover:text-gray-300">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="0.7" stroke="currentColor" class="w-8 h-8 sm:w-12 sm:h-12 md:w-20 md:h-20">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m12.75 15 3-3m0 0-3-3m3 3h-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class=" py-10 w-full mt-16 bg-[#222222] px-6 py-10 animate-slide-up animate-delay-600 slide-up">
+    <div class="max-w-[1512px] mx-auto flex flex-wrap sm:flex-nowrap justify-start sm:justify-between items-start gap-y-10">
+      <!-- Logo -->
+      <div class="w-full sm:w-auto flex justify-center sm:justify-start mb-6 sm:mb-0 sm:mr-20">
+        <img src="logo.png" alt="Saudi Logo" class="w-[200px] sm:w-[267px] h-auto object-contain" />
+      </div>
+      <!-- Footer Links -->
+      <div class="flex flex-wrap sm:flex-nowrap gap-x-10 sm:gap-x-16 text-white">
+        <div class="flex flex-col gap-2 min-w-[120px]">
+          <h3 class="font-semibold text-[25px]">About</h3>
+          <a href="about.html" class="hover:underline">About us</a>
+          <a href="#" class="hover:underline">Features</a>
+          <a href="#" class="hover:underline">News & Blogs</a>
+        </div>
+        <div class="flex flex-col gap-2 min-w-[120px]">
+          <h3 class="font-semibold text-[25px]">Contact</h3>
+          <a href="#" class="hover:underline">Instagram</a>
+          <a href="#" class="hover:underline">Twitter</a>
+          <a href="#" class="hover:underline">Facebook</a>
+        </div>
+        <div class="flex flex-col gap-2 min-w-[120px]">
+          <h3 class="font-semibold text-[25px]">Support</h3>
+          <a href="#" class="hover:underline">FAQs</a>
+          <a href="#" class="hover:underline">Support Centre</a>
+          <a href="#" class="hover:underline">Feedback</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Slider Script -->
+  <script>
+    const sliderTrack = document.getElementById('sliderTrack');
+    let currentSlide = 0;
+    let autoSlideTimer;
+    const totalSlides = 3;
+
+    function getSlideWidth() {
+      return window.innerWidth >= 1264 ? 1264 : 100;
+    }
+
+    function updateSlide() {
+      const slideWidth = getSlideWidth();
+      const translateValue = window.innerWidth >= 1264 
+        ? `translateX(-${currentSlide * slideWidth}px)`
+        : `translateX(-${currentSlide * slideWidth}%)`;
+      sliderTrack.style.transform = translateValue;
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateSlide();
+    }
+
+    function startAutoSlide() {
+      autoSlideTimer = setInterval(() => {
+        nextSlide();
+      }, 5000);
+    }
+
+    function resetAutoSlide() {
+      clearInterval(autoSlideTimer);
+      startAutoSlide();
+    }
+
+    function manualNextSlide() {
+      nextSlide();
+      resetAutoSlide();
+    }
+
+    sliderTrack.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, {passive: true});
+
+    sliderTrack.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+      resetAutoSlide();
+    }, {passive: true});
+
+    function handleSwipe() {
+      const threshold = 50;
+      if (touchEndX < touchStartX - threshold) {
+        nextSlide();
+      } else if (touchEndX > touchStartX + threshold) {
+        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        updateSlide();
+      }
+    }
+
+    window.addEventListener('resize', updateSlide);
+
+    const sliderContainer = document.querySelector('.slider-container');
+    sliderContainer.addEventListener('mouseenter', () => clearInterval(autoSlideTimer));
+    sliderContainer.addEventListener('mouseleave', resetAutoSlide);
+
+    startAutoSlide();
+    
+  </script>
+
+
+<script>
+  const languageImages = ['./about1.jpg', './about2.jpg'];
+  const cultureImages = ['./about2.jpg', './about1.jpg'];
+  let languageIndex = 0;
+  let cultureIndex = 0;
+
+  function nextLanguageSlide() {
+    languageIndex = (languageIndex + 1) % languageImages.length;
+    document.getElementById('languageImage').src =
+      languageImages[languageIndex];
+  }
+
+  function nextCultureSlide() {
+    cultureIndex = (cultureIndex + 1) % cultureImages.length;
+    document.getElementById('cultureImage').src =
+      cultureImages[cultureIndex];
+  }
+</script>
+    <script>
+      const themeToggleDesktop = document.getElementById("theme-toggle");
+      const themeToggleMobile = document.getElementById("theme-toggle-mobile");
+
+      function setToggleUI(isDark) {
+        const toggles = [
+          {
+            moonWrap: document.getElementById("moon-wrap"),
+            moonIcon: document.getElementById("moon-icon"),
+            sunWrap: document.getElementById("sun-wrap"),
+            sunIcon: document.getElementById("sun-icon"),
+          },
+          {
+            moonWrap: document.getElementById("moon-wrap-mobile"),
+            moonIcon: document.getElementById("moon-icon-mobile"),
+            sunWrap: document.getElementById("sun-wrap-mobile"),
+            sunIcon: document.getElementById("sun-icon-mobile"),
+          },
+        ];
+
+        toggles.forEach(({ moonWrap, moonIcon, sunWrap, sunIcon }) => {
+          if (!moonWrap || !moonIcon || !sunWrap || !sunIcon) return;
+
+          if (isDark) {
+            moonWrap.classList.add("bg-black", "w-[60px]");
+            moonWrap.classList.remove("w-[32px]");
+            moonIcon.classList.replace("text-black", "text-white");
+
+            sunWrap.classList.remove("bg-black", "w-[60px]");
+            sunWrap.classList.add("w-[32px]");
+            sunIcon.classList.replace("text-white", "text-black");
+          } else {
+            sunWrap.classList.add("bg-black", "w-[60px]");
+            sunWrap.classList.remove("w-[32px]");
+            sunIcon.classList.replace("text-black", "text-white");
+
+            moonWrap.classList.remove("bg-black", "w-[60px]");
+            moonWrap.classList.add("w-[32px]");
+            moonIcon.classList.replace("text-white", "text-black");
+          }
+        });
+      }
+
+      const isDark = document.documentElement.classList.contains("dark");
+      setToggleUI(isDark);
+
+      themeToggleDesktop?.addEventListener("click", () => {
+        document.documentElement.classList.toggle("dark");
+        setToggleUI(document.documentElement.classList.contains("dark"));
+      });
+
+      themeToggleMobile?.addEventListener("click", () => {
+        document.documentElement.classList.toggle("dark");
+        setToggleUI(document.documentElement.classList.contains("dark"));
+      });
+
+      const hamburger = document.getElementById("hamburger");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const openIcon = document.getElementById("open-icon");
+      const closeIcon = document.getElementById("close-icon");
+
+      hamburger.addEventListener("click", () => {
+        const isOpen = mobileMenu.classList.contains("-translate-x-full");
+        mobileMenu.classList.toggle("-translate-x-full");
+        openIcon.classList.toggle("hidden");
+        closeIcon.classList.toggle("hidden");
+      });
+    </script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const slideUps = document.querySelectorAll('.slide-up');
+
+    const observer = new IntersectionObserver((entries, observerRef) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          observerRef.unobserve(entry.target);
+        }
+      });
+    }, {
+      root: null,
+      threshold: 0.5 // Trigger when 50% of element is visible
+    });
+
+    slideUps.forEach(el => {
+      observer.observe(el);
+    });
+  });
+</script>
+
+
+
+</body>
+</html>
