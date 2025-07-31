@@ -5,10 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Home Page</title>
 
-  <!-- Tailwind CSS -->
   <link href="./output.css" rel="stylesheet">
 
-  <!-- Google Fonts: Poppins -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Imperial+Script&display=swap" rel="stylesheet">
 
@@ -31,7 +29,73 @@
 
     body {
       font-family: 'Poppins', sans-serif;
-      @apply transition-colors duration-300;
+      transition: background-color 0.3s ease, color 0.3s ease; 
+    }
+
+   
+    body {
+      background-color: #000000;
+      color: #ffffff;
+    }
+
+  
+    #hero-section h1,
+    #hero-section p,
+    #hero-section h2 {
+      color: #ffffff !important; 
+      transition: color 0.3s ease;
+    }
+
+   
+    #navbar-links, #mobile-menu {
+        color: #ffffff !important; 
+        transition: color 0.3s ease;
+    }
+    #mobile-menu a { 
+        color: #ffffff !important;
+    }
+
+  
+    #icons-section {
+        background-color: #000000;
+        transition: background-color 0.3s ease;
+    }
+
+ 
+    #hisma-desert-section h1,
+    #hisma-desert-section h2,
+    #hisma-desert-section p {
+        color: #ffffff;
+        transition: color 0.3s ease;
+    }
+
+
+    #footer-section {
+      background-color: #222222;
+      transition: background-color 0.3s ease;
+    }
+ body.light-theme {
+      background-color: #ffffff;
+      color: #333333;
+    }
+
+   
+    body.light-theme #footer-section {
+      background-color: #d0d0d0; 
+    }
+    body.light-theme #footer-section .flex.flex-wrap.sm\:flex-nowrap.gap-x-10.sm\:gap-x-16 {
+        color: #333333; 
+    }
+
+   
+    body.light-theme #hisma-desert-section h1,
+    body.light-theme #hisma-desert-section h2,
+    body.light-theme #hisma-desert-section p {
+        color: #f3efef;
+    }
+
+    body.light-theme #icons-section {
+        background-color: #858282; 
     }
 
     @media (max-width: 639px) {
@@ -57,7 +121,7 @@
       }
     }
 
-    @keyframes slideUpFadeIn {
+   @keyframes slideUpFadeIn {
     from {
       opacity: 0;
       transform: translateY(50px);
@@ -81,13 +145,12 @@
 </head>
 
 <body class="bg-black text-white font-poppins m-0 p-0">
-
-  <!-- ========== REPLACED NAVBAR + HERO SECTION ========== -->
+<!-- navbar -->
   <div class="relative w-screen h-screen bg-cover bg-center overflow-hidden font-[Poppins]" style="background-image: url('./page1-main.png');">
     <img src="logo.png" alt="Logo" class="absolute w-[213px] h-[118px] top-[83px] left-[79px] lg:block hidden" />
     <img src="logo.png" alt="Logo" class="absolute w-[80px] h-[45px] top-[20px] left-[20px] block lg:hidden z-50" />
 
-    <div class="absolute top-[22px] right-[20px] flex items-center gap-3 z-30 lg:hidden">
+    <div class="absolute top-[22px] right-[20px] flex items-center gap-3 z-30 lg:hidden z-50">
       <button id="theme-toggle-mobile" class="flex items-center bg-white rounded-[20px] w-[50px] h-[22px] p-[2px]" aria-label="Toggle dark mode" type="button">
         <span id="moon-wrap-mobile" class="flex items-center justify-center h-[18px] rounded-[16px] transition-all">
           <svg id="moon-icon-mobile" class="w-3.5 h-3.5 text-black transition-all" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -127,7 +190,7 @@
         </span>
       </button>
 
-      <div class="flex items-center gap-[55px] text-white text-[24px] leading-[100%] font-medium">
+      <div id="navbar-links" class="flex items-center gap-[55px] text-white text-[24px] leading-[100%] font-medium">
 <a href="destinations.html" class="w-[151px] h-[36px] flex items-center hover:underline">Destinations</a>
 <a href="path/to/members.html" class="w-[115px] h-[36px] flex items-center hover:underline">Members</a>
 <a href="path/to/gallery.html" class="w-[86px] h-[36px] flex items-center hover:underline">Gallery</a>
@@ -141,9 +204,8 @@
 <a href="path/to/gallery.html" class="hover:underline">Gallery</a>
 
     </div>
-
-  <!-- Hero Section -->
-  <div class="relative flex flex-col items-center justify-center h-full px-4 text-center animate-slide-up animate-delay-100s slide-up">
+<!-- hero section -->
+  <div id="hero-section" class="relative flex flex-col items-center justify-center h-full px-4 text-center animate-slide-up animate-delay-100s slide-up">
     <div class="max-w-2xl mx-auto flex flex-col items-center gap-4 text-white z-30">
       <h1 class="text-4xl sm:text-6xl lg:text-[98px] font-bold leading-tight">
         Explore<br class="hidden sm:block" />Saudi Arabia
@@ -155,7 +217,6 @@
     </div>
 
 
-        <!-- History and People Section -->
         <div class="w-[1349px] h-[139px] flex justify-between text-white">
     
           <div class="w-[331px] h-[138px] flex flex-col gap-[10px]">
@@ -166,7 +227,6 @@
             </p>
           </div>
 
-          <!-- People Box -->
           <div class="w-[309px] h-[139px] flex flex-col gap-[10px]">
             <h2 class="text-[32px] font-medium leading-[116%]">People and Culture</h2>
             <p class="text-[16px] font-normal leading-[136%]">
@@ -181,14 +241,11 @@
       <div class="absolute bottom-0 left-0 w-full h-[206px] opacity-[0.9] z-20 bg-[linear-gradient(to_top,#000000_0%,rgba(0,0,0,0)_100%)]"></div>
     </div>
 
-    <!-- Gradient Overlay -->
     <div class="absolute bottom-0 left-0 w-full h-52 bg-gradient-to-t from-black to-transparent z-20"></div>
   </div>
 </div>
-
-<!-- icons  -->
-
-    <div class="min-h-[555px] flex items-center justify-center bg-black text-white py-10 animate-slide-up animate-delay-300 slide-up">
+<!-- icons -->
+<div id="icons-section" class="min-h-[555px] flex items-center justify-center bg-black text-white py-10 animate-slide-up animate-delay-300 slide-up">
         <div class="w-full lg:w-[1327px] lg:h-[121px] flex flex-wrap lg:flex-nowrap justify-center lg:justify-start items-center gap-6 lg:gap-[71px] px-4 py-0">
             <img src="AlSaudia.png" alt="Logo 1" class="w-[180px] h-[60px] sm:w-[200px] sm:h-[70px] md:w-[240px] md:h-[80px] lg:w-[290px] lg:h-[88px] opacity-200" />
             <img src="AlRajhi.png" alt="Logo 2" class="w-[200px] h-[70px] sm:w-[240px] sm:h-[90px] md:w-[280px] md:h-[100px] lg:w-[340px] lg:h-[121px] opacity-200" />
@@ -197,9 +254,8 @@
         </div>
     </div>
 
-
-  <!-- ================== HISMA DESERT COMPONENT ================== -->
-  <div class="relative w-full animate-slide-up animate-delay-400 slide-up">
+<!-- desert section -->
+  <div id="hisma-desert-section" class="relative w-full animate-slide-up animate-delay-400 slide-up">
 
     <div class="relative w-full h-[982px] overflow-hidden bg-cover bg-center" style="background-image: url('./Desert.jpg');">
 
@@ -236,26 +292,22 @@
       </p>
     </div>
   </div>
-
-  <!-- ========== SLIDER SECTION ========== -->
+<!-- slider -->
   <section class="flex mt-16 justify-center p-4 animate-slide-up animate-delay-500 slide-up">
     <div class="slider-container relative w-full max-w-[1264px] h-[180px] sm:h-[300px] md:h-[380px] overflow-hidden mx-auto">
       <div id="sliderTrack" class="slider-track flex transition-transform duration-700 ease-in-out h-full">
-        <!-- Slide 1 -->
         <div class="slide relative w-full h-full flex-shrink-0">
           <img src="./Explore.png" class="w-full h-full object-cover" alt="Explore Saudi Arabia" />
           <div class="absolute left-0 top-1/2 -translate-y-1/2 flex items-center w-[90%] max-w-[1118px] pl-4 sm:pl-6 md:pl-10 text-white">
             <h2 class="text-2xl sm:text-4xl md:text-5xl lg:text-[60px] font-semibold">Explore<br />Saudi Arabia</h2>
           </div>
         </div>
-        <!-- Slide 2 -->
         <div class="slide relative w-full h-full flex-shrink-0">
           <img src="./Neom.png" class="w-full h-full object-cover" alt="NEOM" />
           <div class="absolute left-0 top-1/2 -translate-y-1/2 flex items-center w-[90%] max-w-[1118px] pl-4 sm:pl-6 md:pl-10 text-white">
             <h2 class="text-2xl sm:text-4xl md:text-5xl lg:text-[60px] font-semibold">Made To Change<br />NEOM</h2>
           </div>
         </div>
-        <!-- Slide 3 -->
         <div class="slide relative w-full h-full flex-shrink-0">
           <img src="./KSA.png" class="w-full h-full object-cover" alt="KSA" />
           <div class="absolute left-0 top-1/2 -translate-y-1/2 flex items-center w-[90%] max-w-[1118px] pl-4 sm:pl-6 md:pl-10 text-white">
@@ -263,7 +315,6 @@
           </div>
         </div>
       </div>
-      <!-- Manual Slide Button -->
       <button onclick="manualNextSlide()" class="absolute right-4 sm:right-8 md:right-[70px] top-1/2 -translate-y-1/2 z-10 text-white hover:text-gray-300">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="0.7" stroke="currentColor" class="w-8 h-8 sm:w-12 sm:h-12 md:w-20 md:h-20">
           <path stroke-linecap="round" stroke-linejoin="round" d="m12.75 15 3-3m0 0-3-3m3 3h-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
@@ -271,39 +322,35 @@
       </button>
     </div>
   </section>
-
-  <!-- ========== FOOTER ========== -->
-  <footer class="py-10 w-full mt-16 bg-[#222222] px-6 py-10 animate-slide-up animate-delay-600 slide-up">
-    <div class="max-w-[1512px] mx-auto flex flex-wrap sm:flex-nowrap justify-start sm:justify-between items-start gap-y-10">
-      <!-- Logo -->
-      <div class="w-full sm:w-auto flex justify-center sm:justify-start mb-6 sm:mb-0 sm:mr-20">
-        <img src="logo.png" alt="Saudi Logo" class="w-[200px] sm:w-[267px] h-auto object-contain" />
+<!-- footer  -->
+<footer id="footer-section" class="py-20 w-full mt-16 bg-[#222222] px-6">
+  <div class="max-w-[1512px] mx-auto flex flex-wrap sm:flex-nowrap justify-start sm:justify-between items-start gap-y-10">
+    <div class="w-full sm:w-auto flex justify-center sm:justify-start mb-6 sm:mb-0 sm:mr-32">
+      <img src="logo.png" alt="Saudi Logo" class="w-[267px] h-auto object-contain" />
+    </div>
+    <div class="flex flex-wrap sm:flex-nowrap gap-x-20 sm:gap-x-24 text-white">
+      <div class="flex flex-col gap-3 min-w-[120px]">
+        <h3 class="font-semibold text-[25px]">About</h3>
+        <a href="about.html" class="hover:underline text-[20px]">About us</a>
+        <a href="#" class="hover:underline text-[20px]">Features</a>
+        <a href="#" class="hover:underline text-[20px]">News & Blogs</a>
       </div>
-      <!-- Footer Links -->
-      <div class="flex flex-wrap sm:flex-nowrap gap-x-10 sm:gap-x-16 text-white">
-        <div class="flex flex-col gap-2 min-w-[120px]">
-          <h3 class="font-semibold text-[25px]">About</h3>
-          <a href="about.html" class="hover:underline">About us</a>
-          <a href="#" class="hover:underline">Features</a>
-          <a href="#" class="hover:underline">News & Blogs</a>
-        </div>
-        <div class="flex flex-col gap-2 min-w-[120px]">
-          <h3 class="font-semibold text-[25px]">Contact</h3>
-          <a href="#" class="hover:underline">Instagram</a>
-          <a href="#" class="hover:underline">Twitter</a>
-          <a href="#" class="hover:underline">Facebook</a>
-        </div>
-        <div class="flex flex-col gap-2 min-w-[120px]">
-          <h3 class="font-semibold text-[25px]">Support</h3>
-          <a href="#" class="hover:underline">FAQs</a>
-          <a href="#" class="hover:underline">Support Centre</a>
-          <a href="#" class="hover:underline">Feedback</a>
-        </div>
+      <div class="flex flex-col gap-3 min-w-[120px]">
+        <h3 class="font-semibold text-[25px]">Contact</h3>
+        <a href="#" class="hover:underline text-[20px]">Instagram</a>
+        <a href="#" class="hover:underline text-[20px]">Twitter</a>
+        <a href="#" class="hover:underline text-[20px]">Facebook</a>
+      </div>
+      <div class="flex flex-col gap-3 min-w-[120px]">
+        <h3 class="font-semibold text-[25px]">Support</h3>
+        <a href="#" class="hover:underline text-[20px]">FAQs</a>
+        <a href="#" class="hover:underline text-[20px]">Support Centre</a>
+        <a href="#" class="hover:underline text-[20px]">Feedback</a>
       </div>
     </div>
-  </footer>
+  </div>
+</footer>
 
-  <!-- Slider Script -->
   <script>
     const sliderTrack = document.getElementById('sliderTrack');
     let currentSlide = 0;
@@ -330,7 +377,7 @@
     function startAutoSlide() {
       autoSlideTimer = setInterval(() => {
         nextSlide();
-      }, 5000);
+      }, 3000);
     }
 
     function resetAutoSlide() {
@@ -373,62 +420,19 @@
     
   </script>
 
-  <script>
+<script>
     const themeToggleDesktop = document.getElementById("theme-toggle");
     const themeToggleMobile = document.getElementById("theme-toggle-mobile");
+    const body = document.body;
+    const textSection = document.getElementById("text-section");
+    const footerSection = document.getElementById("footer-section");
+    const traditionsSection = document.getElementById("traditions-section");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const hismaDesertSection = document.getElementById("hisma-desert-section"); // Assuming this exists
+    const iconsSection = document.getElementById("icons-section"); // Assuming this exists
 
-    function setLightMode(isLight) {
-      if (isLight) {
-        document.documentElement.classList.remove('dark');
-        document.body.classList.remove('bg-black', 'text-white');
-        document.body.classList.add('bg-grey-800', 'text-gray-900');
 
-        const footer = document.querySelector('footer');
-        footer.classList.remove('bg-[#222222]');
-        footer.classList.add('bg-gray-500');
-        
-
-        const footerLinks = document.querySelectorAll('footer a, footer h3');
-        footerLinks.forEach(link => {
-          link.classList.remove('text-white');
-          link.classList.add('text-gray-800');
-        });
-        
- 
-        const himsaText = document.querySelector('.relative.z-30.-mt-\\[48px\\] p');
-        himsaText.classList.remove('text-white');
-        himsaText.classList.add('text-white');
-        
-
-      } else {
-        document.documentElement.classList.add('dark');
-        document.body.classList.remove('bg-white', 'text-gray-900');
-        document.body.classList.add('bg-black', 'text-white');
-        
-
-        const footer = document.querySelector('footer');
-        footer.classList.remove('bg-gray-100');
-        footer.classList.add('bg-[#222222]');
-        
-        const footerLinks = document.querySelectorAll('footer a, footer h3');
-        footerLinks.forEach(link => {
-          link.classList.remove('text-gray-800');
-          link.classList.add('text-white');
-        });
-        
-
-        const himsaText = document.querySelector('.relative.z-30.-mt-\\[48px\\] p');
-        himsaText.classList.remove('text-gray-800');
-        himsaText.classList.add('text-white');
-        
-
-        const logoSection = document.querySelector('.min-h-\\[555px\\]');
-        logoSection.classList.remove('bg-white');
-        logoSection.classList.add('bg-black');
-      }
-    }
-
-    function setToggleUI(isLight) {
+    function setToggleUI(isDark) {
       const toggles = [
         {
           moonWrap: document.getElementById("moon-wrap"),
@@ -447,53 +451,132 @@
       toggles.forEach(({ moonWrap, moonIcon, sunWrap, sunIcon }) => {
         if (!moonWrap || !moonIcon || !sunWrap || !sunIcon) return;
 
-        if (isLight) {
-          moonWrap.classList.remove("bg-black", "w-[60px]");
-          moonWrap.classList.add("w-[32px]");
-          moonIcon.classList.replace("text-white", "text-black");
-
-          sunWrap.classList.add("bg-black", "w-[60px]");
-          sunWrap.classList.remove("w-[32px]");
-          sunIcon.classList.replace("text-black", "text-white");
-        } else {
-          sunWrap.classList.remove("bg-black", "w-[60px]");
-          sunWrap.classList.add("w-[32px]");
-          sunIcon.classList.replace("text-white", "text-black");
-
+        if (isDark) {
           moonWrap.classList.add("bg-black", "w-[60px]");
           moonWrap.classList.remove("w-[32px]");
           moonIcon.classList.replace("text-black", "text-white");
+
+          sunWrap.classList.remove("bg-black", "w-[60px]");
+          sunWrap.classList.add("w-[32px]");
+          sunIcon.classList.replace("text-white", "text-black");
+        } else {
+          sunWrap.classList.add("bg-black", "w-[60px]");
+          sunWrap.classList.remove("w-[32px]");
+          sunIcon.classList.replace("text-black", "text-white");
+
+          moonWrap.classList.remove("bg-black", "w-[60px]");
+          moonWrap.classList.add("w-[32px]");
+          moonIcon.classList.replace("text-white", "text-black");
         }
       });
     }
 
-    let isLightMode = false;
-    setToggleUI(isLightMode);
+    function toggleTheme() {
+        body.classList.toggle("light-theme");
+        const isDark = !body.classList.contains("light-theme");
+        setToggleUI(isDark);
+        
+        // Save the user's preference to local storage
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
 
-    themeToggleDesktop?.addEventListener("click", () => {
-      isLightMode = !isLightMode;
-      setLightMode(isLightMode);
-      setToggleUI(isLightMode);
-      localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
-    });
+        if (isDark) {
+            // Dark Theme
+            body.classList.remove("bg-white", "text-black");
+            body.classList.add("bg-black", "text-white");
 
-    themeToggleMobile?.addEventListener("click", () => {
-      isLightMode = !isLightMode;
-      setLightMode(isLightMode);
-      setToggleUI(isLightMode);
-      localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
-    });
+            if (textSection) {
+              textSection.classList.add("text-white");
+              textSection.classList.remove("text-black");
+            }
 
+            footerSection.classList.add("bg-[#222222]");
+            footerSection.classList.remove("bg-[#d0d0d0]");
+            footerSection.querySelector('.flex.flex-wrap.sm\\:flex-nowrap.gap-x-10.sm\\:gap-x-16').classList.add("text-white");
+            footerSection.querySelector('.flex.flex-wrap.sm\\:flex-nowrap.gap-x-10.sm\\:gap-x-16').classList.remove("text-black");
 
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'light') {
-      isLightMode = true;
-      setLightMode(true);
-      setToggleUI(true);
+            if (traditionsSection) {
+                traditionsSection.querySelectorAll('h1, h2, p').forEach(el => {
+                    el.classList.add("text-white");
+                    el.classList.remove("text-black");
+                });
+            }
+            
+            if (hismaDesertSection) {
+                hismaDesertSection.querySelectorAll('h1, h2, p').forEach(el => {
+                    el.classList.add("text-white");
+                    el.classList.remove("text-black");
+                });
+            }
+            if (iconsSection) {
+                iconsSection.classList.add("bg-black");
+                iconsSection.classList.remove("bg-white");
+            }
+
+            mobileMenu.classList.add("bg-black");
+            mobileMenu.classList.remove("bg-white");
+
+        } else {
+            // Light Theme
+            body.classList.remove("bg-black", "text-white");
+            body.classList.add("bg-white", "text-black");
+
+            if (textSection) {
+              textSection.classList.remove("text-white");
+              textSection.classList.add("text-black");
+            }
+
+            footerSection.classList.remove("bg-[#222222]");
+            footerSection.classList.add("bg-[#d0d0d0]");
+            footerSection.querySelector('.flex.flex-wrap.sm\\:flex-nowrap.gap-x-10.sm\\:gap-x-16').classList.remove("text-white");
+            footerSection.querySelector('.flex.flex-wrap.sm\\:flex-nowrap.gap-x-10.sm\\:gap-x-16').classList.add("text-black");
+
+            if (traditionsSection) {
+                traditionsSection.querySelectorAll('h1, h2, p').forEach(el => {
+                    el.classList.remove("text-white");
+                    el.classList.add("text-black");
+                });
+            }
+
+            if (hismaDesertSection) {
+                hismaDesertSection.querySelectorAll('h1, h2, p').forEach(el => {
+                    el.classList.remove("text-white");
+                    el.classList.add("text-black");
+                });
+            }
+            if (iconsSection) {
+                iconsSection.classList.remove("bg-black");
+                iconsSection.classList.add("bg-white");
+            }
+
+            mobileMenu.classList.remove("bg-black");
+            mobileMenu.classList.add("bg-white");
+        }
     }
+    
+    // Corrected initial theme setting logic
+    document.addEventListener("DOMContentLoaded", () => {
+        const savedTheme = localStorage.getItem('theme');
+        const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+        
+        let initialIsDark = true;
+
+        if (savedTheme) {
+            if (savedTheme === 'light') {
+                body.classList.add('light-theme');
+                initialIsDark = false;
+            }
+        } else if (prefersLight) {
+            body.classList.add('light-theme');
+            initialIsDark = false;
+        }
+
+        setToggleUI(initialIsDark);
+    });
+
+    themeToggleDesktop?.addEventListener("click", toggleTheme);
+    themeToggleMobile?.addEventListener("click", toggleTheme);
 
     const hamburger = document.getElementById("hamburger");
-    const mobileMenu = document.getElementById("mobile-menu");
     const openIcon = document.getElementById("open-icon");
     const closeIcon = document.getElementById("close-icon");
 
@@ -503,7 +586,9 @@
       openIcon.classList.toggle("hidden");
       closeIcon.classList.toggle("hidden");
     });
-  </script>
+</script>
+
+
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
