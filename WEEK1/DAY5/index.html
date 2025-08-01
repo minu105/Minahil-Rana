@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NFT Landing Page</title>
+
+    <link href="./output.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              clash: ["Clash Display", "sans-serif"],
+            },
+            maxWidth: {
+              timeline: "589px",
+            },
+            screens: {
+              '3xl': '1728px',
+            }
+            
+          },
+        },
+      };
+    </script>
+
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #000000;
+      }
+
+      .hero-bg {
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      .text-outline {
+        text-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+      }
+
+      .border-gradient-radial {
+        border-image: radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.5),
+            rgba(255, 255, 255, 0)
+          )
+          1;
+        border-style: solid;
+        border-width: 1px;
+      }
+
+      @media (min-width: 1264px) {
+        .slider-container {
+          width: 1264px;
+          height: 420px;
+        }
+        .slide {
+          width: 1264px;
+          height: 420px;
+        }
+        .slider-track {
+          width: 3792px;
+        }
+      }
+
+        .star-position-2 {
+    bottom: -70px;
+  }
+
+
+      @keyframes slideUpFadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .slide-up {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+      }
+
+      .slide-up.show {
+        animation: slideUpFadeIn 0.8s ease-out forwards;
+      }
+
+      @keyframes star-float {
+        0%,
+        100% {
+          transform: translateY(0) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-20px) rotate(10deg);
+        }
+      }
+
+      @keyframes star-slide {
+        0% {
+          transform: translateX(0) scale(1);
+        }
+        50% {
+          transform: translateX(250px) scale(1.2);
+        }
+        100% {
+          transform: translateX(0) scale(1);
+        }
+      }
+
+      @keyframes star-pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.2);
+          opacity: 0.7;
+        }
+      }
+
+      .animate-star-float {
+        animation: star-float 4s ease-in-out infinite;
+      }
+
+      .animate-star-slide {
+        animation: star-slide 6s ease-in-out infinite;
+      }
+
+      .animate-star-pulse {
+        animation: star-pulse 3s ease-in-out infinite;
+      }
+    </style>
+  </head>
+
+  <body class="text-white">
+    <!-- Navbar -->
+<nav class="w-full bg-[#1f1e1e] px-6 sm:px-10 lg:px-[167px] py-4 lg:py-[18px]">
+  <div class="flex justify-between items-center">
+    <div class="text-[24px] font-bold text-white">LogoHere</div>
+
+    <!-- Desktop Menu -->
+    <div class="hidden lg:flex items-center space-x-12">
+      <ul class="flex space-x-10 text-[18px] font-semibold text-white">
+        <li><a href="#about-section" class="hover:text-orange-300">About</a></li>
+        <li><a href="#collection" class="hover:text-orange-300">Collection</a></li>
+        <li><a href="#creator" class="hover:text-orange-300">Creator</a></li>
+        <li><a href="#roadmap" class="hover:text-orange-300">Road Map</a></li>
+      </ul>
+      <button
+        class="ml-6 bg-[#d1884f] w-[140px] h-[45px] text-[16px] font-bold rounded-xl border border-white hover:bg-[#865e42] hover:scale-105 transition-all duration-300 shadow-md hover:shadow-lg"
+      >
+        Sign In
+      </button>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <div class="lg:hidden">
+      <button id="menu-btn" class="focus:outline-none">
+        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden mt-4 space-y-4 text-white text-[18px] font-semibold lg:hidden transition-all duration-300">
+    <a href="#about-section" class="block hover:text-orange-300">About</a>
+    <a href="#collection" class="block hover:text-orange-300">Collection</a>
+    <a href="#creator" class="block hover:text-orange-300">Creator</a>
+    <a href="#roadmap" class="block hover:text-orange-300">Road Map</a>
+    <button class="w-full bg-[#d1884f] py-3 rounded-xl font-bold hover:bg-[#c77b45] transition-colors">
+      Sign In
+    </button>
+  </div>
+</nav>
+
+
+
+        <!-- hero section -->
+        <section
+          class="relative w-full h-auto lg:h-[1200px] z-10 flex flex-col lg:block items-center px-4 sm:px-8 animate-slide-up animate-delay-200 slide-up " style="background-image: url(./heronewbg.png);"
+        >
+          <div
+            class="w-full max-w-[680px] z-50 mt-4 lg:mt-[50px] lg:absolute lg:top-[190px] lg:left-[200px]"
+          >
+            <h1
+              class="text-[42px] sm:text-[56px] lg:text-[87px] font-bold leading-[1.1] text-white text-center lg:text-left"
+            >
+              We Have High<br /><span class="text-[#DA8F4D]">Quality NFT</span>
+              Collections
+            </h1>
+            <p
+              class="mt-2 text-[14px] font-bold text-gray-300 leading-tight text-center lg:text-left"
+            >
+              Lorem ipsum dolor sit amet consectetur. Rhoncus massa suspendisse
+              turpis sed viverra tempor lorem. Habitanti accumsan sagittis in
+              facilisi pharetra orci. Loremit senectusque viverra viverra ornare
+              fermentum faucibus sit purus volutpat. Egestas lectus ornare
+              convallis ornare nullam enim neque.
+            </p>
+
+            <div
+              class="flex flex-col sm:flex-row gap-4 sm:gap-[60px] mt-6 lg:mt-[50px] justify-center lg:justify-start"
+            >
+              <button
+                class="bg-[#DA8F4D] text-white text-[16px] font-semibold px-[40px] py-[16px] rounded-[21px] border border-[#ffffff] hover:bg-amber-600 transition-all duration-300 hover:scale-105 shadow-md hover:shadow-lg"
+              >
+                Get Whitelist
+              </button>
+              <button
+                class="bg-transparent text-white text-[16px] font-semibold px-[40px] py-[16px] rounded-[21px] border border-white hover:border-amber-500 transition-all duration-300 hover:scale-105 shadow-md hover:shadow-lg"
+              >
+                Contact Us
+              </button>
+            </div>
+          </div>
+
+          <div class="hidden lg:block relative w-full overflow-hidden">
+            <div class="relative w-full min-h-[1000px]">
+              <img
+                src="Rectangle1.png"
+                alt=""
+                class="absolute w-[529.3px] h-[694.7px] top-[140px] left-[1020px] z-0"
+              />
+              <img
+                src="Rectangle2.png"
+                alt=""
+                class="absolute w-[529.3px] h-[694.7px] top-[140px] left-[1054px] z-10"
+              />
+              <img
+                src="tiger.png"
+                alt=""
+                class="absolute w-[487.61px] h-[652.62px] top-[160px] left-[1096px] object-cover z-20 shadow-2xl transition-all duration-300 hover:scale-105"
+              />
+
+              <img
+                src="wide.png"
+                alt=""
+                class="absolute w-[102.6px] h-[101.25px] top-[340px] left-[820px] z-30 animate-pulse"
+              />
+              <img
+                src="thinsmooth.png"
+                alt=""
+                class="absolute w-[74.25px] h-[74.25px] top-[800px] left-[960px] rotate-180 z-20 animate-spin"
+              />
+
+              <img
+                src="siderectangle.png"
+                alt=""
+                class="absolute w-[54px] h-[337.5px] top-[475px] left-[1580px] opacity-100 z-10"
+              />
+              <img
+                src="heroicon.png"
+                alt=""
+                class="absolute w-[13.5px] h-[20px] top-[645px] border-white left-[1600px] z-30"
+              />
+            </div>
+          </div>
+
+          <div
+            class="w-full max-w-[600px] mt-16 lg:absolute lg:top-[750px] lg:left-[200px] flex flex-col sm:flex-row justify-between items-center px-6 sm:px-[48px] py-6 rounded-[39.31px] bg-white/5 backdrop-blur-[4px] z-50 font-['Space_Mono'] gap-6 transition-all duration-300 hover:scale-105 shadow-md hover:shadow-lg"
+          >
+            <!-- stats -->
+            <div class="text-center lg:text-left">
+              <p
+                class="text-white font-bold text-[28px] lg:text-[34.4px] capitalize"
+              >
+                240k+
+              </p>
+              <p class="text-gray-300 text-[20px] lg:text-[29.47px] mt-[2px]">
+                Total Sale
+              </p>
+            </div>
+            <div class="text-center lg:text-left">
+              <p
+                class="text-white font-bold text-[28px] lg:text-[34.4px] capitalize"
+              >
+                100k+
+              </p>
+              <p class="text-gray-300 text-[20px] lg:text-[29.47px] mt-[2px]">
+                Auctions
+              </p>
+            </div>
+            <div class="text-center lg:text-left">
+              <p
+                class="text-white font-bold text-[28px] lg:text-[34.4px] capitalize"
+              >
+                240k+
+              </p>
+              <p class="text-gray-300 text-[20px] lg:text-[29.47px] mt-[2px]">
+                Artists
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- About us page -->
+      <div id = "about-section" class="bg-black text-white min-h-screen font-[Poppins] ">
+        <section
+          class="py-16 px-4 md:px-8 lg:px-16 flex justify-center items-center animate-slide-up animate-delay-300 slide-up"
+        >
+          <h1 class="text-[50.79px] font-semibold mb-2 font-[Poppins]">
+            About Us
+          </h1>
+        </section>
+
+        <section
+          class="bg-[#140d07] py-16 px-4 md:px-8 lg:px-16 animate-slide-up animate-delay-400 slide-up"
+        >
+          <div
+            class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-y-16 md:gap-x-28 items-center"
+          >
+            <div class="grid grid-cols-2 gap-4 sm:gap-6 w-full">
+              <div
+                class="bg-[#242220] rounded-[13.81px] aspect-square overflow-hidden hover:scale-105 transition-transform duration-500 shadow-md hover:shadow-lg"
+              >
+                <img
+                  src="about1.png"
+                  class="w-full h-full object-cover object-[center_top] scale-[1.05] hover:scale-[1.1] transition-transform duration-500 ease-in-out"
+                  alt="About us image 1"
+                  onerror="this.onerror=null;this.src='https://placehold.co/240x200/2B2B2B/FFFFFF?text=about1';"
+                />
+              </div>
+              <div
+                class="bg-[#242220] rounded-[13.81px] aspect-square overflow-hidden hover:scale-105 transition-transform duration-500 shadow-md hover:shadow-lg"
+              >
+                <img
+                  src="about2.png"
+                  class="w-full h-full object-cover object-[center_top] scale-[1.05] hover:scale-[1.1] transition-transform duration-500 ease-in-out"
+                  alt="About us image 2"
+                  onerror="this.onerror=null;this.src='https://placehold.co/240x200/2B2B2B/FFFFFF?text=about2';"
+                />
+              </div>
+              <div
+                class="bg-[#242220] rounded-[13.81px] aspect-square overflow-hidden hover:scale-105 transition-transform duration-500 shadow-md hover:shadow-lg"
+              >
+                <img
+                  src="about3.png"
+                  class="w-full h-full object-cover object-[center_top] scale-[1.05] hover:scale-[1.1] transition-transform duration-500 ease-in-out"
+                  alt="About us image 3"
+                  onerror="this.onerror=null;this.src='https://placehold.co/240x200/2B2B2B/FFFFFF?text=about3';"
+                />
+              </div>
+              <div
+                class="bg-[#242220] rounded-[13.81px] aspect-square overflow-hidden hover:scale-105 transition-transform duration-500 shadow-md hover:shadow-lg"
+              >
+                <img
+                  src="about4.png"
+                  class="w-full h-full object-cover object-[center_top] scale-[1.05] hover:scale-[1.1] transition-transform duration-500 ease-in-out"
+                  alt="About us image 4"
+                  onerror="this.onerror=null;this.src='https://placehold.co/240x200/2B2B2B/FFFFFF?text=about4';"
+                />
+              </div>
+            </div>
+
+            <div class="flex flex-col space-y-6 justify-center">
+              <p
+                class="text-sm md:text-base leading-relaxed text-[#EAEAEA] font-semibold text-justify"
+              >
+                Lorem ipsum dolor sit amet consectetur. Pharetra faucibus donec
+                ultrices eros elit metus morbi aliquam quis. Suspendisse massa
+                ullamcorper tortor morbi nisi leo. Ultrices leo vel tincidunt
+                nunc eget elit. Gravida et duis ipsum pellentesque libero.
+                Tellus rhoncus metus et eget mattis fringilla nec id. Amet
+                ultrices quam ridiculus tellus. Leo adipiscing tincidunt amet
+                nisi semper adipiscing quam in est. Tempor sed dui nunc diam
+                adipiscing at.
+              </p>
+              <p
+                class="text-sm md:text-base leading-relaxed text-[#EAEAEA] font-semibold text-justify"
+              >
+                Tellus rhoncus metus et eget mattis fringilla nec id. Amet
+                ultrices quam ridiculus tellus. Leo adipiscing tincidunt amet
+                nisi semper adipiscing quam in est. Tempor sed dui nunc diam
+                adipiscing at.
+              </p>
+              <button
+                class="bg-[#66615e] text-white font-semibold py-2.5 px-6 rounded-[12px] border border-[#DA8F4D] hover:bg-[#3a3a3a] transition-all duration-300 w-full sm:w-max hover:scale-105 shadow-md hover:shadow-lg"
+              >
+                Connect Wallet
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+     
+      <!-- Top Collections Header -->
+      <div
+        class="relative w-full bg-black py-[80px] px-4 text-center mt-[40px] overflow-hidden animate-slide-up animate-delay-600 slide-up"
+      >
+        <h2 class="text-[50.79px] font-semibold text-white font-[Poppins] mb-4">
+          Top Collections
+        </h2>
+        <p class="text-[18.9px] text-white">
+          The largest and unique Super rare NFT marketplace<br />
+          For crypto-collectibles
+        </p>
+        <div
+          class="absolute left-[40px] top-[150px] w-[180px] h-[180px] sm:left-[60px] sm:top-[160px] sm:w-[220px] sm:h-[220px] md:left-[80px] md:top-[180px] md:w-[260px] md:h-[260px] lg:left-[100px] lg:top-[200px] lg:w-[300px] lg:h-[300px] bg-[#ffffff] opacity-60 blur-[150px] rounded-full z-0"
+        ></div>
+      </div>
+<!-- Collections -->
+      <div id="collection"
+  class="h-full flex flex-col items-center justify-start pt-[100px] px-4 3xl:px-0 bg-cover bg-center bg-no-repeat font-clash "
+  style="background-image: url('./heronewbg.png')"
+>
+  <div class="flex flex-wrap justify-center gap-[36px] animate-slide-up animate-delay-700 slide-up">
+    <div
+      class="w-full max-w-[90vw] sm:max-w-[500px] h-[531.9px] rounded-[18.53px] p-[18.53px] bg-[#F4E9C417] border border-[#E88E0E] transition-all duration-300 ease-in-out hover:scale-105 shadow-md hover:shadow-lg"
+    >
+      <div class="text-[18.53px] leading-[27.8px] font-normal text-[#B4C7CE]">
+        Created by
+      </div>
+      <div class="flex items-center gap-[4.63px] mb-[20px]">
+        <div class="w-[27.8px] h-[27.8px] bg-[#D9D9D9] rounded-full"></div>
+        <div class="text-[18.53px] leading-[27.8px] font-semibold text-[#EA9112]">
+          James Watson
+        </div>
+      </div>
+      <img
+        src="col1.png"
+        alt="NFT Image"
+        class="w-[299.7px] h-[286.2px] object-cover mx-auto mb-[30px] mt-[50px]"
+      />
+      <div
+        class="text-[27px] leading-[27.8px] font-bold text-[#E2E2E1] mt-[55px] font-[Poppins]"
+      >
+        Nfts Collections
+      </div>
+      <div class="text-[18.53px] leading-[27.8px] font-normal text-[#B4C7CE]">
+        Created by <span class="font-semibold text-[#EA9112]">James Watson</span>
+      </div>
+    </div>
+
+    <div
+      class="w-full max-w-[90vw] sm:max-w-[500px] h-[531.9px] rounded-[18.53px] p-[18.53px] bg-[#F4E9C417] border border-[#E88E0E] transition-all duration-300 ease-in-out hover:scale-105 shadow-md hover:shadow-lg"
+    >
+      <div class="text-[18.53px] leading-[27.8px] font-normal text-[#B4C7CE]">
+        Created by
+      </div>
+      <div class="flex items-center gap-[4.63px] mb-[20px]">
+        <div class="w-[27.8px] h-[27.8px] bg-[#D9D9D9] rounded-full"></div>
+        <div class="text-[18.53px] leading-[27.8px] font-semibold text-[#EA9112]">
+          James Watson
+        </div>
+      </div>
+      <img
+        src="col2.png"
+        alt="NFT Image"
+        class="w-[299.7px] h-[286.2px] object-cover mx-auto mb-[30px] mt-[50px]"
+      />
+      <div class="text-[18.53px] leading-[27.8px] font-normal text-[#B4C7CE] mt-[80px]">
+        Created by <span class="font-semibold text-[#EA9112]">James Watson</span>
+      </div>
+    </div>
+
+    <div
+      class="w-full max-w-[90vw] sm:max-w-[500px] h-[531.9px] rounded-[18.53px] p-[18.53px] bg-[#F4E9C417] border border-[#E88E0E] transition-all duration-300 ease-in-out hover:scale-105 shadow-md hover:shadow-lg"
+    >
+      <div class="text-[18.53px] leading-[27.8px] font-normal text-[#B4C7CE]">
+        Created by
+      </div>
+      <div class="flex items-center gap-[4.63px] mb-[20px]">
+        <div class="w-[27.8px] h-[27.8px] bg-[#D9D9D9] rounded-full"></div>
+        <div class="text-[18.53px] leading-[27.8px] font-semibold text-[#EA9112]">
+          James Watson
+        </div>
+      </div>
+      <img
+        src="col3.png"
+        alt="NFT Image"
+        class="w-[299.7px] h-[286.2px] object-cover mx-auto mb-[30px] mt-[50px]"
+      />
+      <div class="text-[18.53px] leading-[27.8px] font-normal text-[#B4C7CE] mt-[80px]">
+        Created by <span class="font-semibold text-[#EA9112]">James Watson</span>
+      </div>
+    </div>
+
+    <div
+      class="w-full max-w-[90vw] sm:max-w-[500px] h-[531.9px] rounded-[18.53px] p-[18.53px] bg-[#F4E9C417] border border-[#E88E0E] transition-all duration-300 ease-in-out hover:scale-105 shadow-md hover:shadow-lg"
+    >
+      <div class="text-[18.53px] leading-[27.8px] font-normal text-[#B4C7CE]">
+        Created by
+      </div>
+      <div class="flex items-center gap-[4.63px] mb-[20px]">
+        <div class="w-[27.8px] h-[27.8px] bg-[#D9D9D9] rounded-full"></div>
+        <div class="text-[18.53px] leading-[27.8px] font-semibold text-[#EA9112]">
+          James Watson
+        </div>
+      </div>
+      <img
+        src="col4.png"
+        alt="NFT Image"
+        class="w-[299.7px] h-[286.2px] object-cover mx-auto mb-[30px] mt-[50px]"
+      />
+      <div class="text-[18.53px] leading-[27.8px] font-normal text-[#B4C7CE] mt-[80px]">
+        Created by <span class="font-semibold text-[#EA9112]">James Watson</span>
+      </div>
+    </div>
+
+    <div
+      class="w-full max-w-[90vw] sm:max-w-[500px] h-[531.9px] rounded-[18.53px] p-[18.53px] bg-[#F4E9C417] border border-[#E88E0E] transition-all duration-300 ease-in-out hover:scale-105 shadow-md hover:shadow-lg"
+    >
+      <div class="text-[18.53px] leading-[27.8px] font-normal text-[#B4C7CE]">
+        Created by
+      </div>
+      <div class="flex items-center gap-[4.63px] mb-[20px]">
+        <div class="w-[27.8px] h-[27.8px] bg-[#D9D9D9] rounded-full"></div>
+        <div class="text-[18.53px] leading-[27.8px] font-semibold text-[#EA9112]">
+          James Watson
+        </div>
+      </div>
+      <img
+        src="col5.png"
+        alt="NFT Image"
+        class="w-[299.7px] h-[286.2px] object-cover mx-auto mb-[30px] mt-[50px]"
+      />
+      <div class="text-[18.53px] leading-[27.8px] font-normal text-[#B4C7CE] mt-[80px]">
+        Created by <span class="font-semibold text-[#EA9112]">James Watson</span>
+      </div>
+    </div>
+
+    <div
+      class="w-full max-w-[90vw] sm:max-w-[500px] h-[531.9px] rounded-[18.53px] p-[18.53px] bg-[#F4E9C417] border border-[#E88E0E] transition-all duration-300 ease-in-out hover:scale-105 shadow-md hover:shadow-lg"
+    >
+      <div class="text-[18.53px] leading-[27.8px] font-normal text-[#B4C7CE]">
+        Created by
+      </div>
+      <div class="flex items-center gap-[4.63px] mb-[20px]">
+        <div class="w-[27.8px] h-[27.8px] bg-[#D9D9D9] rounded-full"></div>
+        <div class="text-[18.53px] leading-[27.8px] font-semibold text-[#EA9112]">
+          James Watson
+        </div>
+      </div>
+      <img
+        src="col6.png"
+        alt="NFT Image"
+        class="w-[299.7px] h-[286.2px] object-cover mx-auto mb-[30px] mt-[50px]"
+      />
+      <div class="text-[18.53px] leading-[27.8px] font-normal text-[#B4C7CE] mt-[80px]">
+        Created by <span class="font-semibold text-[#EA9112]">James Watson</span>
+      </div>
+    </div>
+  </div>
+
+  <button
+    class="mt-[100px] mb-[60px] w-[198.45px] h-[56.7px] rounded-[20.88px] border border-[#DA8F4D] bg-[#FFFFFF59] text-white text-[18px] font-semibold hover:bg-[#ffffff80] transition-all duration-300 hover:scale-105 shadow-md hover:shadow-lg"
+  >
+    Explore More
+  </button>
+</div>
+      <!-- top creators section  -->
+<section id="creator" class="bg-black text-white py-16 px-4 relative overflow-hidden">
+  <div class="relative">
+    <div
+      class="absolute left-[-200px] top-[800px] -translate-y-1/2 w-[200px] h-[400px] bg-[#ffffff] opacity-30 blur-[100px] z-0 animate-pulse animate-duration-[4s] animate-infinite"
+    ></div>
+    <div
+      class="absolute right-[0px] top-[-150px] w-[200px] h-[200px] bg-[#EA9112] opacity-30 blur-[80px] rounded-full z-0 animate-pulse animate-duration-[3s] animate-infinite"
+    ></div>
+  </div>
+
+  <div class="max-w-7xl mx-auto text-center z-10 animate-on-scroll animate__animated">
+    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-semibold mb-2 font-[Poppins]">
+      Top Creators
+    </h2>
+    <p class="text-sm sm:text-lg text-white mb-10">
+      Checkout Top Rated Creators On The NFT Marketplace
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div
+        class="bg-[#E6DCBA33] rounded-3xl p-4 flex flex-col items-center relative h-full transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl hover:bg-opacity-50 shadow-md animate-on-scroll"
+        style="--animate-delay: 0.1s"
+      >
+        <div class="absolute top-4 left-4 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#2B2B2B] flex items-center justify-center">
+          <span class="text-base sm:text-xl font-semibold text-[#858584]">1</span>
+        </div>
+        <img
+          src="creator1.png"
+          alt="NFT 1"
+          class="w-24 h-24 sm:w-36 sm:h-36 rounded-full object-cover mb-4 mt-8"
+        />
+        <h3 class="text-lg sm:text-2xl font-semibold">Name NFT</h3>
+        <p class="text-sm sm:text-base text-gray-400 mt-1">
+          Total Sales: <span class="text-white font-medium text-sm sm:text-base">34.53 ETH</span>
+        </p>
+      </div>
+
+      <div
+        class="bg-[#E6DCBA33] rounded-3xl p-4 flex flex-col items-center relative h-full transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl hover:bg-opacity-50 shadow-md animate-on-scroll"
+        style="--animate-delay: 0.2s"
+      >
+        <div class="absolute top-4 left-4 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#2B2B2B] flex items-center justify-center">
+          <span class="text-base sm:text-xl font-semibold text-[#858584]">2</span>
+        </div>
+        <img
+          src="creator2.png"
+          alt="NFT 2"
+          class="w-24 h-24 sm:w-36 sm:h-36 rounded-full object-cover mb-4 mt-8"
+        />
+        <h3 class="text-lg sm:text-2xl font-semibold">Name NFT</h3>
+        <p class="text-sm sm:text-base text-gray-400 mt-1">
+          Total Sales: <span class="text-white font-medium text-sm sm:text-base">34.53 ETH</span>
+        </p>
+      </div>
+      
+      <div
+        class="bg-[#E6DCBA33] rounded-3xl p-4 flex flex-col items-center relative h-full transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl hover:bg-opacity-50 shadow-md animate-on-scroll"
+        style="--animate-delay: 0.3s"
+      >
+        <div class="absolute top-4 left-4 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#2B2B2B] flex items-center justify-center">
+          <span class="text-base sm:text-xl font-semibold text-[#858584]">3</span>
+        </div>
+        <img
+          src="creator3.png"
+          alt="NFT 3"
+          class="w-24 h-24 sm:w-36 sm:h-36 rounded-full object-cover mb-4 mt-8"
+        />
+        <h3 class="text-lg sm:text-2xl font-semibold">Name NFT</h3>
+        <p class="text-sm sm:text-base text-gray-400 mt-1">
+          Total Sales: <span class="text-white font-medium text-sm sm:text-base">34.53 ETH</span>
+        </p>
+      </div>
+
+      <div
+        class="bg-[#E6DCBA33] rounded-3xl p-4 flex flex-col items-center relative h-full transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl hover:bg-opacity-50 shadow-md animate-on-scroll"
+        style="--animate-delay: 0.4s"
+      >
+        <div class="absolute top-4 left-4 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#2B2B2B] flex items-center justify-center">
+          <span class="text-base sm:text-xl font-semibold text-[#858584]">4</span>
+        </div>
+        <img
+          src="creator4.png"
+          alt="NFT 4"
+          class="w-24 h-24 sm:w-36 sm:h-36 rounded-full object-cover mb-4 mt-8"
+        />
+        <h3 class="text-lg sm:text-2xl font-semibold">Name NFT</h3>
+        <p class="text-sm sm:text-base text-gray-400 mt-1">
+          Total Sales: <span class="text-white font-medium text-sm sm:text-base">34.53 ETH</span>
+        </p>
+      </div>
+      
+      <div
+        class="bg-[#E6DCBA33] rounded-3xl p-4 flex flex-col items-center relative h-full transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl hover:bg-opacity-50 shadow-md animate-on-scroll"
+        style="--animate-delay: 0.5s"
+      >
+        <div class="absolute top-4 left-4 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#2B2B2B] flex items-center justify-center">
+          <span class="text-base sm:text-xl font-semibold text-[#858584]">5</span>
+        </div>
+        <img
+          src="creator5.png"
+          alt="NFT 5"
+          class="w-24 h-24 sm:w-36 sm:h-36 rounded-full object-cover mb-4 mt-8"
+        />
+        <h3 class="text-lg sm:text-2xl font-semibold">Name NFT</h3>
+        <p class="text-sm sm:text-base text-gray-400 mt-1">
+          Total Sales: <span class="text-white font-medium text-sm sm:text-base">34.53 ETH</span>
+        </p>
+      </div>
+
+      <div
+        class="bg-[#E6DCBA33] rounded-3xl p-4 flex flex-col items-center relative h-full transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl hover:bg-opacity-50 shadow-md animate-on-scroll"
+        style="--animate-delay: 0.6s"
+      >
+        <div class="absolute top-4 left-4 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#2B2B2B] flex items-center justify-center">
+          <span class="text-base sm:text-xl font-semibold text-[#858584]">6</span>
+        </div>
+        <img
+          src="creator6.png"
+          alt="NFT 6"
+          class="w-24 h-24 sm:w-36 sm:h-36 rounded-full object-cover mb-4 mt-8"
+        />
+        <h3 class="text-lg sm:text-2xl font-semibold">Name NFT</h3>
+        <p class="text-sm sm:text-base text-gray-400 mt-1">
+          Total Sales: <span class="text-white font-medium text-sm sm:text-base">34.53 ETH</span>
+        </p>
+      </div>
+
+      <div
+        class="bg-[#E6DCBA33] rounded-3xl p-4 flex flex-col items-center relative h-full transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl hover:bg-opacity-50 shadow-md animate-on-scroll"
+        style="--animate-delay: 0.7s"
+      >
+        <div class="absolute top-4 left-4 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#2B2B2B] flex items-center justify-center">
+          <span class="text-base sm:text-xl font-semibold text-[#858584]">7</span>
+        </div>
+        <img
+          src="creator7.png"
+          alt="NFT 7"
+          class="w-24 h-24 sm:w-36 sm:h-36 rounded-full object-cover mb-4 mt-8"
+        />
+        <h3 class="text-lg sm:text-2xl font-semibold">Name NFT</h3>
+        <p class="text-sm sm:text-base text-gray-400 mt-1">
+          Total Sales: <span class="text-white font-medium text-sm sm:text-base">34.53 ETH</span>
+        </p>
+      </div>
+
+      <div
+        class="bg-[#E6DCBA33] rounded-3xl p-4 flex flex-col items-center relative h-full transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl hover:bg-opacity-50 shadow-md animate-on-scroll"
+        style="--animate-delay: 0.8s"
+      >
+        <div class="absolute top-4 left-4 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#2B2B2B] flex items-center justify-center">
+          <span class="text-base sm:text-xl font-semibold text-[#858584]">8</span>
+        </div>
+        <img
+          src="creator8.png"
+          alt="NFT 8"
+          class="w-24 h-24 sm:w-36 sm:h-36 rounded-full object-cover mb-4 mt-8"
+        />
+        <h3 class="text-lg sm:text-2xl font-semibold">Name NFT</h3>
+        <p class="text-sm sm:text-base text-gray-400 mt-1">
+          Total Sales: <span class="text-white font-medium text-sm sm:text-base">34.53 ETH</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- roadmap -->
+<div class="relative w-full overflow-hidden">
+  <img src="roadmap.png" alt="Background" class="absolute inset-0 w-full h-full object-cover -z-10" />
+
+  <div class="relative max-w-7xl mx-auto px-4 py-20">
+    <div class="relative flex flex-col items-center">
+      <div class="absolute w-1 bg-white/20 left-1/2 md:left-1/2 transform -translate-x-1/2 z-0 top-[120px] bottom-[160px]"></div>
+
+      <div class="flex flex-col w-full z-10 space-y-20 md:space-y-0">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-0 relative">
+          <div class="w-full md:w-1/2 flex justify-start md:justify-end pr-0 md:pr-8">
+            <div class="max-w-timeline h-[258px] p-6 rounded-[9.23px] border border-white/30 text-white relative transform translate-x-0 md:translate-x-[-42px]">
+              <img src="left.png" alt="corner glow" class="absolute -top-[15px] -right-[20px] w-[160px] h-[285px] z-20 pointer-events-none" />
+              <p class="text-[23.08px] leading-[34.62px] text-center font-medium font-['Clash_Display']">January</p>
+              <h3 class="text-[36.93px] leading-[34.62px] font-semibold mt-2 font-['Clash_Display']">Brief</h3>
+              <p class="text-[18.46px] leading-[27.7px] mt-4 font-medium font-['Clash_Display']">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</p>
+            </div>
+          </div>
+          <div class="absolute left-1/2 transform -translate-x-1/2 z-10">
+            <div class="w-4 h-4 rounded-full bg-white z-10"></div>
+            <img class="absolute right-[25px] top-1/2 -translate-y-1/2 rotate-180 scale-x-400 scale-y-300 object-contain hidden md:block" />
+          </div>
+          <div class="hidden md:block md:w-1/2"></div>
+        </div>
+
+        <div class="flex flex-col md:flex-row justify-between items-center gap-0 relative -mt-[0] md:-mt-[60px]">
+          <div class="hidden md:block md:w-1/2"></div>
+          <div class="absolute left-1/2 transform -translate-x-1/2 z-10">
+            <div class="w-4 h-4 rounded-full bg-orange-500 z-10"></div>
+            <img class="absolute left-[25px] top-1/2 -translate-y-1/2 scale-x-400 scale-y-300 object-contain hidden md:block" />
+          </div>
+          <div class="w-full md:w-1/2 flex justify-start pl-0 md:pl-8">
+            <div class="max-w-timeline h-[258px] p-6 rounded-[9.23px] border border-white/30 text-white relative transform translate-x-0 md:translate-x-[42px]">
+              <img src="rightbord.png" alt="corner glow" class="absolute -top-[15px] -left-[20px] w-[160px] h-[285px] z-20 pointer-events-none" />
+              <p class="text-[23.08px] leading-[34.62px] text-center font-medium font-['Clash_Display']">February</p>
+              <h3 class="text-[36.93px] leading-[34.62px] font-semibold mt-2 font-['Clash_Display']">Research</h3>
+              <p class="text-[18.46px] leading-[27.7px] mt-4 font-medium font-['Clash_Display']">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="flex flex-col md:flex-row justify-between items-center gap-0 relative -mt-[0] md:-mt-[60px]">
+          <div class="w-full md:w-1/2 flex justify-start md:justify-end pr-0 md:pr-8">
+            <div class="max-w-timeline h-[258px] p-6 rounded-[9.23px] border border-white/30 text-white relative transform translate-x-0 md:translate-x-[-42px]">
+              <img src="left.png" alt="corner glow" class="absolute -top-[15px] -right-[20px] w-[160px] h-[285px] z-20 pointer-events-none" />
+              <p class="text-[23.08px] leading-[34.62px] text-center font-medium font-['Clash_Display']">March</p>
+              <h3 class="text-[36.93px] leading-[34.62px] font-semibold mt-2 font-['Clash_Display']">Discover</h3>
+              <p class="text-[18.46px] leading-[27.7px] mt-4 font-medium font-['Clash_Display']">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</p>
+            </div>
+          </div>
+          <div class="absolute left-1/2 transform -translate-x-1/2 z-10">
+            <div class="w-4 h-4 rounded-full bg-white z-10"></div>
+            <img class="absolute right-[25px] top-1/2 -translate-y-1/2 rotate-180 scale-x-400 scale-y-300 object-contain hidden md:block" />
+          </div>
+          <div class="hidden md:block md:w-1/2"></div>
+        </div>
+
+        <div class="flex flex-col md:flex-row justify-between items-center gap-0 relative -mt-[0] md:-mt-[60px]">
+          <div class="hidden md:block md:w-1/2"></div>
+          <div class="absolute left-1/2 transform -translate-x-1/2 z-10">
+            <div class="w-4 h-4 rounded-full bg-orange-500 z-10"></div>
+            <img src="" class="absolute left-[25px] top-1/2 -translate-y-1/2 scale-x-400 scale-y-300 object-contain hidden md:block" />
+          </div>
+          <div class="w-full md:w-1/2 flex justify-start pl-0 md:pl-8">
+            <div class="max-w-timeline h-[258px] p-6 rounded-[9.23px] border border-white/30 text-white relative transform translate-x-0 md:translate-x-[42px]">
+              <img src="rightbord.png" alt="corner glow" class="absolute -top-[15px] -left-[20px] w-[160px] h-[285px] z-20 pointer-events-none" />
+              <p class="text-[23.08px] leading-[34.62px] text-center font-medium font-['Clash_Display']">April</p>
+              <h3 class="text-[36.93px] leading-[34.62px] font-semibold mt-2 font-['Clash_Display']">Design</h3>
+              <p class="text-[18.46px] leading-[27.7px] mt-4 font-medium font-['Clash_Display']">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row justify-between items-center gap-0 relative -mt-[0] md:-mt-[60px]">
+          <div class="w-full md:w-1/2 flex justify-start md:justify-end pr-0 md:pr-8">
+            <div class="max-w-timeline h-[258px] p-6 rounded-[9.23px] border border-white/30 text-white relative transform translate-x-0 md:translate-x-[-42px]">
+              <img src="left.png" alt="corner glow" class="absolute -top-[15px] -right-[20px] w-[160px] h-[285px] z-20 pointer-events-none" />
+              <p class="text-[23.08px] leading-[34.62px] text-center font-medium font-['Clash_Display']">May</p>
+              <h3 class="text-[36.93px] leading-[34.62px] font-semibold mt-2 font-['Clash_Display']">Testing</h3>
+              <p class="text-[18.46px] leading-[27.7px] mt-4 font-medium font-['Clash_Display']">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</p>
+            </div>
+          </div>
+          <div class="absolute left-1/2 transform -translate-x-1/2 z-10">
+            <div class="w-4 h-4 rounded-full bg-white z-10"></div>
+            <img src="" class="absolute right-[25px] top-1/2 -translate-y-1/2 rotate-180 scale-x-400 scale-y-300 object-contain hidden md:block" />
+          </div>
+          <div class="hidden md:block md:w-1/2"></div>
+        </div>
+
+        <div class="flex flex-col md:flex-row justify-between items-center gap-0 relative -mt-[0] md:-mt-[60px]">
+          <div class="hidden md:block md:w-1/2"></div>
+          <div class="absolute left-1/2 transform -translate-x-1/2 z-10">
+            <div class="w-4 h-4 rounded-full bg-orange-500 z-10"></div>
+            <img src="" class="absolute left-[25px] top-1/2 -translate-y-1/2 scale-x-400 scale-y-300 object-contain hidden md:block" />
+          </div>
+          <div class="w-full md:w-1/2 flex justify-start pl-0 md:pl-8">
+            <div class="max-w-timeline h-[258px] p-6 rounded-[9.23px] border border-white/30 text-white relative transform translate-x-0 md:translate-x-[42px]">
+              <img src="rightbord.png" alt="corner glow" class="absolute -top-[15px] -left-[20px] w-[160px] h-[285px] z-20 pointer-events-none" />
+              <p class="text-[23.08px] leading-[34.62px] text-center font-medium font-['Clash_Display']">June</p>
+              <h3 class="text-[36.93px] leading-[34.62px] font-semibold mt-2 font-['Clash_Display']">Launch & Feedback</h3>
+              <p class="text-[18.46px] leading-[27.7px] mt-4 font-medium font-['Clash_Display']">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="h-6"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+ <!-- How it works page -->
+
+      <main class="bg-black container mx-auto px-4 py-16">
+  <h1 class="text-2xl md:text-4xl lg:text-4xl font-bold text-center mb-16">
+    How It Works
+  </h1>
+
+  <div class="space-y-16">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+      <div class="w-full md:w-1/2">
+        <img
+          src="walletbg.png"
+          alt="Wallet"
+          class="w-full h-auto transition-transform duration-300 hover:scale-105 shadow-md hover:shadow-lg"
+        />
+      </div>
+      <div class="relative w-full md:w-1/2 text-left md:pl-20">
+        <img
+          src="wide.png"
+          alt="Star"
+          class="w-[100px] h-[100px] absolute top-[-100px] left-[-20px] animate-star-float"
+        />
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          Setup And Connect<br />Your Wallet.
+        </h2>
+        <p class="text-base md:text-lg text-gray-300 font-semibold">
+          Lorem ipsum dolor sit amet consectetur. Donec vitae pellentesque posuere integer.
+          Maecenas massa malesuada nullam at vitae a et. Porta pellentesque sed odio.
+        </p>
+      </div>
+    </div>
+
+    <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+      <div class="relative w-full md:w-1/2 text-left md:pr-20 order-2 md:order-1">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          Create Your Own<br />Digital NFT
+        </h2>
+        <p class="text-base md:text-lg text-gray-300 font-semibold mb-4">
+          Lorem ipsum dolor sit amet consectetur. Donec vitae pellentesque posuere integer.
+          Maecenas massa malesuada nullam at vitae a et. Porta pellentesque sed odio.
+        </p>
+        <img
+          src="wide.png"
+          alt="Star"
+          class="w-[90px] h-[90px] absolute star-position-2 left-0 animate-star-slide"
+        />
+      </div>
+      <div class="w-full md:w-1/2 order-1 md:order-2">
+        <img
+          src="monkeybg.png"
+          alt="Monkey"
+          class="w-full max-w-[85%] h-auto mx-auto transition-transform duration-300 hover:scale-105 shadow-md hover:shadow-lg"
+        />
+      </div>
+    </div>
+
+    <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+      <div class="w-full md:w-1/2">
+        <img
+          src="coolerbg.png"
+          alt="Cooler"
+          class="w-full h-auto transition-transform duration-300 hover:scale-105 shadow-md hover:shadow-lg"
+        />
+      </div>
+      <div class="relative w-full md:w-1/2 text-left md:pl-20">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          Setup And Connect<br />Your Wallet.
+        </h2>
+        <p class="text-base md:text-lg text-gray-300 font-semibold">
+          Lorem ipsum dolor sit amet consectetur. Donec vitae pellentesque posuere integer.
+          Maecenas massa malesuada nullam at vitae a et. Porta pellentesque sed odio.
+        </p>
+      </div>
+    </div>
+  </div>
+</main>
+
+
+
+      <!-- footer -->
+      <div
+        class="w-full bg-cover bg-center bg-no-repeat font-poppins px-4 py-12 3xl:px-0 animate-slide-up animate-delay-900 slide-up pb-8"
+        style="background-image: url('./joinnew.png'); min-height: 577.8px"
+      >
+        <div
+          class="max-w-[1896.75px] mx-auto w-full flex flex-col items-center justify-center gap-6 3xl:items-start 3xl:gap-0 relative"
+        >
+          <h1
+            class="text-white text-[32px] sm:text-[42px] md:text-[48px] lg:text-[52px] 3xl:text-[59.76px] font-bold leading-[120%] capitalize text-center 3xl:absolute 3xl:top-[90.7px] 3xl:left-[583.2px] 3xl:text-left"
+          >
+            Join Our<span class="text-white">Community</span>
+          </h1>
+
+          <p
+            class="text-white text-[14px] sm:text-[15px] md:text-[16px] 3xl:text-[14.94px] font-semibold leading-[120%] capitalize max-w-[816px] text-center mt-4 3xl:absolute 3xl:top-[216.3px] 3xl:left-[494.1px] 3xl:text-left"
+          >
+            Lorem ipsum dolor sit amet consectetur. Donec vitae pellentesque
+            nunc ut sit a volutpat elementum. Nunc elit nisi pellentesque porta
+            elementum. Id mattis neque diam nulla. Amet et a felis pellentesque
+            sed odio.
+          </p>
+
+          <div
+            class="flex flex-col sm:flex-row gap-4 mt-6 w-full max-w-[800px] justify-center 3xl:flex-row 3xl:gap-[27px] 3xl:absolute 3xl:top-[314.85px] 3xl:left-[494.1px]"
+          >
+            <input
+              type="email"
+              placeholder="Your Email"
+              class="w-full sm:w-[400px] md:w-[500px] lg:w-[600px] 3xl:w-[621px] h-[55px] 3xl:h-[67.5px] rounded-[30px] 3xl:rounded-[41.85px] px-6 text-black placeholder:text-gray-600 bg-[#D9D9D9] focus:outline-none"
+            />
+            <button
+              class="w-full sm:w-[180px] 3xl:w-[199.8px] h-[55px] 3xl:h-[67.5px] rounded-[30px] 3xl:rounded-[41.85px] border border-[#EA9112] bg-[#EFE7D78F] text-white text-[16px] font-semibold transition-all duration-300 hover:scale-105 hover:bg-[#EFE7D7A0] shadow-md hover:shadow-lg"
+            >
+              Join Now
+            </button>
+          </div>
+
+          <p
+            class="text-[#CCCCCC] text-[14px] sm:text-[15px] 3xl:text-[16.2px] font-work text-center mt-10 3xl:absolute 3xl:top-[415.8px] 3xl:left-[699.3px] 3xl:w-[369.9px] 3xl:h-[18px]"
+          >
+            © NFT Market. Use this template freely.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    </script>
+    <script>
+      const menuBtn = document.getElementById("menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+
+      menuBtn.addEventListener("click", () => {
+        const isExpanded = mobileMenu.classList.toggle("hidden");
+        if (!isExpanded) {
+          mobileMenu.classList.add("max-h-96");
+          mobileMenu.classList.remove("max-h-0");
+        } else {
+          mobileMenu.classList.remove("max-h-96");
+          mobileMenu.classList.add("max-h-0");
+        }
+      });
+    </script>
+
+    <script>
+      const btn = document.getElementById("menu-btn");
+      const menu = document.getElementById("mobile-menu");
+      btn.addEventListener("click", () => {
+        menu.classList.toggle("hidden");
+      });
+    </script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const slideUps = document.querySelectorAll(".slide-up");
+
+        const observer = new IntersectionObserver(
+          (entries, observerRef) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("show");
+                observerRef.unobserve(entry.target);
+              }
+            });
+          },
+          {
+            root: null,
+            threshold: 0.5,
+          }
+        );
+
+        slideUps.forEach((el) => {
+          observer.observe(el);
+        });
+      });
+    </script>
+
+
+<script>
+   document.addEventListener('DOMContentLoaded', (event) => {
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  menuBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+    mobileMenu.classList.toggle('max-h-0');
+    mobileMenu.classList.toggle('max-h-[500px]');
+  });
+  });
+</script>
+
+
+<script>
+  document.getElementById("menu-btn").addEventListener("click", () => {
+    const menu = document.getElementById("mobile-menu");
+    menu.classList.toggle("hidden");
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("animate__fadeInUp");
+          
+          const delay = entry.target.style.getPropertyValue("--animate-delay");
+          entry.target.style.animationDelay = delay;
+
+          
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 }); 
+
+
+    const animatedElements = document.querySelectorAll(".animate-on-scroll");
+
+    animatedElements.forEach((element) => {
+      observer.observe(element);
+    });
+
+   
+    const headerObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.querySelector("h2").classList.add("animate__fadeInUp");
+          entry.target.querySelector("p").classList.add("animate__fadeInUp", "animate__delay-1s");
+          headerObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    const headerSection = document.querySelector("#creator > .max-w-7xl");
+    if (headerSection) {
+      headerObserver.observe(headerSection);
+    }
+  });
+</script>
+  </body>
+</html>
