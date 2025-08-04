@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Age Calculator</title>
+
+    <!-- Tailwind CSS -->
+
+    <link href="./output.css" rel="stylesheet" />
+
+    <!-- Poppins Font -->
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,800&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+      }
+
+      @keyframes slideIn {
+        0% {
+          transform: translateY(30px);
+
+          opacity: 0;
+        }
+
+        100% {
+          transform: translateY(0);
+
+          opacity: 1;
+        }
+      }
+
+      .animate-count {
+        animation: slideIn 0.6s ease-out;
+      }
+
+      @media (max-width: 640px) {
+        .mobile-absolute-btn {
+          position: static !important;
+
+          margin-top: 1.5rem;
+
+          align-self: center;
+        }
+
+        .mobile-hr {
+          margin-right: 0 !important;
+        }
+
+        #ageForm > div {
+          flex-direction: column;
+
+          align-items: flex-start;
+        }
+
+        #ageForm input[type="number"] {
+          width: 100% !important;
+        }
+
+        .calendar-button-wrapper {
+          align-self: flex-start;
+
+          margin-top: -0.5rem;
+        }
+
+        #result {
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="bg-[#f4f4f4] flex items-center justify-center min-h-screen px-4">
+    <div
+      class="bg-white rounded-3xl rounded-br-[100px] shadow-lg px-6 py-12 w-[min(92%,520px)] relative"
+    >
+      <form id="ageForm" class="flex flex-col gap-8">
+        <div class="flex flex-wrap gap-6 max-sm:gap-4">
+          <!-- Day -->
+
+          <div class="flex flex-col">
+            <label
+              for="day"
+              class="text-[0.6rem] tracking-[0.2em] text-[#716f6f] mb-1 uppercase font-bold"
+              >Day</label
+            >
+
+            <input
+              type="number"
+              id="day"
+              class="w-[80px] sm:w-[100px] px-3 py-2 border border-[#dbdbdb] rounded-md text-[2rem] font-bold text-black focus:outline-none focus:border-[#854dff]"
+              placeholder="DD"
+              required
+            />
+            <span
+              id="dayError"
+              class="text-red-500 text-sm mt-1 hidden"
+              >This field is required</span>
+          </div>
+
+          <!-- Month -->
+
+          <div class="flex flex-col">
+            <label
+              for="month"
+              class="text-[0.6rem] tracking-[0.2em] text-[#716f6f] mb-1 uppercase font-bold"
+              >Month</label
+            >
+
+            <input
+              type="number"
+              id="month"
+              class="w-[80px] sm:w-[100px] px-3 py-2 border border-[#dbdbdb] rounded-md text-[2rem] font-bold text-black focus:outline-none focus:border-[#854dff]"
+              placeholder="MM"
+              required
+            />
+          </div>
+
+          <!-- Year -->
+
+          <div class="flex flex-col">
+            <label
+              for="year"
+              class="text-[0.6rem] tracking-[0.2em] text-[#716f6f] mb-1 uppercase font-bold"
+              >Year</label
+            >
+
+            <input
+              type="number"
+              id="year"
+              class="w-[100px] sm:w-[120px] px-3 py-2 border border-[#dbdbdb] rounded-md text-[2rem] font-bold text-black focus:outline-none focus:border-[#854dff]"
+              placeholder="YYYY"
+              required
+            />
+          </div>
+
+          <!-- Calendar Picker Button -->
+
+          <div class="flex items-end -top-2 calendar-button-wrapper">
+            <button
+              type="button"
+              onclick="document.getElementById('calendarDate').showPicker()"
+              class="ml-2 mt-auto p-2 rounded-md border border-[#dbdbdb] hover:bg-gray-100 transition"
+              title="Pick from calendar"
+            >
+              📅
+            </button>
+
+            <input type="date" id="calendarDate" class="hidden" />
+          </div>
+
+          <!-- Arrow button -->
+
+          <button
+            type="submit"
+            class="bg-[#854dff] w-14 h-14 flex items-center justify-center rounded-full absolute right-10 top-[135px] hover:bg-[#6d3dff] transition-colors mobile-absolute-btn"
+          >
+            <img
+              src="./assets/images/icon-arrow.svg"
+              alt="Arrow"
+              class="w-6 h-6"
+            />
+          </button>
+
+          <hr class="border-t border-gray-200 mt-6 mb-4 mr-[72px] mobile-hr" />
+        </div>
+
+        <hr class="border-t border-gray-200 -mt-16 -mb-2 mr-[72px] mobile-hr" />
+      </form>
+
+      <!-- Result -->
+
+      <div id="result" class="mt-10 space-y-2">
+        <div
+          class="text-[3rem] sm:text-[3.5rem] font-extrabold leading-tight italic"
+        >
+          <span id="years" class="text-[#854dff] animate-count">--</span>
+
+          <span class="text-black">years</span>
+        </div>
+
+        <div
+          class="text-[3rem] sm:text-[3.5rem] font-extrabold leading-tight italic"
+        >
+          <span id="months" class="text-[#854dff] animate-count">--</span>
+
+          <span class="text-black">months</span>
+        </div>
+
+        <div
+          class="text-[3rem] sm:text-[3.5rem] font-extrabold leading-tight italic"
+        >
+          <span id="days" class="text-[#854dff] animate-count">--</span>
+
+          <span class="text-black">days</span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const form = document.getElementById("ageForm");
+
+      const animateCount = (el, endVal) => {
+        let start = 0;
+
+        const duration = 800;
+
+        const startTime = performance.now();
+
+        const step = (currentTime) => {
+          const progress = Math.min((currentTime - startTime) / duration, 1);
+
+          el.textContent = Math.floor(progress * endVal);
+
+          if (progress < 1) {
+            requestAnimationFrame(step);
+          }
+        };
+
+        requestAnimationFrame(step);
+      };
+
+
+
+const clearErrors = () => {
+        const inputs = [dayInput, monthInput, yearInput];
+        const labels = [dayLabel, monthLabel, yearLabel];
+        const errors = [dayError, monthError, yearError];
+
+        inputs.forEach((input) => input.classList.remove("error-input"));
+        labels.forEach((label) => label.classList.remove("error-label"));
+        errors.forEach((error) => error.classList.add("hidden"));
+      };
+
+      const displayError = (input, label, errorElement, message) => {
+        input.classList.add("error-input");
+        label.classList.add("error-label");
+        errorElement.textContent = message;
+        errorElement.classList.remove("hidden");
+      };
+
+      const validateForm = (day, month, year) => {
+        let isValid = true;
+        const today = new Date();
+        const inputDate = new Date(year, month - 1, day);
+
+        // Clear previous errors
+        clearErrors();
+
+        if (!day) {
+          displayError(dayInput, dayLabel, dayError, "This field is required");
+          isValid = false;
+        } else if (day < 1 || day > 31) {
+          displayError(dayInput, dayLabel, dayError, "Must be a valid day");
+          isValid = false;
+        }
+
+        if (!month) {
+          displayError(
+            monthInput,
+            monthLabel,
+            monthError,
+            "This field is required"
+          );
+          isValid = false;
+        } else if (month < 1 || month > 12) {
+          displayError(
+            monthInput,
+            monthLabel,
+            monthError,
+            "Must be a valid month"
+          );
+          isValid = false;
+        }
+
+        if (!year) {
+          displayError(
+            yearInput,
+            yearLabel,
+            yearError,
+            "This field is required"
+          );
+          isValid = false;
+        } else if (year > today.getFullYear()) {
+          displayError(
+            yearInput,
+            yearLabel,
+            yearError,
+            "Must be in the past"
+          );
+          isValid = false;
+        }
+
+        if (day && month && year) {
+          if (inputDate.getMonth() + 1 !== month || inputDate.getDate() !== day || inputDate.getFullYear() !== year) {
+            displayError(dayInput, dayLabel, dayError, "Must be a valid day");
+            displayError(monthInput, monthLabel, monthError, "Must be a valid month");
+            displayError(yearInput, yearLabel, yearError, "Must be in the past");
+            isValid = false;
+          }
+        }
+
+        return isValid;
+      };
+
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const day = parseInt(document.getElementById("day").value);
+
+        const month = parseInt(document.getElementById("month").value) - 1;
+
+        const year = parseInt(document.getElementById("year").value);
+
+        const birthDate = new Date(year, month, day);
+
+        const today = new Date();
+
+        let years = today.getFullYear() - birthDate.getFullYear();
+
+        let months = today.getMonth() - birthDate.getMonth();
+
+        let days = today.getDate() - birthDate.getDate();
+
+        if (days < 0) {
+          months--;
+
+          days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+        }
+
+        if (months < 0) {
+          years--;
+
+          months += 12;
+        }
+
+        animateCount(document.getElementById("years"), years);
+
+        animateCount(document.getElementById("months"), months);
+
+        animateCount(document.getElementById("days"), days);
+      });
+
+      const calendar = document.getElementById("calendarDate");
+
+      calendar.addEventListener("change", function () {
+        if (!this.value) return;
+
+        const [year, month, day] = this.value.split("-");
+
+        document.getElementById("day").value = parseInt(day);
+
+        document.getElementById("month").value = parseInt(month);
+
+        document.getElementById("year").value = parseInt(year);
+      });
+    </script>
+  </body>
+</html>

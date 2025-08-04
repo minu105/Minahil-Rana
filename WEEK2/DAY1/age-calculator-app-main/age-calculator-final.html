@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Age Calculator</title>
+    <link href="./output.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+      }
+
+      @keyframes slideIn {
+        0% {
+          transform: translateY(30px);
+          opacity: 0;
+        }
+        100% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .animate-count {
+        animation: slideIn 0.6s ease-out;
+      }
+
+      .error-input {
+        border-color: #ff5757 !important;
+      }
+
+      .error-label {
+        color: #ff5757 !important;
+      }
+
+      .error-message {
+        color: #ff5757;
+        font-size: 0.65rem;
+        min-height: 1.25em;
+        margin-top: 0.25rem;
+        display: block;
+        line-height: 1;
+      }
+
+      @media (max-width: 640px) {
+        .mobile-absolute-btn {
+          position: static !important;
+          margin-top: 1.5rem;
+          align-self: center;
+        }
+        .mobile-hr {
+          margin-right: 0 !important;
+        }
+        #ageForm > div {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        #ageForm input:not([type='date']) {
+          width: 100% !important;
+        }
+        .calendar-button-wrapper {
+          align-self: flex-start;
+          margin-top: -0.5rem;
+        }
+        #result {
+          text-align: center;
+        }
+      }
+
+      @keyframes fadeInDown {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes rotateArrow {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .animate-fade-in-down {
+        animation: fadeInDown 1s ease-out;
+      }
+
+      .animate-rotate {
+        animation: rotateArrow 0.8s ease-in-out;
+      }
+      
+      .input-grow {
+          transition: width 0.3s ease-in-out, border-color 0.3s ease;
+      }
+
+      .input-grow:focus {
+          width: 120px;
+      }
+      .input-grow-lg:focus {
+          width: 150px;
+      }
+      
+  
+      #zodiacSign {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: #854dff;
+        text-align: center;
+        margin-top: 2rem;
+        animation: slideIn 0.8s ease-out;
+      }
+      #zodiacSign a {
+        text-decoration: underline;
+        color: inherit;
+        transition: color 0.3s;
+      }
+      #zodiacSign a:hover {
+        color: black;
+      }
+    </style>
+  </head>
+  <body class="bg-[#f4f4f4] flex items-center justify-center min-h-screen px-4">
+    <audio id="backgroundMusic" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop></audio>
+    <audio id="clickSound" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"></audio>
+    <audio id="popSound" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"></audio>
+    
+    <canvas id="confetti-canvas" style="position:fixed;pointer-events:none;top:0;left:0;width:100vw;height:100vh;z-index:100;"></canvas>
+    <div
+      class="bg-gray-100 p-6 sm:p-10 md:p-16 rounded-2xl shadow-2xl w-full max-w-4xl mx-auto sm:mx-4 flex items-center justify-center animate-fade-in-down"
+    >
+      <div
+        class="bg-white rounded-3xl rounded-br-[150px] shadow-lg px-6 py-12 w-[min(92%,520px)] relative"
+      >
+        <form id="ageForm" class="flex flex-col gap-8">
+          <div class="flex flex-wrap gap-6 max-sm:gap-4">
+            <div class="flex flex-col min-h-[100px]">
+              <label
+                for="day"
+                class="text-[0.6rem] tracking-[0.2em] text-[#716f6f] mb-1 uppercase font-bold"
+                >Day</label
+              >
+              <input
+                type="text"
+                id="day"
+                class="w-[80px] sm:w-[100px] px-3 py-2 border border-[#dbdbdb] rounded-md text-[2rem] font-bold text-black focus:outline-none focus:border-[#854dff] input-grow"
+                placeholder="DD"
+              />
+              <span id="dayError" class="error-message hidden"></span>
+            </div>
+
+            <div class="flex flex-col">
+              <label
+                for="month"
+                class="text-[0.6rem] tracking-[0.2em] text-[#716f6f] mb-1 uppercase font-bold"
+                >Month</label
+              >
+              <input
+                type="text"
+                id="month"
+                class="w-[80px] sm:w-[100px] px-3 py-2 border border-[#dbdbdb] rounded-md text-[2rem] font-bold text-black focus:outline-none focus:border-[#854dff] input-grow"
+                placeholder="MM"
+              />
+              <span id="monthError" class="error-message hidden"></span>
+            </div>
+
+            <div class="flex flex-col">
+              <label
+                for="year"
+                class="text-[0.6rem] tracking-[0.2em] text-[#716f6f] mb-1 uppercase font-bold"
+                >Year</label
+              >
+              <input
+                type="text"
+                id="year"
+                class="w-[100px] sm:w-[120px] px-3 py-2 border border-[#dbdbdb] rounded-md text-[2rem] font-bold text-black focus:outline-none focus:border-[#854dff] input-grow-lg"
+                placeholder="YYYY"
+              />
+              <span id="yearError" class="error-message hidden"></span>
+            </div>
+
+            <div class="flex items-end calendar-button-wrapper">
+              <button
+                type="button"
+                onclick="document.getElementById('calendarDate').showPicker()"
+                class="ml-2 p-2 mb-4 rounded-md border border-[#dbdbdb] hover:bg-gray-100 transition"
+                title="Pick from calendar"
+              >
+                📅
+              </button>
+              <input type="date" id="calendarDate" class="hidden" />
+            </div>
+
+            <button
+              type="submit"
+              class="bg-[#854dff] w-14 h-14 flex items-center justify-center rounded-full absolute right-10 top-[135px] hover:bg-black transition-colors mobile-absolute-btn arrow-btn"
+            >
+              <img
+                src="./assets/images/icon-arrow.svg"
+                alt="Arrow"
+                class="w-6 h-6"
+              />
+            </button>
+
+            <hr class="border-t border-gray-200 mt-6 mb-4 mr-[72px] mobile-hr" />
+          </div>
+          <hr
+            class="border-t border-gray-200 -mt-20 -mb-2 mr-[72px] mobile-hr"
+          />
+        </form>
+
+        <div id="result" class="mt-10 space-y-2">
+          <div
+            class="text-[3rem] sm:text-[3.5rem] font-extrabold leading-tight italic"
+          >
+            <span id="years" class="text-[#854dff] animate-count">--</span>
+            <span class="text-black">years</span>
+          </div>
+          <div
+            class="text-[3rem] sm:text-[3.5rem] font-extrabold leading-tight italic"
+          >
+            <span id="months" class="text-[#854dff] animate-count">--</span>
+            <span class="text-black">months</span>
+          </div>
+          <div
+            class="text-[3rem] sm:text-[3.5rem] font-extrabold leading-tight italic"
+          >
+            <span id="days" class="text-[#854dff] animate-count">--</span>
+            <span class="text-black">days</span>
+          </div>
+        </div>
+
+        <div id="zodiacSign" class="hidden">
+            <span id="zodiacName"></span>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script>
+      const form = document.getElementById("ageForm");
+      const dayInput = document.getElementById("day");
+      const monthInput = document.getElementById("month");
+      const yearInput = document.getElementById("year");
+
+      const dayLabel = dayInput.previousElementSibling;
+      const monthLabel = monthInput.previousElementSibling;
+      const yearLabel = yearInput.previousElementSibling;
+
+      const dayError = document.getElementById("dayError");
+      const monthError = document.getElementById("monthError");
+      const yearError = document.getElementById("yearError");
+
+      const arrowBtn = document.querySelector(".arrow-btn");
+      const zodiacSignEl = document.getElementById("zodiacSign");
+      const zodiacNameEl = document.getElementById("zodiacName");
+      const confettiCanvas = document.getElementById('confetti-canvas');
+      const confetti = window.confetti.create(confettiCanvas, { resize: true });
+
+    
+      const backgroundMusic = document.getElementById('backgroundMusic');
+      const clickSound = document.getElementById('clickSound');
+      const popSound = document.getElementById('popSound');
+
+     
+      document.addEventListener('DOMContentLoaded', () => {
+        document.body.addEventListener('click', () => {
+          backgroundMusic.play().catch(e => console.error("Autoplay failed:", e));
+        }, { once: true });
+      });
+      
+      const zodiacSigns = [
+        { name: "Capricorn", url: "https://www.horoscope.com/zodiac-signs/capricorn" },
+        { name: "Aquarius", url: "https://www.horoscope.com/zodiac-signs/aquarius" },
+        { name: "Pisces", url: "https://www.horoscope.com/zodiac-signs/pisces" },
+        { name: "Aries", url: "https://www.horoscope.com/zodiac-signs/aries" },
+        { name: "Taurus", url: "https://www.horoscope.com/zodiac-signs/taurus" },
+        { name: "Gemini", url: "https://www.horoscope.com/zodiac-signs/gemini" },
+        { name: "Cancer", url: "https://www.horoscope.com/zodiac-signs/cancer" },
+        { name: "Leo", url: "https://www.horoscope.com/zodiac-signs/leo" },
+        { name: "Virgo", url: "https://www.horoscope.com/zodiac-signs/virgo" },
+        { name: "Libra", url: "https://www.horoscope.com/zodiac-signs/libra" },
+        { name: "Scorpio", url: "https://www.horoscope.com/zodiac-signs/scorpio" },
+        { name: "Sagittarius", url: "https://www.horoscope.com/zodiac-signs/sagittarius" }
+      ];
+
+      const getZodiacSign = (day, month) => {
+        let sign = {};
+        switch (month) {
+            case 1: 
+                sign = day >= 20 ? zodiacSigns.find(s => s.name === "Aquarius") : zodiacSigns.find(s => s.name === "Capricorn");
+                break;
+            case 2: 
+                sign = day >= 19 ? zodiacSigns.find(s => s.name === "Pisces") : zodiacSigns.find(s => s.name === "Aquarius");
+                break;
+            case 3: 
+                sign = day >= 21 ? zodiacSigns.find(s => s.name === "Aries") : zodiacSigns.find(s => s.name === "Pisces");
+                break;
+            case 4: 
+                sign = day >= 20 ? zodiacSigns.find(s => s.name === "Taurus") : zodiacSigns.find(s => s.name === "Aries");
+                break;
+            case 5: 
+                sign = day >= 21 ? zodiacSigns.find(s => s.name === "Gemini") : zodiacSigns.find(s => s.name === "Taurus");
+                break;
+            case 6:
+                sign = day >= 21 ? zodiacSigns.find(s => s.name === "Cancer") : zodiacSigns.find(s => s.name === "Gemini");
+                break;
+            case 7:
+                sign = day >= 23 ? zodiacSigns.find(s => s.name === "Leo") : zodiacSigns.find(s => s.name === "Cancer");
+                break;
+            case 8: 
+                sign = day >= 23 ? zodiacSigns.find(s => s.name === "Virgo") : zodiacSigns.find(s => s.name === "Leo");
+                break;
+            case 9:
+                sign = day >= 23 ? zodiacSigns.find(s => s.name === "Libra") : zodiacSigns.find(s => s.name === "Virgo");
+                break;
+            case 10: 
+                sign = day >= 23 ? zodiacSigns.find(s => s.name === "Scorpio") : zodiacSigns.find(s => s.name === "Libra");
+                break;
+            case 11: 
+                sign = day >= 22 ? zodiacSigns.find(s => s.name === "Sagittarius") : zodiacSigns.find(s => s.name === "Scorpio");
+                break;
+            case 12: 
+                sign = day >= 22 ? zodiacSigns.find(s => s.name === "Capricorn") : zodiacSigns.find(s => s.name === "Sagittarius");
+                break;
+            default:
+                sign = { name: "Unknown", url: "#" };
+                break;
+        }
+        return sign;
+      };
+
+      const animateCount = (el, endVal) => {
+        const duration = 800;
+        const startTime = performance.now();
+        const step = (currentTime) => {
+          const progress = Math.min((currentTime - startTime) / duration, 1);
+          el.textContent = Math.floor(progress * endVal);
+          if (progress < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      };
+
+      const clearErrors = () => {
+        ([dayInput, monthInput, yearInput]).forEach((i) =>
+          i.classList.remove("error-input")
+        );
+        ([dayLabel, monthLabel, yearLabel]).forEach((l) =>
+          l.classList.remove("error-label")
+        );
+        ([dayError, monthError, yearError]).forEach((e) => {
+          e.classList.add("hidden");
+          e.textContent = "";
+        });
+        zodiacSignEl.classList.add("hidden");
+      };
+
+      const displayError = (input, label, errorElement, message) => {
+        input.classList.add("error-input");
+        label.classList.add("error-label");
+        errorElement.textContent = message;
+        errorElement.classList.remove("hidden");
+      };
+
+      const validateForm = (day, month, year) => {
+        let isValid = true;
+        const today = new Date();
+        const inputDate = new Date(year, month - 1, day);
+        clearErrors();
+
+        if (!day) {
+          displayError(dayInput, dayLabel, dayError, "This field is required");
+          isValid = false;
+        } else if (isNaN(day) || day < 1 || day > 31) {
+          displayError(dayInput, dayLabel, dayError, "Must be a valid day");
+          isValid = false;
+        }
+
+        if (!month) {
+          displayError(
+            monthInput,
+            monthLabel,
+            monthError,
+            "This field is required"
+          );
+          isValid = false;
+        } else if (isNaN(month) || month < 1 || month > 12) {
+          displayError(
+            monthInput,
+            monthLabel,
+            monthError,
+            "Must be a valid month"
+          );
+          isValid = false;
+        }
+
+        if (!year) {
+          displayError(
+            yearInput,
+            yearLabel,
+            yearError,
+            "This field is required"
+          );
+          isValid = false;
+        } else if (isNaN(year) || year > today.getFullYear()) {
+          displayError(yearInput, yearLabel, yearError, "Must be in the past");
+          isValid = false;
+        }
+
+        if (isValid) {
+          const isRealDate =
+            inputDate.getFullYear() === year &&
+            inputDate.getMonth() === month - 1 &&
+            inputDate.getDate() === day;
+
+          if (!isRealDate) {
+            displayError(dayInput, dayLabel, dayError, "Must be a valid day");
+            isValid = false;
+          } else if (inputDate > today) {
+            displayError(
+              yearInput,
+              yearLabel,
+              yearError,
+              "Date must be in the past"
+            );
+            isValid = false;
+          }
+        }
+
+        return isValid;
+      };
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        clickSound.currentTime = 0;
+        clickSound.play();
+
+        const day = parseInt(dayInput.value);
+        const month = parseInt(monthInput.value);
+        const year = parseInt(yearInput.value);
+        
+        arrowBtn.classList.add("animate-rotate");
+        setTimeout(() => arrowBtn.classList.remove("animate-rotate"), 800);
+
+        if (!validateForm(day, month, year)) {
+            zodiacSignEl.classList.add("hidden");
+            return;
+        }
+
+        const birthDate = new Date(year, month - 1, day);
+        const today = new Date();
+
+        let years = today.getFullYear() - birthDate.getFullYear();
+        let months = today.getMonth() - birthDate.getMonth();
+        let days = today.getDate() - birthDate.getDate();
+
+        if (days < 0) {
+          months--;
+          days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+        }
+
+        if (months < 0) {
+          years--;
+          months += 12;
+        }
+
+        animateCount(document.getElementById("years"), years);
+        animateCount(document.getElementById("months"), months);
+        animateCount(document.getElementById("days"), days);
+
+        const zodiac = getZodiacSign(day, month);
+        zodiacNameEl.innerHTML = `Your zodiac sign is <a href="${zodiac.url}" target="_blank">${zodiac.name}</a>`;
+        zodiacSignEl.classList.remove("hidden");
+        const rect = arrowBtn.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2 + window.scrollY;
+
+        popSound.currentTime = 0;
+        popSound.play();
+
+        confetti({
+          origin: { x: centerX / window.innerWidth, y: centerY / window.innerHeight },
+          spread: 70,
+          startVelocity: 60,
+          elementCount: 150,
+          dragFriction: 0.12,
+          stagger: 10,
+          colors: ['#a864fd', '#29cdff', '#78ff44', '#ff718d', '#fdd835'],
+        });
+      });
+
+      document
+        .getElementById("calendarDate")
+        .addEventListener("change", function () {
+          if (!this.value) return;
+          const [year, month, day] = this.value.split("-");
+          dayInput.value = parseInt(day);
+          monthInput.value = parseInt(month);
+          yearInput.value = parseInt(year);
+        });
+    </script>
+  </body>
+</html>
