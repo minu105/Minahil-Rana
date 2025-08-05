@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+    <title>Frontend Mentor | Notifications page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'jakarta': ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        'red': {
+                            500: '#FF5757',
+                        },
+                        'blue': {
+                            600: '#0A317B',
+                        },
+                        'gray': {
+                            50: '#F7FAFD',
+                            100: '#E5EFFA',
+                            200: '#DDD7F0',
+                            500: '#939CAD',
+                            600: '#5E6778',
+                            700: '#2E3A59',
+                            900: '#1C202B',
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-in-out',
+                        'slide-in': 'slideIn 0.6s ease-out',
+                        'bounce-in': 'bounceIn 0.6s ease-out',
+                        'scale-in': 'scaleIn 0.4s ease-out',
+                        'wiggle': 'wiggle 1s ease-in-out infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'shake': 'shake 0.5s ease-in-out',
+                        'flip': 'flip 0.6s ease-in-out',
+                        'rainbow': 'rainbow 3s linear infinite',
+                        'typewriter': 'typewriter 2s steps(20) 1s forwards',
+                        'gradient-shift': 'gradientShift 4s ease-in-out infinite',
+                        'particle': 'particle 2s ease-out forwards',
+                        'ripple': 'ripple 0.6s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(30px) scale(0.9)' },
+                            '100%': { opacity: '1', transform: 'translateY(0) scale(1)' },
+                        },
+                        slideIn: {
+                            '0%': { opacity: '0', transform: 'translateX(-50px) rotate(-5deg)' },
+                            '100%': { opacity: '1', transform: 'translateX(0) rotate(0deg)' },
+                        },
+                        bounceIn: {
+                            '0%': { opacity: '0', transform: 'scale(0.3) rotate(-180deg)' },
+                            '50%': { opacity: '1', transform: 'scale(1.2) rotate(-90deg)' },
+                            '70%': { transform: 'scale(0.9) rotate(-45deg)' },
+                            '100%': { opacity: '1', transform: 'scale(1) rotate(0deg)' },
+                        },
+                        scaleIn: {
+                            '0%': { opacity: '0', transform: 'scale(0.8) rotateY(-90deg)' },
+                            '100%': { opacity: '1', transform: 'scale(1) rotateY(0deg)' },
+                        },
+                        wiggle: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-10px) rotate(2deg)' },
+                        },
+                        glow: {
+                            '0%': { boxShadow: '0 0 5px rgba(59, 130, 246, 0.5)' },
+                            '100%': { boxShadow: '0 0 20px rgba(59, 130, 246, 0.8), 0 0 30px rgba(59, 130, 246, 0.4)' },
+                        },
+                        shake: {
+                            '0%, 100%': { transform: 'translateX(0)' },
+                            '10%, 30%, 50%, 70%, 90%': { transform: 'translateX(-2px)' },
+                            '20%, 40%, 60%, 80%': { transform: 'translateX(2px)' },
+                        },
+                        flip: {
+                            '0%': { transform: 'rotateY(0)' },
+                            '50%': { transform: 'rotateY(-90deg) scale(0.8)' },
+                            '100%': { transform: 'rotateY(0) scale(1)' },
+                        },
+                        rainbow: {
+                            '0%': { filter: 'hue-rotate(0deg)' },
+                            '100%': { filter: 'hue-rotate(360deg)' },
+                        },
+                        typewriter: {
+                            '0%': { width: '0' },
+                            '100%': { width: '100%' },
+                        },
+                        gradientShift: {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                        },
+                        particle: {
+                            '0%': { transform: 'translateY(0) scale(1)', opacity: '1' },
+                            '100%': { transform: 'translateY(-100px) scale(0)', opacity: '0' },
+                        },
+                        ripple: {
+                            '0%': { transform: 'scale(0)', opacity: '1' },
+                            '100%': { transform: 'scale(4)', opacity: '0' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .notification-item {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .notification-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .notification-item:hover::before {
+            left: 100%;
+        }
+        
+        html.dark .gradient-text {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease-in-out infinite;
+        }
+
+        .floating-particles {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #3b82f6;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: particle 2s ease-out forwards;
+        }
+
+        .ripple-effect {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(59, 130, 246, 0.3);
+            pointer-events: none;
+            animation: ripple 0.6s ease-out;
+        }
+        
+        .morphing-bg {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease-in-out infinite;
+        }
+        
+        .text-shadow-glow {
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+        }
+        
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-8px) rotateX(10deg);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .magnetic-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .stagger-animation {
+            animation-delay: calc(var(--stagger) * 0.1s);
+        }
+
+        .filter-button.active {
+            @apply text-white bg-blue-600 dark:bg-blue-500;
+        }
+
+        .notification-item.hidden {
+            opacity: 0 !important;
+            height: 0 !important;
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+            overflow: hidden;
+            transform: translateY(-20px);
+            transition: all 0.5s ease-out;
+        }
+    </style>
+</head>
+<body class="morphing-bg font-jakarta min-h-screen transition-all duration-500 ease-in-out flex items-center justify-center py-4 md:py-8 overflow-x-hidden">
+    <!-- Floating background particles -->
+    <div id="particles-container" class="fixed inset-0 pointer-events-none z-0"></div>
+    
+    <main class="w-full max-w-4xl mx-auto p-4 md:p-8 animate-fade-in relative z-10">
+        <div class="bg-white dark:bg-gray-800/90 backdrop-blur-lg rounded-2xl shadow-2xl hover:shadow-3xl border border-gray-200 dark:border-gray-700/50 overflow-hidden transition-all duration-500 ease-in-out transform hover:scale-[1.02] animate-scale-in hover-lift">
+            <!-- Header -->
+            <header class="flex flex-col md:flex-row items-center justify-between p-6 border-b border-gray-100 dark:border-gray-700/50 animate-slide-in relative overflow-hidden">
+                <div class="flex items-center gap-3 w-full md:w-auto mb-4 md:mb-0">
+                    <h1 class="md:text-2xl font-bold text-gray-900 dark:text-white transition-all duration-300 hover:text-shadow-glow animate-float">
+                        <span class="dark:gradient-text">Notifications</span>
+                    </h1>
+                    <span id="unread-count" class="bg-blue-600 dark:bg-gradient-to-r dark:from-blue-600 dark:to-purple-600 text-white text-sm font-semibold px-2.5 py-1 rounded-full min-w-[28px] text-center transition-all duration-300 ease-in-out transform hover:scale-125 animate-bounce-in hover:animate-wiggle shadow-lg hover:shadow-xl">3</span>
+                </div>
+                <div class="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full md:w-auto">
+                    <!-- Dark Mode Toggle -->
+                    <button id="theme-toggle" class="p-1.5 md:p-2 rounded-xl bg-gray-100 dark:bg-gradient-to-r dark:from-gray-700 dark:to-gray-600 hover:bg-gray-200 dark:hover:from-blue-900 dark:hover:to-purple-900 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transform hover:scale-125 active:scale-95 hover:rotate-12 animate-float shadow-lg hover:shadow-xl hover:animate-glow" aria-label="Toggle dark mode">
+                        <!-- Sun Icon -->
+                        <svg id="sun-icon" class="w-4 h-4 md:w-5 md:h-5 text-yellow-500 hidden dark:block transition-all duration-500 ease-in-out transform rotate-0 hover:rotate-180 hover:scale-110 dark:animate-rainbow" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path>
+                        </svg>
+                        <!-- Moon Icon -->
+                        <svg id="moon-icon" class="w-4 h-4 md:w-5 md:h-5 text-gray-600 block dark:hidden transition-all duration-500 ease-in-out transform rotate-0 hover:-rotate-12 hover:scale-110" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                        </svg>
+                    </button>
+                    <button id="mark-all-read" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-transparent dark:hover:bg-gradient-to-r dark:hover:from-blue-600 dark:hover:to-purple-600 dark:hover:bg-clip-text font-medium transition-all duration-500 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 rounded-lg px-3 py-2 text-sm md:text-base transform hover:scale-110 active:scale-95 hover:shadow-lg hover:animate-glow magnetic-hover">
+                        Mark all as read
+                    </button>
+                </div>
+            </header>
+
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap justify-center md:justify-end gap-2 p-6 pt-0 md:pt-6 border-b border-gray-100 dark:border-gray-700/50 animate-fade-in">
+                <button id="filter-all" data-filter="all" class="dark:text-white filter-button px-4 py-2 rounded-lg font-medium text-sm md:text-base transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95 shadow-md hover:shadow-lg active">
+                    Show All
+                </button>
+                <button id="filter-unread" data-filter="unread" class="dark:text-white filter-button px-4 py-2 rounded-lg font-medium text-sm md:text-base transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95 shadow-md hover:shadow-lg">
+                    Unread
+                </button>
+                <button id="filter-read" data-filter="read" class="dark:text-white filter-button px-4 py-2 rounded-lg font-medium text-sm md:text-base transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95 shadow-md hover:shadow-lg">
+                    Read
+                </button>
+            </div>
+
+
+            <!-- Notifications Container -->
+            <div id="notifications-container" class="divide-y divide-gray-100 dark:divide-gray-700/50">
+                <!-- Notification 1 - Mark Webber (Unread) -->
+                <div class="notification-item p-4 md:p-6 cursor-pointer transition-all duration-500 ease-in-out hover:bg-slate-100 dark:hover:bg-gradient-to-r dark:from-gray-700 dark:to-blue-900/20 bg-gray-50 dark:bg-gray-700/50 transform hover:translate-x-2 hover:shadow-xl hover:-rotate-1 hover:scale-[1.02] magnetic-hover stagger-animation" data-id="1" data-unread="true" style="--stagger: 1">
+                    <div class="flex items-start gap-3 md:gap-4">
+                        <img src="./assets/images/avatar-mark-webber.webp" alt="Mark Webber" class="w-10 h-10 md:w-12 md:h-12 rounded-full flex-shrink-0 cursor-pointer transition-all duration-500 ease-in-out hover:scale-125 hover:shadow-2xl hover:rotate-12 hover:animate-float border-2 border-gray-200 hover:border-blue-400">
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-start justify-between gap-3">
+                                <div class="flex-1">
+                                    <p class="text-sm md:text-base text-gray-700 dark:text-gray-300 leading-relaxed transition-colors duration-300">
+                                        <span class="font-semibold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-transparent dark:hover:bg-gradient-to-r dark:hover:from-blue-600 dark:hover:to-purple-600 dark:hover:bg-clip-text cursor-pointer transition-all duration-500 ease-in-out hover:animate-flip">Mark Webber</span>
+                                        <span> reacted to your recent post</span>
+                                        <span class="font-semibold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-transparent dark:hover:bg-gradient-to-r dark:hover:from-purple-600 dark:hover:to-pink-600 dark:hover:bg-clip-text cursor-pointer transition-all duration-500 ease-in-out hover:animate-flip"> My first tournament today!</span>
+                                        <span class="unread-dot w-2 h-2 bg-red-500 dark:bg-gradient-to-r dark:from-red-500 dark:to-pink-500 rounded-full inline-block ml-2 animate-pulse hover:animate-bounce shadow-lg"></span>
+                                    </p>
+                                    <p class="text-xs md:text-sm text-gray-500 dark:text-gray-400 mt-1 transition-colors duration-300 hover:text-blue-500">1m ago</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notification 2 - Angela Gray (Unread) -->
+                <div class="notification-item p-4 md:p-6 cursor-pointer transition-all duration-500 ease-in-out hover:bg-slate-100 dark:hover:bg-gradient-to-r dark:from-gray-700 dark:to-green-900/20 bg-gray-50 dark:bg-gray-700/50 transform hover:translate-x-2 hover:shadow-xl hover:rotate-1 hover:scale-[1.02] magnetic-hover stagger-animation" data-id="2" data-unread="true" style="--stagger: 2">
+                    <div class="flex items-start gap-3 md:gap-4">
+                        <img src="./assets/images/avatar-angela-gray.webp" alt="Angela Gray" class="w-10 h-10 md:w-12 md:h-12 rounded-full flex-shrink-0 cursor-pointer transition-all duration-500 ease-in-out hover:scale-125 hover:shadow-2xl hover:-rotate-12 hover:animate-float border-2 border-gray-200 hover:border-green-400">
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-start justify-between gap-3">
+                                <div class="flex-1">
+                                    <p class="text-sm md:text-base text-gray-700 dark:text-gray-300 leading-relaxed transition-colors duration-300">
+                                        <span class="font-semibold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-transparent dark:hover:bg-gradient-to-r dark:hover:from-green-600 dark:hover:to-blue-600 dark:hover:bg-clip-text cursor-pointer transition-all duration-500 ease-in-out hover:animate-flip">Angela Gray</span>
+                                        <span> followed you</span>
+                                        <span class="unread-dot w-2 h-2 bg-red-500 dark:bg-gradient-to-r dark:from-red-500 dark:to-orange-500 rounded-full inline-block ml-2 animate-pulse hover:animate-bounce shadow-lg"></span>
+                                    </p>
+                                    <p class="text-xs md:text-sm text-gray-500 dark:text-gray-400 mt-1 transition-colors duration-300 hover:text-green-500">5m ago</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notification 3 - Jacob Thompson (Unread) -->
+                <div class="notification-item p-4 md:p-6 cursor-pointer transition-all duration-500 ease-in-out hover:bg-slate-100 dark:hover:bg-gradient-to-r dark:from-gray-700 dark:to-purple-900/20 bg-gray-50 dark:bg-gray-700/50 transform hover:translate-x-2 hover:shadow-xl hover:-rotate-1 hover:scale-[1.02] magnetic-hover stagger-animation" data-id="3" data-unread="true" style="--stagger: 3">
+                    <div class="flex items-start gap-3 md:gap-4">
+                        <img src="./assets/images/avatar-jacob-thompson.webp" alt="Jacob Thompson" class="w-10 h-10 md:w-12 md:h-12 rounded-full flex-shrink-0 cursor-pointer transition-all duration-500 ease-in-out hover:scale-125 hover:shadow-2xl hover:rotate-12 hover:animate-float border-2 border-gray-200 hover:border-purple-400">
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-start justify-between gap-3">
+                                <div class="flex-1">
+                                    <p class="text-sm md:text-base text-gray-700 dark:text-gray-300 leading-relaxed transition-colors duration-300">
+                                        <span class="font-semibold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-transparent dark:hover:bg-gradient-to-r dark:hover:from-purple-600 dark:hover:to-pink-600 dark:hover:bg-clip-text cursor-pointer transition-all duration-500 ease-in-out hover:animate-flip">Jacob Thompson</span>
+                                        <span> has joined your group</span>
+                                        <span class="font-semibold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-transparent dark:hover:bg-gradient-to-r dark:hover:from-indigo-600 dark:hover:to-purple-600 dark:hover:bg-clip-text cursor-pointer transition-all duration-500 ease-in-out hover:animate-flip"> Chess Club</span>
+                                        <span class="unread-dot w-2 h-2 bg-red-500 dark:bg-gradient-to-r dark:from-red-500 dark:to-purple-500 rounded-full inline-block ml-2 animate-pulse hover:animate-bounce shadow-lg"></span>
+                                    </p>
+                                    <p class="text-xs md:text-sm text-gray-500 dark:text-gray-400 mt-1 transition-colors duration-300 hover:text-purple-500">1 day ago</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notification 4 - Rizky Hasanuddin (Read) -->
+                <div class="notification-item p-4 md:p-6 cursor-pointer transition-all duration-500 ease-in-out hover:bg-slate-100 dark:hover:bg-gradient-to-r dark:from-gray-700 dark:to-yellow-900/20 transform hover:translate-x-2 hover:shadow-xl hover:rotate-1 hover:scale-[1.02] magnetic-hover stagger-animation" data-id="4" data-unread="false" style="--stagger: 4">
+                    <div class="flex items-start gap-3 md:gap-4">
+                        <img src="./assets/images/avatar-rizky-hasanuddin.webp" alt="Rizky Hasanuddin" class="w-10 h-10 md:w-12 md:h-12 rounded-full flex-shrink-0 cursor-pointer transition-all duration-500 ease-in-out hover:scale-125 hover:shadow-2xl hover:-rotate-12 hover:animate-float border-2 border-gray-200 hover:border-yellow-400">
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-start justify-between gap-3">
+                                <div class="flex-1">
+                                    <p class="text-sm md:text-base text-gray-700 dark:text-gray-300 leading-relaxed transition-colors duration-300">
+                                        <span class="font-semibold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-transparent dark:hover:bg-gradient-to-r dark:hover:from-yellow-600 dark:hover:to-orange-600 dark:hover:bg-clip-text cursor-pointer transition-all duration-500 ease-in-out hover:animate-flip">Rizky Hasanuddin</span>
+                                        <span> sent you a private message</span>
+                                    </p>
+                                    <p class="text-xs md:text-sm text-gray-500 dark:text-gray-400 mt-1 transition-colors duration-300 hover:text-yellow-500">5 days ago</p>
+                                </div>
+                            </div>
+                            <div class="mt-3 p-4 bg-gray-50 dark:bg-gradient-to-r dark:from-gray-700 dark:to-blue-900/20 border border-gray-200 dark:border-gray-600/50 rounded-lg transition-all duration-500 ease-in-out hover:shadow-lg hover:scale-[1.02] hover:rotate-1">
+                                <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed transition-colors duration-300">Hello, thanks for setting up the Chess Club. I've been a member for a few weeks now and I'm already having lots of fun and improving my game.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notification 5 - Kimberly Smith (Read) -->
+                <div class="notification-item p-4 md:p-6 cursor-pointer transition-all duration-500 ease-in-out hover:bg-slate-100 dark:hover:bg-gradient-to-r dark:from-gray-700 dark:to-pink-900/20 bg-gray-50 dark:bg-gray-700/50 transform hover:translate-x-2 hover:shadow-xl hover:-rotate-1 hover:scale-[1.02] magnetic-hover stagger-animation" data-id="5" data-unread="false" style="--stagger: 5">
+                    <div class="flex items-start gap-3 md:gap-4">
+                        <img src="./assets/images/avatar-kimberly-smith.webp" alt="Kimberly Smith" class="w-10 h-10 md:w-12 md:h-12 rounded-full flex-shrink-0 cursor-pointer transition-all duration-500 ease-in-out hover:scale-125 hover:shadow-2xl hover:rotate-12 hover:animate-float border-2 border-gray-200 hover:border-pink-400">
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-start justify-between gap-3">
+                                <div class="flex-1">
+                                    <p class="text-sm md:text-base text-gray-700 dark:text-gray-300 leading-relaxed transition-colors duration-300">
+                                        <span class="font-semibold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-transparent dark:hover:bg-gradient-to-r dark:hover:from-pink-600 dark:hover:to-red-600 dark:hover:bg-clip-text cursor-pointer transition-all duration-500 ease-in-out hover:animate-flip">Kimberly Smith</span>
+                                        <span> commented on your picture</span>
+                                    </p>
+                                    <p class="text-xs md:text-sm text-gray-500 dark:text-gray-400 mt-1 transition-colors duration-300 hover:text-pink-500">1 week ago</p>
+                                </div>
+                                <div class="ml-auto flex-shrink-0">
+                                    <img src="./assets/images/image-chess.webp" alt="Commented image" class="w-11 h-11 md:w-12 md:h-12 rounded border-2 border-gray-200 dark:border-gray-600/50 hover:border-pink-400 cursor-pointer transition-all duration-500 ease-in-out transform hover:scale-125 hover:shadow-2xl hover:rotate-12 hover:animate-float">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notification 6 - Nathan Peterson (Read) -->
+                <div class="notification-item p-4 md:p-6 cursor-pointer transition-all duration-500 ease-in-out hover:bg-slate-100 dark:hover:bg-gradient-to-r dark:from-gray-700 dark:to-indigo-900/20 transform hover:translate-x-2 hover:shadow-xl hover:rotate-1 hover:scale-[1.02] magnetic-hover stagger-animation" data-id="6" data-unread="false" style="--stagger: 6">
+                    <div class="flex items-start gap-3 md:gap-4">
+                        <img src="./assets/images/avatar-nathan-peterson.webp" alt="Nathan Peterson" class="w-10 h-10 md:w-12 md:h-12 rounded-full flex-shrink-0 cursor-pointer transition-all duration-500 ease-in-out hover:scale-125 hover:shadow-2xl hover:-rotate-12 hover:animate-float border-2 border-gray-200 hover:border-indigo-400">
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-start justify-between gap-3">
+                                <div class="flex-1">
+                                    <p class="text-sm md:text-base text-gray-700 dark:text-gray-300 leading-relaxed transition-colors duration-300">
+                                        <span class="font-semibold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-transparent dark:hover:bg-gradient-to-r dark:hover:from-indigo-600 dark:hover:to-blue-600 dark:hover:bg-clip-text cursor-pointer transition-all duration-500 ease-in-out hover:animate-flip">Nathan Peterson</span>
+                                        <span> reacted to your recent post</span>
+                                        <span class="font-semibold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-transparent dark:hover:bg-gradient-to-r dark:hover:from-blue-600 dark:hover:to-cyan-600 dark:hover:bg-clip-text cursor-pointer transition-all duration-500 ease-in-out hover:animate-flip"> 5 end-game strategies to increase your win rate</span>
+                                    </p>
+                                    <p class="text-xs md:text-sm text-gray-500 dark:text-gray-400 mt-1 transition-colors duration-300 hover:text-indigo-500">2 weeks ago</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notification 7 - Anna Kim (Read) -->
+                <div class="notification-item p-4 md:p-6 cursor-pointer transition-all duration-500 ease-in-out hover:bg-slate-100 dark:hover:bg-gradient-to-r dark:from-gray-700 dark:to-teal-900/20 transform hover:translate-x-2 hover:shadow-xl hover:-rotate-1 hover:scale-[1.02] magnetic-hover stagger-animation" data-id="7" data-unread="false" style="--stagger: 7">
+                    <div class="flex items-start gap-3 md:gap-4">
+                        <img src="./assets/images/avatar-anna-kim.webp" alt="Anna Kim" class="w-10 h-10 md:w-12 md:h-12 rounded-full flex-shrink-0 cursor-pointer transition-all duration-500 ease-in-out hover:scale-125 hover:shadow-2xl hover:rotate-12 hover:animate-float border-2 border-gray-200 hover:border-teal-400">
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-start justify-between gap-3">
+                                <div class="flex-1">
+                                    <p class="text-sm md:text-base text-gray-700 dark:text-gray-300 leading-relaxed transition-colors duration-300">
+                                        <span class="font-semibold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-transparent dark:hover:bg-gradient-to-r dark:hover:from-teal-600 dark:hover:to-green-600 dark:hover:bg-clip-text cursor-pointer transition-all duration-500 ease-in-out hover:animate-flip">Anna Kim</span>
+                                        <span> left the group</span>
+                                        <span class="font-semibold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-transparent dark:hover:bg-gradient-to-r dark:hover:from-green-600 dark:hover:to-emerald-600 dark:hover:bg-clip-text cursor-pointer transition-all duration-500 ease-in-out hover:animate-flip"> Chess Club</span>
+                                    </p>
+                                    <p class="text-xs md:text-sm text-gray-500 dark:text-gray-400 mt-1 transition-colors duration-300 hover:text-teal-500">2 weeks ago</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const container = document.getElementById('particles-container');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'floating-particles';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 2 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                container.appendChild(particle);
+                setTimeout(() => {
+                    if (particle.parentNode) {
+                        particle.parentNode.removeChild(particle);
+                    }
+                }, 4000);
+            }
+        }
+
+        function createRipple(e) {
+            const ripple = document.createElement('div');
+            ripple.className = 'ripple-effect';
+            const rect = e.currentTarget.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+            ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+            e.currentTarget.appendChild(ripple);
+            
+            setTimeout(() => {
+                if (ripple.parentNode) {
+                    ripple.parentNode.removeChild(ripple);
+                }
+            }, 600);
+        }
+        function initializeTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            const html = document.documentElement;
+            
+            console.log('Initializing theme:', savedTheme);
+            
+            if (savedTheme === 'dark') {
+                html.classList.add('dark');
+            } else {
+                html.classList.remove('dark');
+            }
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const isDark = html.classList.contains('dark');
+            const toggleButton = document.getElementById('theme-toggle');
+            
+            console.log('Toggle clicked! Currently dark:', isDark);
+            
+            toggleButton.style.transform = 'scale(0.8) rotate(180deg)';
+            toggleButton.classList.add('animate-flip');
+            
+            setTimeout(() => {
+                toggleButton.style.transform = '';
+                toggleButton.classList.remove('animate-flip');
+            }, 600);
+            
+            createParticles();
+            
+            if (isDark) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                console.log('Switched to light mode');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                console.log('Switched to dark mode');
+            }
+        }
+        function animateNotifications() {
+            const notifications = document.querySelectorAll('.notification-item');
+            notifications.forEach((notification, index) => {
+                if (!notification.classList.contains('hidden')) {
+                    notification.style.opacity = '0';
+                    notification.style.transform = 'translateY(50px) rotateX(-90deg)';
+                    
+                    setTimeout(() => {
+                        notification.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                        notification.style.opacity = '1';
+                        notification.style.transform = 'translateY(0) rotateX(0deg)';
+                    }, index * 150); 
+                }
+            });
+        }
+
+        function addMagneticEffect() {
+            const magneticElements = document.querySelectorAll('.magnetic-hover');
+            
+            magneticElements.forEach(element => {
+                element.addEventListener('mousemove', (e) => {
+                    const rect = element.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    
+                    element.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px) scale(1.05)`;
+                });
+                
+                element.addEventListener('mouseleave', () => {
+                    element.style.transform = '';
+                });
+            });
+        }
+
+        const notifications = [
+            {id: 1, user: { name: "Mark Webber", avatar: "./assets/images/avatar-mark-webber.webp" }, action: "reacted to your recent post", target: "My first tournament today!", targetType: "post", timestamp: "1m ago", isUnread: true, type: "reaction"},
+            {id: 2, user: { name: "Angela Gray", avatar: "./assets/images/avatar-angela-gray.webp" }, action: "followed you", target: "", targetType: "", timestamp: "5m ago", isUnread: true, type: "follow"},
+            {id: 3, user: { name: "Jacob Thompson", avatar: "./assets/images/avatar-jacob-thompson.webp" }, action: "has joined your group", target: "Chess Club", targetType: "group", timestamp: "1 day ago", isUnread: true, type: "group_join"},
+            {id: 4, user: { name: "Rizky Hasanuddin", avatar: "./assets/images/avatar-rizky-hasanuddin.webp" }, action: "sent you a private message", target: "", targetType: "", timestamp: "5 days ago", isUnread: false, type: "private_message", message: "Hello, thanks for setting up the Chess Club. I've been a member for a few weeks now and I'm already having lots of fun and improving my game."},
+            {id: 5, user: { name: "Kimberly Smith", avatar: "./assets/images/avatar-kimberly-smith.webp" }, action: "commented on your picture", target: "", targetType: "", timestamp: "1 week ago", isUnread: false, type: "comment", commentImage: "./assets/images/image-chess.webp"},
+            {id: 6, user: { name: "Nathan Peterson", avatar: "./assets/images/avatar-nathan-peterson.webp" }, action: "reacted to your recent post", target: "5 end-game strategies to increase your win rate", targetType: "post", timestamp: "2 weeks ago", isUnread: false, type: "reaction"},
+            {id: 7, user: { name: "Anna Kim", avatar: "./assets/images/avatar-anna-kim.webp" }, action: "left the group", target: "Chess Club", targetType: "group", timestamp: "2 weeks ago", isUnread: false, type: "group_leave"}
+        ];
+
+     
+        const unreadCountElement = document.getElementById("unread-count");
+        const markAllReadButton = document.getElementById("mark-all-read");
+        const themeToggle = document.getElementById("theme-toggle");
+        const notificationElements = document.querySelectorAll(".notification-item"); 
+        const filterButtons = document.querySelectorAll(".filter-button");
+
+        let currentFilter = 'all'; 
+ 
+        function updateUnreadCount() {
+            const unreadCount = notifications.filter(n => n.isUnread).length;
+            
+            unreadCountElement.style.transform = 'scale(1.5) rotate(360deg)';
+            unreadCountElement.classList.add('animate-bounce');
+            
+            setTimeout(() => {
+                unreadCountElement.textContent = unreadCount;
+                unreadCountElement.style.transform = 'scale(1) rotate(0deg)';
+                unreadCountElement.classList.remove('animate-bounce');
+            }, 300);
+            
+            if (unreadCount === 0) {
+                setTimeout(() => {
+                    unreadCountElement.style.opacity = '0';
+                    unreadCountElement.style.transform = 'scale(0) rotate(180deg)';
+                    setTimeout(() => {
+                        unreadCountElement.style.display = "none";
+                    }, 500);
+                }, 500);
+            } else {
+                unreadCountElement.style.display = "inline-block";
+                unreadCountElement.style.opacity = '1';
+                unreadCountElement.style.transform = 'scale(1) rotate(0deg)';
+            }
+        }
+
+        function markNotificationAsRead(id) {
+            const notification = notifications.find(n => n.id === id);
+            const notificationElement = document.querySelector(`[data-id="${id}"]`);
+            if (notification && notification.isUnread) {
+                notification.isUnread = false;
+                
+            
+                notificationElement.dataset.unread = "false";
+
+    
+                notificationElement.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                notificationElement.classList.remove("bg-gray-50", "dark:bg-gray-700/50"); 
+                notificationElement.classList.add('animate-flip');
+                const redDot = notificationElement.querySelector(".unread-dot");
+                if (redDot) {
+                    redDot.style.transition = 'all 0.5s ease-out';
+                    redDot.style.opacity = '0';
+                    redDot.style.transform = 'scale(0) rotate(360deg)';
+                    redDot.classList.add('animate-particle');
+                    setTimeout(() => {
+                        redDot.remove();
+                    }, 500);
+                }
+                
+                createParticles();
+                
+                setTimeout(() => {
+                    notificationElement.classList.remove('animate-flip');
+                }, 600);
+                
+                updateUnreadCount();
+                filterNotifications(currentFilter); 
+            }
+        }
+
+      
+        function markAllAsRead() {
+            let hasChanges = false;
+            let delay = 0;
+            
+         
+            markAllReadButton.classList.add('animate-shake');
+            setTimeout(() => {
+                markAllReadButton.classList.remove('animate-shake');
+            }, 500);
+            
+            notifications.forEach(notification => {
+                if (notification.isUnread) {
+                    notification.isUnread = false;
+                    hasChanges = true;
+                    
+                    setTimeout(() => {
+                        const notificationElement = document.querySelector(`[data-id="${notification.id}"]`);
+                        if (notificationElement) {
+                            
+                            notificationElement.dataset.unread = "false";
+
+                            notificationElement.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                            notificationElement.classList.remove("bg-gray-50", "dark:bg-gray-700/50"); 
+                            notificationElement.classList.add('animate-flip');
+                            
+                            const redDot = notificationElement.querySelector(".unread-dot");
+                            if (redDot) {
+                                redDot.style.transition = 'all 0.5s ease-out';
+                                redDot.style.opacity = '0';
+                                redDot.style.transform = 'scale(0) rotate(360deg)';
+                                setTimeout(() => {
+                                    redDot.remove();
+                                }, 500);
+                            }
+                            
+                            setTimeout(() => {
+                                notificationElement.classList.remove('animate-flip');
+                            }, 600);
+                        }
+                    }, delay);
+                    
+                    delay += 150; 
+                }
+            });
+            
+            if (hasChanges) {
+               
+                setTimeout(() => {
+                    for (let i = 0; i < 5; i++) {
+                        setTimeout(() => createParticles(), i * 200);
+                    }
+                }, delay);
+                
+                setTimeout(() => {
+                    updateUnreadCount();
+                    filterNotifications(currentFilter); 
+                }, delay + 200);
+            }
+        }
+
+        function filterNotifications(filterType) {
+            currentFilter = filterType;
+
+            notificationElements.forEach(item => {
+                const isUnread = item.dataset.unread === "true";
+                
+                if (filterType === 'all' || 
+                    (filterType === 'unread' && isUnread) || 
+                    (filterType === 'read' && !isUnread)) {
+                    item.classList.remove('hidden');
+                    item.style.opacity = '1'; 
+                    item.style.transform = 'translateY(0) rotateX(0deg)';
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+
+            filterButtons.forEach(button => {
+                if (button.dataset.filter === filterType) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+        }
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, initializing spectacular animations...');
+            
+           
+            initializeTheme();
+            
+           
+            themeToggle.addEventListener('click', toggleTheme);
+            markAllReadButton.addEventListener("click", markAllAsRead);
+            
+            document.querySelectorAll('.notification-item, #theme-toggle, #mark-all-read').forEach(element => {
+                element.addEventListener('click', createRipple);
+            });
+            
+           
+            notificationElements.forEach(item => { 
+                item.addEventListener("click", () => {
+                    const id = parseInt(item.getAttribute("data-id"));
+                    markNotificationAsRead(id);
+                });
+            });
+
+         
+            filterButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    createRipple(event);
+                    filterNotifications(event.currentTarget.dataset.filter);
+                });
+            });
+            
+            
+            addMagneticEffect();
+            
+            updateUnreadCount();
+            
+            filterNotifications('all');
+            setTimeout(() => {
+                createParticles();
+            }, 1000);
+            setTimeout(() => {
+                animateNotifications();
+            }, 500);
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    createParticles();
+                }
+            }, 5000);
+            
+            console.log('Spectacular initialization complete! 🎉');
+        });
+    </script>
+</body>
+</html>
