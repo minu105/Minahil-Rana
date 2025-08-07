@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tip Calculator</title>
+  <link href="./output.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="style.css" rel="stylesheet" />
+</head>
+<body class="bg-grey-200 min-h-screen font-space-mono animate-fadeIn">
+  <!-- Background Pattern -->
+  <div class="min-h-screen flex flex-col items-center justify-center p-4 relative">
+    <div class="mb-8 md:mb-12">
+      <div class="text-dark-green text-2xl font-bold tracking-[0.5em] text-center">
+        <div>SPLI</div>
+        <div>TTER</div>
+      </div>
+    </div>
+
+    <!-- Calculator Container -->
+<div class="bg-white rounded-3xl shadow-xl w-full max-w-4xl overflow-hidden transition-transform duration-300 hover:scale-[1.01]">
+      <div class="flex flex-col lg:flex-row">
+        <div class="p-6 md:p-8 lg:p-10 flex-1">
+          <div class="mb-6 md:mb-8">
+            <label for="currency-selector" class="block text-grey-500 text-sm font-bold mb-2">
+              Currency
+            </label>
+            <div class="relative">
+              <select id="currency-selector" class="w-full bg-grey-50 border-2 border-transparent rounded-lg px-4 py-3 text-dark-green text-xl font-bold input-focus transition-all duration-200">
+                <option value="USD" selected>$ USD</option>
+                <option value="EUR">€ EUR</option>
+                <option value="GBP">£ GBP</option>
+                <option value="JPY">¥ JPY</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Bill Input -->
+          <div class="mb-6 md:mb-8">
+            <label for="bill" class="block text-grey-500 text-sm font-bold mb-2">
+              Bill
+            </label>
+            <div class="relative">
+              <span id="currency-symbol-bill" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-grey-400 text-xl">$</span>
+              <input type="number" id="bill" placeholder="0" class="w-full bg-grey-50 border-2 border-transparent rounded-lg px-4 py-3 pl-8 text-right text-2xl font-bold text-dark-green input-focus transition-all duration-200" step="0.01" min="0" />
+            </div>
+            <div id="bill-error" class="text-red-500 text-sm mt-1 hidden">Can't be zero</div>
+          </div>
+
+          <!-- Tip Selection -->
+          <div class="mb-6 md:mb-8">
+            <label class="block text-grey-500 text-sm font-bold mb-4">
+              Select Tip %
+            </label>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+              <button class="tip-btn bg-dark-green text-white rounded-lg py-3 px-4 text-xl font-bold hover:bg-opacity-80 hover:scale-105 transform transition-all duration-200" data-tip="5">5%</button>
+              <button class="tip-btn bg-dark-green text-white rounded-lg py-3 px-4 text-xl font-bold hover:bg-opacity-80 hover:scale-105 transform transition-all duration-200" data-tip="10">10%</button>
+              <button class="tip-btn bg-dark-green text-white rounded-lg py-3 px-4 text-xl font-bold hover:bg-opacity-80 hover:scale-105 transform transition-all duration-200" data-tip="15">15%</button>
+              <button class="tip-btn bg-dark-green text-white rounded-lg py-3 px-4 text-xl font-bold hover:bg-opacity-80 hover:scale-105 transform transition-all duration-200" data-tip="25">25%</button>
+              <button class="tip-btn bg-dark-green text-white rounded-lg py-3 px-4 text-xl font-bold hover:bg-opacity-80 hover:scale-105 transform transition-all duration-200" data-tip="50">50%</button>
+              <input type="number" id="custom-tip" placeholder="Custom" class="bg-grey-50 border-2 border-transparent rounded-lg py-3 px-4 text-xl font-bold text-dark-green text-center input-focus  transition-all duration-200" min="0" max="100" />
+              <div id="custom-tip-error" class="text-red-500 text-sm mt-1 hidden">Must be 100 or less</div>
+            </div>
+          </div>
+
+          <!-- Number of People -->
+          <div class="mb-6 md:mb-8">
+            <div class="flex justify-between items-center mb-2">
+              <label for="people" class="text-grey-500 text-sm font-bold">Number of People</label>
+              <div id="people-error" class="text-red-500 text-sm hidden">Can't be zero</div>
+            </div>
+            <div class="relative">
+              <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-grey-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+              </svg>
+              <input type="number" id="people" placeholder="0" class="w-full bg-grey-50 border-2 border-transparent rounded-lg px-4 py-3 pl-12 text-right text-2xl font-bold text-dark-green input-focus transition-all duration-200" min="1" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="bg-dark-green p-6 md:p-8 lg:p-10 lg:rounded-2xl lg:m-6 flex-1 lg:max-w-md">
+          <div class="flex justify-between items-center mb-6 md:mb-8">
+            <div>
+              <div class="text-white text-sm md:text-base font-bold">Tip Amount</div>
+              <div class="text-grey-400 text-xs md:text-sm">/ person</div>
+            </div>
+            <div id="tip-amount" class="text-primary-green text-3xl md:text-4xl lg:text-5xl font-bold">$0.00</div>
+          </div>
+
+          <div class="flex justify-between items-center mb-8 md:mb-12">
+            <div>
+              <div class="text-white text-sm md:text-base font-bold">Total</div>
+              <div class="text-grey-400 text-xs md:text-sm">/ person</div>
+            </div>
+            <div id="total-amount" class="text-primary-green text-3xl md:text-4xl lg:text-5xl font-bold">$0.00</div>
+          </div>
+
+          <button id="reset-btn" class="w-full bg-primary-green text-dark-green py-3 rounded-lg text-xl font-bold hover:bg-opacity-80 transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed hover:scale-105 transition-transform duration-200 ease-in-out" disabled>
+            RESET
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

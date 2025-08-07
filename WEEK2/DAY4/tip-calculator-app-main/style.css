@@ -1,0 +1,109 @@
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+.input-focus:focus {
+  @apply outline-none ring-2 ring-primary-green border-primary-green;
+}
+.tip-btn {
+  transition: all 0.2s ease;
+}
+.tip-btn:hover {
+  background-color: hsl(172, 67%, 45%);
+  color: hsl(183, 100%, 15%);
+}
+.tip-btn.active {
+  background-color: hsl(172, 67%, 45%);
+  color: hsl(183, 100%, 15%);
+}
+.error {
+  border-color: #ef4444;
+}
+.error:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+}
+
+.bg-primary-green {
+  background-color: hsl(172, 67%, 45%);
+}
+.bg-dark-green {
+  background-color: hsl(183, 100%, 15%);
+}
+.bg-grey-500 {
+  background-color: hsl(186, 14%, 43%);
+}
+.bg-grey-400 {
+  background-color: hsl(184, 14%, 56%);
+}
+.bg-grey-200 {
+  background-color: hsl(185, 41%, 84%);
+}
+.bg-grey-50 {
+  background-color: hsl(189, 47%, 97%);
+}
+.text-primary-green {
+  color: hsl(172, 67%, 45%);
+}
+.text-dark-green {
+  color: hsl(183, 100%, 15%);
+}
+.text-grey-500 {
+  color: hsl(186, 14%, 43%);
+}
+.text-grey-400 {
+  color: hsl(184, 14%, 56%);
+}
+.text-grey-200 {
+  color: hsl(185, 41%, 84%);
+}
+.text-grey-50 {
+  color: hsl(189, 47%, 97%);
+}
+.font-space-mono {
+  font-family: "Space Mono", monospace;
+}
+
+.confetti-particle {
+  position: absolute;
+  top: 0; 
+  left: 0; 
+  width: 10px; 
+  height: 10px;
+  pointer-events: none; 
+  z-index: 9999; 
+  animation-name: fall-and-fade;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+}
+@keyframes fall-and-fade {
+  0% {
+    transform: translate(var(--start-x), var(--start-y))
+      rotate(var(--start-rot));
+    opacity: 1; 
+  }
+  100% {
+    transform: translate(var(--end-x), var(--end-y)) rotate(var(--end-rot));
+    opacity: 0; 
+  }
+}
+
+
+@keyframes tip-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.tip-btn.feedback-pulse {
+  animation: tip-pulse 0.2s ease-in-out;
+}
