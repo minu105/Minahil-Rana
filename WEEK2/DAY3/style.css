@@ -95,12 +95,7 @@ body {
     background-color: #FC8A06; 
     transition: width 0.3s ease-out;
 }
-.nav-link-underline:hover::after {
-    width: 100%;
-}
-.nav-link-underline.selected::after {
-    width: 100%; /
-}
+
 .secondary-nav-link-hover {
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }

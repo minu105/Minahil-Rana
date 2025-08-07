@@ -144,9 +144,7 @@ const menu = document.getElementById('menu');
 const mobileNav = document.getElementById('mobile-nav');
 const menuBtn = document.getElementById('menu-btn');
 const mobileMenu = document.getElementById('mobile-menu');
-const line1 = document.getElementById('line1');
-const line2 = document.getElementById('line2');
-const line3 = document.getElementById('line3');
+
 let selected = 'Home'; 
 let isMenuOpen = false;
 
