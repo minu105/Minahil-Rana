@@ -1,0 +1,278 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+@media (min-width: 1024px) and (max-width: 1440px) {
+    .card-1440 {
+        width: calc(33.333% - 16px) !important;
+        max-width: 450px;
+    }
+}
+@media (min-width: 1441px) {
+    .card-1440 {
+        width: 496px !important;
+    }
+}
+@keyframes slideFade {
+    0% {
+        opacity: 0.6;
+        transform: translateX(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}
+#slider {
+    transition: transform 0.5s ease-in-out;
+    will-change: transform;
+}
+.card-animate {
+    animation: slideFade 0.5s ease-in-out;
+}
+.btn-animate {
+    transition: transform 0.2s ease;
+}
+.btn-animate:hover {
+    transform: scale(1.1);
+}
+.btn-animate:active {
+    transform: scale(0.95);
+}
+
+@keyframes fadeInSlideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes scaleInFade {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+@keyframes slideInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+.animate-fade-in-up {
+    animation: fadeInSlideUp 0.6s ease-out forwards;
+}
+.animate-scale-in-fade {
+    animation: scaleInFade 0.7s ease-out forwards;
+}
+.animate-slide-in-left {
+    animation: slideInLeft 0.7s ease-out forwards;
+}
+.nav-link-underline {
+    position: relative;
+}
+.nav-link-underline::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: #FC8A06; 
+    transition: width 0.3s ease-out;
+}
+.nav-link-underline:hover::after {
+    width: 100%;
+}
+.nav-link-underline.selected::after {
+    width: 100%; /
+}
+.secondary-nav-link-hover {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.secondary-nav-link-hover:hover {
+    transform: translateY(-2px); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.product-card-hover {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+.product-card-hover:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* lg shadow */
+}
+.plus-button-hover {
+    transition: transform 0.2s ease-in-out;
+}
+.plus-button-hover:hover {
+    transform: scale(1.25);
+}
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    44% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+.plus-button-bounce {
+    animation: bounce 0.6s ease-in-out;
+}
+.cart-icon-hover {
+    transition: transform 0.2s ease-in-out;
+}
+.cart-icon-hover:hover {
+    transform: scale(1.1);
+}
+.footer-btn-hover {
+    transition: transform 0.2s ease-in-out;
+}
+.footer-btn-hover:hover {
+    transform: scale(1.05);
+}
+.footer-btn-active:active {
+    transform: scale(0.98);
+}
+.social-icon-hover {
+    transition: transform 0.2s ease-in-out;
+}
+.social-icon-hover:hover {
+    transform: scale(1.1) rotate(15deg); 
+}
+@keyframes fadeInSlideUpStagger {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.stagger-animate-child {
+    opacity: 0; 
+    transform: translateY(30px); 
+}
+.stagger-animate-child.is-animated {
+    animation: fadeInSlideUpStagger 0.6s ease-out forwards;
+}
+.search-input-animate {
+    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+.search-input-animate:focus {
+    border-color: #FC8A06; 
+    box-shadow: 0 0 0 4px rgba(252, 138, 6, 0.3); 
+}
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #4CAF50; 
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+    z-index: 1000;
+}
+.notification.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+.cart-item-hover {
+    transition: transform 0.2s ease-in-out;
+}
+.cart-item-hover:hover {
+    transform: scale(1.01);
+}
+@keyframes pulse-subtle {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+.group:hover .group-hover\:animate-pulse-subtle {
+    animation: pulse-subtle 0.8s infinite ease-in-out;
+}
+.plus-button-glow-hover {
+    transition: filter 0.3s ease-in-out;
+}
+.plus-button-glow-hover:hover {
+    filter: drop-shadow(0 0 8px rgba(252, 138, 6, 0.6)); 
+}
+.slider-button-hover:hover {
+    background-color: rgba(0, 0, 0, 0.05); 
+    border-radius: 50%; 
+}
+.scroll-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background-color: #FC8A06; 
+    width: 0%;
+    z-index: 9999;
+    transition: width 0.1s linear; 
+}
+
+.tab-button.active {
+    background-color: transparent;
+    color: #FC8A06;
+    border: 2px solid #FC8A06;
+    font-weight: 600;
+}
+.tab-button {
+    transition: all 0.3s ease;
+}
+.tab-button:hover:not(.active) {
+    color: #FC8A06;
+}
+.delivery-contact-card-hover {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+.delivery-contact-card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+}
+.know-more-card-hover {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+.know-more-card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+}
