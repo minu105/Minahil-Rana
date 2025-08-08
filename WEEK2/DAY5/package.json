@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "echo 'no build script'"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "main": "index.js",
   "keywords": [],
@@ -16,6 +19,9 @@
     "tailwindcss": "^4.1.11"
   },
   "dependencies": {
-    "@tailwindcss/cli": "^4.1.11"
+    "@tailwindcss/cli": "^4.1.11",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest"
   }
 }
