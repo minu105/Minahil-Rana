@@ -31,4 +31,4 @@ Technologies Used
 
 
 Live Preview:
-
+ https://minahil-rana-week02-day05.vercel.app/
