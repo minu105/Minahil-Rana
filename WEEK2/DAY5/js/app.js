@@ -1032,6 +1032,10 @@ renderQuizPage() {
     reviewAnswers() {
         this.navigateTo('review');
     }
+
+
+
+    
 }
 
 const app = new QuizApp();
