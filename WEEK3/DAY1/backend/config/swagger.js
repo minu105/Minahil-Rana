@@ -10,7 +10,7 @@ const swaggerOptions = {
       version: "1.0.0",
       description: "A simple Task Manager API",
     },
-    servers: [{ url: `http://localhost:${PORT}` }],
+    servers: [{ host: `https://minahil-rana-week3-day1-backend.vercel.app/` }],
   },
   apis: ["./routes/*.js"], 
 }
