@@ -37,7 +37,6 @@ const taskSchema = new mongoose.Schema(
   },
 )
 
-// Index for better query performance
 taskSchema.index({ user: 1, status: 1 })
 taskSchema.index({ user: 1, createdAt: -1 })
 

@@ -6,19 +6,7 @@
     <title>Product Designer</title>
     <link href="./output.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        'sans': ['Inter', 'system-ui', 'sans-serif'],
-                        'anton': ['Anton', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+ 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <!-- Added custom CSS for exact font specifications -->
     <style>
@@ -187,7 +175,6 @@
             }
         }
         
-        /* Desktop styles (1401px and above) */
         @media (min-width: 1401px) {
             .product-designer-text {
                 font-size: 160px;
@@ -237,7 +224,7 @@
 
     <!-- Moon Icon (Dark Mode) -->
     <img src="./Images/moon.png" alt="Moon" 
-         class="absolute right-1 w-3 h-3 hidden dark:block">
+         class="absolute left-1 w-3 h-3 hidden dark:block">
 
     <!-- Toggle Dot -->
     <span id="toggle-dot"

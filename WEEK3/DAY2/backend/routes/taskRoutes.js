@@ -12,8 +12,6 @@ const auth = require("../middleware/auth")
 const validateRequest = require("../middleware/validateRequest")
 
 const router = express.Router()
-
-// Validation rules
 const createTaskValidation = [
   body("title")
     .trim()

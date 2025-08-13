@@ -1,6 +1,6 @@
-const swaggerJsdoc = require("swagger-jsdoc");
-const swaggerUi = require("swagger-ui-express");
-const path = require("path");
+const swaggerJsdoc = require("swagger-jsdoc")
+const swaggerUi = require("swagger-ui-express")
+const path = require("path")
 
 const options = {
   definition: {
@@ -21,12 +21,12 @@ const options = {
     },
     servers: [
       {
-        url: "minuranaweek3day2backend.vercel.app",
-        description: "Development server",
+        url: "https://mainuranaweek3day2backend.vercel.app",
+        description: "Production server",
       },
       {
-        url: "https://api.taskmanager.com",
-        description: "Production server",
+        url: "http://localhost:5000",
+        description: "Development server",
       },
     ],
     components: {
@@ -44,9 +44,24 @@ const options = {
           properties: {
             id: { type: "string", description: "User unique identifier", example: "64a7b8c9d1e2f3a4b5c6d7e8" },
             name: { type: "string", description: "User's full name", example: "John Doe" },
-            email: { type: "string", format: "email", description: "User's email address", example: "john.doe@example.com" },
-            createdAt: { type: "string", format: "date-time", description: "Account creation timestamp", example: "2024-01-15T10:30:00.000Z" },
-            updatedAt: { type: "string", format: "date-time", description: "Last update timestamp", example: "2024-01-15T10:30:00.000Z" },
+            email: {
+              type: "string",
+              format: "email",
+              description: "User's email address",
+              example: "john.doe@example.com",
+            },
+            createdAt: {
+              type: "string",
+              format: "date-time",
+              description: "Account creation timestamp",
+              example: "2024-01-15T10:30:00.000Z",
+            },
+            updatedAt: {
+              type: "string",
+              format: "date-time",
+              description: "Last update timestamp",
+              example: "2024-01-15T10:30:00.000Z",
+            },
           },
         },
         Task: {
@@ -54,13 +69,42 @@ const options = {
           properties: {
             id: { type: "string", description: "Task unique identifier", example: "64a7b8c9d1e2f3a4b5c6d7e9" },
             title: { type: "string", description: "Task title", example: "Complete project documentation" },
-            description: { type: "string", description: "Detailed task description", example: "Write comprehensive API documentation with examples" },
-            status: { type: "string", enum: ["pending", "in-progress", "completed"], description: "Current task status", example: "in-progress" },
-            priority: { type: "string", enum: ["low", "medium", "high"], description: "Task priority level", example: "high" },
-            dueDate: { type: "string", format: "date-time", description: "Task due date", example: "2024-02-01T23:59:59.000Z" },
+            description: {
+              type: "string",
+              description: "Detailed task description",
+              example: "Write comprehensive API documentation with examples",
+            },
+            status: {
+              type: "string",
+              enum: ["pending", "in-progress", "completed"],
+              description: "Current task status",
+              example: "in-progress",
+            },
+            priority: {
+              type: "string",
+              enum: ["low", "medium", "high"],
+              description: "Task priority level",
+              example: "high",
+            },
+            dueDate: {
+              type: "string",
+              format: "date-time",
+              description: "Task due date",
+              example: "2024-02-01T23:59:59.000Z",
+            },
             user: { $ref: "#/components/schemas/User" },
-            createdAt: { type: "string", format: "date-time", description: "Task creation timestamp", example: "2024-01-15T10:30:00.000Z" },
-            updatedAt: { type: "string", format: "date-time", description: "Last update timestamp", example: "2024-01-15T10:30:00.000Z" },
+            createdAt: {
+              type: "string",
+              format: "date-time",
+              description: "Task creation timestamp",
+              example: "2024-01-15T10:30:00.000Z",
+            },
+            updatedAt: {
+              type: "string",
+              format: "date-time",
+              description: "Last update timestamp",
+              example: "2024-01-15T10:30:00.000Z",
+            },
           },
         },
         AuthResponse: {
@@ -72,7 +116,11 @@ const options = {
               type: "object",
               properties: {
                 user: { $ref: "#/components/schemas/User" },
-                token: { type: "string", description: "JWT authentication token", example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." },
+                token: {
+                  type: "string",
+                  description: "JWT authentication token",
+                  example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+                },
               },
             },
           },
@@ -154,19 +202,19 @@ const options = {
     path.resolve(__dirname, "../controllers/*.js"),
     path.resolve(__dirname, "../models/*.js"),
     path.resolve(__dirname, "../middlewares/*.js"),
-    path.resolve(__dirname, "../config/*.js")
+    path.resolve(__dirname, "../config/*.js"),
   ],
-};
+}
 
-let specs;
+let specs
 try {
-  specs = swaggerJsdoc(options);
+  specs = swaggerJsdoc(options)
 } catch (err) {
-  console.error("Swagger generation failed:", err);
-  specs = { openapi: "3.0.0", info: options.definition.info, components: options.definition.components };
+  console.error("Swagger generation failed:", err)
+  specs = { openapi: "3.0.0", info: options.definition.info, components: options.definition.components }
 }
 
 module.exports = {
   specs,
   swaggerUi,
-};
+}

@@ -3,9 +3,8 @@ const User = require("../models/User")
 
 const auth = async (req, res, next) => {
   try {
-    // Get token from header
     const authHeader = req.header("Authorization")
-    console.log("Auth header:", authHeader) // Debug log
+    console.log("Auth header:", authHeader) 
 
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
       return res.status(401).json({
@@ -15,13 +14,12 @@ const auth = async (req, res, next) => {
     }
 
     const token = authHeader.replace("Bearer ", "")
-    console.log("Extracted token:", token.substring(0, 20) + "...") // Debug log (partial token)
+    console.log("Extracted token:", token.substring(0, 20) + "...") 
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
-    console.log("Decoded token:", decoded) // Debug log
-
+    console.log("Decoded token:", decoded) 
     const user = await User.findById(decoded.id).select("-password")
-    console.log("Found user:", user ? user.email : "Not found") // Debug log
+    console.log("Found user:", user ? user.email : "Not found") 
 
     if (!user) {
       return res.status(401).json({
@@ -33,7 +31,7 @@ const auth = async (req, res, next) => {
     req.user = user
     next()
   } catch (error) {
-    console.error("Auth middleware error:", error) // Debug log
+    console.error("Auth middleware error:", error) 
 
     if (error.name === "JsonWebTokenError") {
       return res.status(401).json({

@@ -13,7 +13,6 @@ router.get(
   }),
 )
 
-// JSON endpoint for API specification
 router.get("/json", (req, res) => {
   res.setHeader("Content-Type", "application/json")
   res.send(specs)
