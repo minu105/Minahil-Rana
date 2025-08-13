@@ -6,192 +6,14 @@
     <title>Product Designer</title>
     <link href="./output.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
- 
+     <link href="./style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <!-- Added custom CSS for exact font specifications -->
-    <style>
-        .product-designer-text {
-            font-family: 'Anton', sans-serif;
-            font-weight: 400;
-            line-height: 90%;
-            letter-spacing: -3%;
-            text-align: center;
-        }
-        
-        .cristian-munoz-text {
-            font-family: 'Anton', sans-serif;
-            font-weight: 400;
-            line-height: 90%;
-            letter-spacing: -3%;
-            text-align: center;
-        }
-        
-        /* Added more granular responsive breakpoints to prevent letter stacking */
-        @media (max-width: 320px) {
-            .product-designer-text {
-                font-size: 60px;
-            }
-            .cristian-munoz-text {
-                font-size: 35px;
-            }
-        }
-        
-        @media (min-width: 321px) and (max-width: 380px) {
-            .product-designer-text {
-                font-size: 70px;
-            }
-            .cristian-munoz-text {
-                font-size: 40px;
-            }
-        }
-        
-        @media (min-width: 381px) and (max-width: 430px) {
-            .product-designer-text {
-                font-size: 85px;
-            }
-            .cristian-munoz-text {
-                font-size: 50px;
-            }
-        }
-        
-        @media (min-width: 431px) and (max-width: 500px) {
-            .product-designer-text {
-                font-size: 90px;
-            }
-            .cristian-munoz-text {
-                font-size: 52px;
-            }
-        }
-        
-        @media (min-width: 501px) and (max-width: 600px) {
-            .product-designer-text {
-                font-size: 95px;
-            }
-            .cristian-munoz-text {
-                font-size: 55px;
-            }
-        }
-        
-        @media (min-width: 601px) and (max-width: 700px) {
-            .product-designer-text {
-                font-size: 100px;
-            }
-            .cristian-munoz-text {
-                font-size: 58px;
-            }
-        }
-        
-        @media (min-width: 701px) and (max-width: 800px) {
-            .product-designer-text {
-                font-size: 110px;
-            }
-            .cristian-munoz-text {
-                font-size: 62px;
-            }
-        }
-        
-        @media (min-width: 801px) and (max-width: 900px) {
-            .product-designer-text {
-                font-size: 120px;
-            }
-            .cristian-munoz-text {
-                font-size: 68px;
-            }
-        }
-        
-        @media (min-width: 901px) and (max-width: 1023px) {
-            .product-designer-text {
-                font-size: 130px;
-            }
-            .cristian-munoz-text {
-                font-size: 75px;
-            }
-        }
-        
-        /* Added granular breakpoints between 1024px-1200px to prevent letter stacking */
-        @media (min-width: 1024px) and (max-width: 1100px) {
-            .product-designer-text {
-                font-size: 135px;
-                text-align: left;
-            }
-            .cristian-munoz-text {
-                font-size: 78px;
-                text-align: left;
-            }
-        }
-        
-        @media (min-width: 1101px) and (max-width: 1200px) {
-            .product-designer-text {
-                font-size: 145px;
-                text-align: left;
-            }
-            .cristian-munoz-text {
-                font-size: 82px;
-                text-align: left;
-            }
-        }
-        
-        @media (min-width: 1201px) and (max-width: 1250px) {
-            .product-designer-text {
-                font-size: 145px;
-                text-align: left;
-            }
-            .cristian-munoz-text {
-                font-size: 82px;
-                text-align: left;
-            }
-        }
-        
-        @media (min-width: 1251px) and (max-width: 1300px) {
-            .product-designer-text {
-                font-size: 148px;
-                text-align: left;
-            }
-            .cristian-munoz-text {
-                font-size: 84px;
-                text-align: left;
-            }
-        }
-        
-        @media (min-width: 1301px) and (max-width: 1350px) {
-            .product-designer-text {
-                font-size: 152px;
-                text-align: left;
-            }
-            .cristian-munoz-text {
-                font-size: 86px;
-                text-align: left;
-            }
-        }
-        
-        @media (min-width: 1351px) and (max-width: 1400px) {
-            .product-designer-text {
-                font-size: 155px;
-                text-align: left;
-            }
-            .cristian-munoz-text {
-                font-size: 88px;
-                text-align: left;
-            }
-        }
-        
-        @media (min-width: 1401px) {
-            .product-designer-text {
-                font-size: 160px;
-                text-align: left;
-            }
-            .cristian-munoz-text {
-                font-size: 90px;
-                text-align: left;
-            }
-        }
-    </style>
+
 </head>
 <body class="bg-white dark:bg-black text-black dark:text-white transition-colors duration-300 min-h-screen" style="font-family: 'Inter', sans-serif;">
 <!-- Navigation -->
 <nav class="bg-transparent">
     <div class="max-w-[1440px] mx-auto flex items-center justify-between p-2 lg:px-12">
-        <!-- Logo -->
         <div class="pl-4 flex items-center">
             <div class="w-16 h-16 dark:hidden rounded-sm flex items-center justify-center">
                 <img src="./Images/logoBlack.png" alt="Logo" class="mr-2">
@@ -209,30 +31,19 @@
             <a href="#" class="text-sm hover:opacity-70 transition-opacity">About Me</a>
         </div>
 
-        <!-- Desktop Dark Mode Toggle & Button -->
         <div class="hidden lg:flex items-center space-x-4">
-            <!-- Dark Mode Toggle -->
-<!-- Dark Mode Toggle -->
-<button id="theme-toggle"
-    class="relative inline-flex h-6 w-11 items-center rounded-full bg-[#051724] dark:bg-[#FFEC70] transition-colors">
+            <button id="theme-toggle"
+                class="relative inline-flex h-6 w-11 items-center rounded-full bg-[#051724] dark:bg-[#FFEC70] transition-colors">
 
-    <span class="sr-only">Toggle dark mode</span>
-
-    <!-- Sun Icon (Light Mode) -->
-    <img src="./Images/sun.png" alt="Sun" 
-         class="absolute right-1 w-3 h-3 dark:hidden">
-
-    <!-- Moon Icon (Dark Mode) -->
-    <img src="./Images/moon.png" alt="Moon" 
-         class="absolute left-1 w-3 h-3 hidden dark:block">
-
-    <!-- Toggle Dot -->
-    <span id="toggle-dot"
-        class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform dark:translate-x-6 translate-x-1">
-    </span>
-</button>
-            
-            <!-- Contact Button -->
+                <span class="sr-only">Toggle dark mode</span>
+                <img src="./Images/sun.png" alt="Sun" 
+                     class="absolute right-1 w-3 h-3 dark:hidden">
+                <img src="./Images/moon.png" alt="Moon" 
+                     class="absolute left-1 w-3 h-3 hidden dark:block">
+                <span id="toggle-dot"
+                    class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform dark:translate-x-6 translate-x-1">
+                </span>
+            </button>
             <button class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
                 Contact Me
             </button>
@@ -244,14 +55,42 @@
                 <span class="sr-only">Toggle dark mode</span>
                 <span id="mobile-toggle-dot" class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform dark:translate-x-6 translate-x-1"></span>
             </button>
-            <button id="mobile-menu-btn" class="flex flex-col space-y-1 p-2">
-                <span class="w-6 h-0.5 bg-black dark:bg-white"></span>
-                <span class="w-6 h-0.5 bg-black dark:bg-white"></span>
-                <span class="w-6 h-0.5 bg-black dark:bg-white"></span>
+            <button id="mobile-menu-btn" class="flex flex-col space-y-1 p-2 transition-all duration-300 hover:scale-110 active:scale-95" aria-label="Open mobile menu">
+                <span class="w-6 h-0.5 bg-black dark:bg-white transition-all duration-300"></span>
+                <span class="w-6 h-0.5 bg-black dark:bg-white transition-all duration-300"></span>
+                <span class="w-6 h-0.5 bg-black dark:bg-white transition-all duration-300"></span>
             </button>
         </div>
     </div>
 </nav>
+
+<!-- Mobile Menu Overlay -->
+<div id="mobile-menu" class="fixed inset-0 z-50 lg:hidden transform -translate-x-full transition-transform duration-300 ease-in-out">
+    <div class="absolute inset-0 bg-black bg-opacity-50" id="mobile-menu-backdrop"></div>
+    <div class="absolute left-0 top-0 h-full w-full bg-white dark:bg-black shadow-xl">
+        <div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+            <h2 class="text-lg font-semibold">Menu</h2>
+            <button id="mobile-menu-close" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        <nav class="p-4">
+            <div class="space-y-4">
+                <a href="#" class="block text-lg hover:opacity-70 transition-opacity py-2">Home</a>
+                <a href="#" class="block text-lg hover:opacity-70 transition-opacity py-2">Portfolio</a>
+                <a href="#" class="block text-lg hover:opacity-70 transition-opacity py-2">Skills</a>
+                <a href="#" class="block text-lg hover:opacity-70 transition-opacity py-2">About Me</a>
+            </div>
+            <div class="mt-8">
+                <button class="w-full bg-purple-600 hover:bg-purple-700 text-white px-4 py-3 rounded-md text-sm font-medium transition-colors">
+                    Contact Me
+                </button>
+            </div>
+        </nav>
+    </div>
+</div>
 
 <!-- Main Content -->
 <main class="relative overflow-x-hidden">
@@ -294,7 +133,7 @@
                         </a>
                         <a href="#" class="w-10 h-10 rounded-lg flex items-center justify-center hover:opacity-70 transition-opacity">
                             <img src="./Images/telegramBlack.png" alt="Telegram" class="dark:hidden">
-                            <img src="./Images/telegram.png" alt="Telegram" class="hidden dark:block">
+                            <img src="./Images/telegram.png" alt="Telegraph" class="hidden dark:block">
                         </a>
                         <a href="#" class="w-10 h-10 rounded-lg flex items-center justify-center hover:opacity-70 transition-opacity">
                             <img src="./Images/twitterBlack.png" alt="Twitter" class="dark:hidden">
@@ -323,61 +162,6 @@
     </div>
 </main>
 
-
-    <script>
-        // Theme Toggle Functionality
-        const themeToggle = document.getElementById('theme-toggle');
-        const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
-        const toggleDot = document.getElementById('toggle-dot');
-        const mobileToggleDot = document.getElementById('mobile-toggle-dot');
-        const html = document.documentElement;
-
-        function toggleTheme() {
-            html.classList.toggle('dark');
-            const isDark = html.classList.contains('dark');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        }
-
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'light') {
-            html.classList.remove('dark');
-        } else {
-            html.classList.add('dark');
-        }
-
-        themeToggle.addEventListener('click', toggleTheme);
-        mobileThemeToggle.addEventListener('click', toggleTheme);
-
-        // Mobile Menu Functionality
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileMenuClose = document.getElementById('mobile-menu-close');
-
-        function openMobileMenu() {
-            mobileMenu.classList.remove('translate-x-full');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeMobileMenu() {
-            mobileMenu.classList.add('translate-x-full');
-            document.body.style.overflow = 'auto';
-        }
-
-        mobileMenuBtn.addEventListener('click', openMobileMenu);
-        mobileMenuClose.addEventListener('click', closeMobileMenu);
-
-        // Close mobile menu when clicking on links
-        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
-        mobileMenuLinks.forEach(link => {
-            link.addEventListener('click', closeMobileMenu);
-        });
-
-        // Close mobile menu on escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                closeMobileMenu();
-            }
-        });
-    </script>
+<script src="./script.js"></script>
 </body>
 </html>
