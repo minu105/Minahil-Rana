@@ -1,5 +1,6 @@
-const swaggerJsdoc = require("swagger-jsdoc")
-const swaggerUi = require("swagger-ui-express")
+const swaggerJsdoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
+const path = require("path");
 
 const options = {
   definition: {
@@ -20,7 +21,7 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:5000",
+        url: "minuranaweek3day2backend.vercel.app",
         description: "Development server",
       },
       {
@@ -41,111 +42,37 @@ const options = {
         User: {
           type: "object",
           properties: {
-            id: {
-              type: "string",
-              description: "User unique identifier",
-              example: "64a7b8c9d1e2f3a4b5c6d7e8",
-            },
-            name: {
-              type: "string",
-              description: "User's full name",
-              example: "John Doe",
-            },
-            email: {
-              type: "string",
-              format: "email",
-              description: "User's email address",
-              example: "john.doe@example.com",
-            },
-            createdAt: {
-              type: "string",
-              format: "date-time",
-              description: "Account creation timestamp",
-              example: "2024-01-15T10:30:00.000Z",
-            },
-            updatedAt: {
-              type: "string",
-              format: "date-time",
-              description: "Last update timestamp",
-              example: "2024-01-15T10:30:00.000Z",
-            },
+            id: { type: "string", description: "User unique identifier", example: "64a7b8c9d1e2f3a4b5c6d7e8" },
+            name: { type: "string", description: "User's full name", example: "John Doe" },
+            email: { type: "string", format: "email", description: "User's email address", example: "john.doe@example.com" },
+            createdAt: { type: "string", format: "date-time", description: "Account creation timestamp", example: "2024-01-15T10:30:00.000Z" },
+            updatedAt: { type: "string", format: "date-time", description: "Last update timestamp", example: "2024-01-15T10:30:00.000Z" },
           },
         },
         Task: {
           type: "object",
           properties: {
-            id: {
-              type: "string",
-              description: "Task unique identifier",
-              example: "64a7b8c9d1e2f3a4b5c6d7e9",
-            },
-            title: {
-              type: "string",
-              description: "Task title",
-              example: "Complete project documentation",
-            },
-            description: {
-              type: "string",
-              description: "Detailed task description",
-              example: "Write comprehensive API documentation with examples",
-            },
-            status: {
-              type: "string",
-              enum: ["pending", "in-progress", "completed"],
-              description: "Current task status",
-              example: "in-progress",
-            },
-            priority: {
-              type: "string",
-              enum: ["low", "medium", "high"],
-              description: "Task priority level",
-              example: "high",
-            },
-            dueDate: {
-              type: "string",
-              format: "date-time",
-              description: "Task due date",
-              example: "2024-02-01T23:59:59.000Z",
-            },
-            user: {
-              $ref: "#/components/schemas/User",
-            },
-            createdAt: {
-              type: "string",
-              format: "date-time",
-              description: "Task creation timestamp",
-              example: "2024-01-15T10:30:00.000Z",
-            },
-            updatedAt: {
-              type: "string",
-              format: "date-time",
-              description: "Last update timestamp",
-              example: "2024-01-15T10:30:00.000Z",
-            },
+            id: { type: "string", description: "Task unique identifier", example: "64a7b8c9d1e2f3a4b5c6d7e9" },
+            title: { type: "string", description: "Task title", example: "Complete project documentation" },
+            description: { type: "string", description: "Detailed task description", example: "Write comprehensive API documentation with examples" },
+            status: { type: "string", enum: ["pending", "in-progress", "completed"], description: "Current task status", example: "in-progress" },
+            priority: { type: "string", enum: ["low", "medium", "high"], description: "Task priority level", example: "high" },
+            dueDate: { type: "string", format: "date-time", description: "Task due date", example: "2024-02-01T23:59:59.000Z" },
+            user: { $ref: "#/components/schemas/User" },
+            createdAt: { type: "string", format: "date-time", description: "Task creation timestamp", example: "2024-01-15T10:30:00.000Z" },
+            updatedAt: { type: "string", format: "date-time", description: "Last update timestamp", example: "2024-01-15T10:30:00.000Z" },
           },
         },
         AuthResponse: {
           type: "object",
           properties: {
-            success: {
-              type: "boolean",
-              example: true,
-            },
-            message: {
-              type: "string",
-              example: "Login successful",
-            },
+            success: { type: "boolean", example: true },
+            message: { type: "string", example: "Login successful" },
             data: {
               type: "object",
               properties: {
-                user: {
-                  $ref: "#/components/schemas/User",
-                },
-                token: {
-                  type: "string",
-                  description: "JWT authentication token",
-                  example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-                },
+                user: { $ref: "#/components/schemas/User" },
+                token: { type: "string", description: "JWT authentication token", example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." },
               },
             },
           },
@@ -153,63 +80,30 @@ const options = {
         TaskResponse: {
           type: "object",
           properties: {
-            success: {
-              type: "boolean",
-              example: true,
-            },
-            message: {
-              type: "string",
-              example: "Task created successfully",
-            },
+            success: { type: "boolean", example: true },
+            message: { type: "string", example: "Task created successfully" },
             data: {
               type: "object",
-              properties: {
-                task: {
-                  $ref: "#/components/schemas/Task",
-                },
-              },
+              properties: { task: { $ref: "#/components/schemas/Task" } },
             },
           },
         },
         TasksResponse: {
           type: "object",
           properties: {
-            success: {
-              type: "boolean",
-              example: true,
-            },
+            success: { type: "boolean", example: true },
             data: {
               type: "object",
               properties: {
-                tasks: {
-                  type: "array",
-                  items: {
-                    $ref: "#/components/schemas/Task",
-                  },
-                },
+                tasks: { type: "array", items: { $ref: "#/components/schemas/Task" } },
                 pagination: {
                   type: "object",
                   properties: {
-                    currentPage: {
-                      type: "integer",
-                      example: 1,
-                    },
-                    totalPages: {
-                      type: "integer",
-                      example: 5,
-                    },
-                    totalTasks: {
-                      type: "integer",
-                      example: 47,
-                    },
-                    hasNextPage: {
-                      type: "boolean",
-                      example: true,
-                    },
-                    hasPrevPage: {
-                      type: "boolean",
-                      example: false,
-                    },
+                    currentPage: { type: "integer", example: 1 },
+                    totalPages: { type: "integer", example: 5 },
+                    totalTasks: { type: "integer", example: 47 },
+                    hasNextPage: { type: "boolean", example: true },
+                    hasPrevPage: { type: "boolean", example: false },
                   },
                 },
               },
@@ -219,31 +113,16 @@ const options = {
         ErrorResponse: {
           type: "object",
           properties: {
-            success: {
-              type: "boolean",
-              example: false,
-            },
-            message: {
-              type: "string",
-              example: "Validation failed",
-            },
+            success: { type: "boolean", example: false },
+            message: { type: "string", example: "Validation failed" },
             errors: {
               type: "array",
               items: {
                 type: "object",
                 properties: {
-                  field: {
-                    type: "string",
-                    example: "email",
-                  },
-                  message: {
-                    type: "string",
-                    example: "Please provide a valid email",
-                  },
-                  value: {
-                    type: "string",
-                    example: "invalid-email",
-                  },
+                  field: { type: "string", example: "email" },
+                  message: { type: "string", example: "Please provide a valid email" },
+                  value: { type: "string", example: "invalid-email" },
                 },
               },
             },
@@ -252,27 +131,15 @@ const options = {
         ValidationError: {
           type: "object",
           properties: {
-            success: {
-              type: "boolean",
-              example: false,
-            },
-            message: {
-              type: "string",
-              example: "Validation failed",
-            },
+            success: { type: "boolean", example: false },
+            message: { type: "string", example: "Validation failed" },
             errors: {
               type: "array",
               items: {
                 type: "object",
                 properties: {
-                  field: {
-                    type: "string",
-                    example: "title",
-                  },
-                  message: {
-                    type: "string",
-                    example: "Title is required and must be between 1 and 100 characters",
-                  },
+                  field: { type: "string", example: "title" },
+                  message: { type: "string", example: "Title is required and must be between 1 and 100 characters" },
                 },
               },
             },
@@ -280,18 +147,26 @@ const options = {
         },
       },
     },
-    security: [
-      {
-        bearerAuth: [],
-      },
-    ],
+    security: [{ bearerAuth: [] }],
   },
-  apis: ["./routes/*.js", "./controllers/*.js"], // Path to the API files
-}
+  apis: [
+    path.resolve(__dirname, "../routes/*.js"),
+    path.resolve(__dirname, "../controllers/*.js"),
+    path.resolve(__dirname, "../models/*.js"),
+    path.resolve(__dirname, "../middlewares/*.js"),
+    path.resolve(__dirname, "../config/*.js")
+  ],
+};
 
-const specs = swaggerJsdoc(options)
+let specs;
+try {
+  specs = swaggerJsdoc(options);
+} catch (err) {
+  console.error("Swagger generation failed:", err);
+  specs = { openapi: "3.0.0", info: options.definition.info, components: options.definition.components };
+}
 
 module.exports = {
   specs,
   swaggerUi,
-}
+};

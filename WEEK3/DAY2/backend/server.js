@@ -20,8 +20,10 @@ connectDB()
 // Middleware
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:3000",
+    origin: ["http://localhost:3000", "http://localhost:5000"], // Add swagger UI origin
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   }),
 )
 
@@ -31,6 +33,9 @@ app.use(express.urlencoded({ extended: true }))
 // Request logging middleware
 app.use((req, res, next) => {
   console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`)
+  if (req.headers.authorization) {
+    console.log("Authorization header present:", req.headers.authorization.substring(0, 20) + "...")
+  }
   next()
 })
 

@@ -45,16 +45,16 @@ const loginValidation = [
  *                 type: string
  *                 minLength: 2
  *                 maxLength: 50
- *                 example: "John Doe"
+ *                 example: "Minu Rana"
  *               email:
  *                 type: string
  *                 format: email
- *                 example: "john.doe@example.com"
+ *                 example: "minu.rana@example.com"
  *               password:
  *                 type: string
  *                 minLength: 6
  *                 pattern: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)"
- *                 example: "SecurePass123"
+ *                 example: "Password123"
  *                 description: "Must contain at least one uppercase letter, one lowercase letter, and one number"
  *     responses:
  *       201:
@@ -98,10 +98,10 @@ router.post("/register", registerValidation, validateRequest, registerUser)
  *               email:
  *                 type: string
  *                 format: email
- *                 example: "john.doe@example.com"
+ *                 example: "minu.rana@example.com"
  *               password:
  *                 type: string
- *                 example: "SecurePass123"
+ *                 example: "Password123"
  *     responses:
  *       200:
  *         description: Login successful

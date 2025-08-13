@@ -160,7 +160,7 @@ router.use(auth)
  *                 type: string
  *                 minLength: 1
  *                 maxLength: 100
- *                 example: "Complete project documentation"
+ *                 example: "Complete your react project"
  *               description:
  *                 type: string
  *                 maxLength: 500
@@ -207,6 +207,68 @@ router.use(auth)
  */
 router.get("/", getTasksValidation, validateRequest, getTasks)
 router.post("/", createTaskValidation, validateRequest, createTask)
+
+/**
+ * @swagger
+ * /api/tasks/stats:
+ *   get:
+ *     summary: Get task statistics for authenticated user
+ *     tags: [Tasks]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Task statistics retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     totalTasks:
+ *                       type: integer
+ *                       example: 47
+ *                     statusBreakdown:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           _id:
+ *                             type: string
+ *                             example: "completed"
+ *                           count:
+ *                             type: integer
+ *                             example: 15
+ *                     priorityBreakdown:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           _id:
+ *                             type: string
+ *                             example: "high"
+ *                           count:
+ *                             type: integer
+ *                             example: 12
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ *       500:
+ *         description: Server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
+ */
+router.get("/stats", getTaskStats)
 
 /**
  * @swagger
@@ -384,67 +446,5 @@ router.post("/", createTaskValidation, validateRequest, createTask)
 router.get("/:id", taskIdValidation, validateRequest, getTaskById)
 router.put("/:id", taskIdValidation, updateTaskValidation, validateRequest, updateTask)
 router.delete("/:id", taskIdValidation, validateRequest, deleteTask)
-
-/**
- * @swagger
- * /api/tasks/stats:
- *   get:
- *     summary: Get task statistics for authenticated user
- *     tags: [Tasks]
- *     security:
- *       - bearerAuth: []
- *     responses:
- *       200:
- *         description: Task statistics retrieved successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
- *                 data:
- *                   type: object
- *                   properties:
- *                     totalTasks:
- *                       type: integer
- *                       example: 47
- *                     statusBreakdown:
- *                       type: array
- *                       items:
- *                         type: object
- *                         properties:
- *                           _id:
- *                             type: string
- *                             example: "completed"
- *                           count:
- *                             type: integer
- *                             example: 15
- *                     priorityBreakdown:
- *                       type: array
- *                       items:
- *                         type: object
- *                         properties:
- *                           _id:
- *                             type: string
- *                             example: "high"
- *                           count:
- *                             type: integer
- *                             example: 12
- *       401:
- *         description: Unauthorized
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
- *       500:
- *         description: Server error
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
- */
-router.get("/stats", getTaskStats)
 
 module.exports = router
