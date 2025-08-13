@@ -21,7 +21,7 @@ const options = {
     },
     servers: [
       {
-        url: "https://mainuranaweek3day2backend.vercel.app",
+        url: "https://week03-day01-backend.vercel.app/",
         description: "Production server",
       },
       {
