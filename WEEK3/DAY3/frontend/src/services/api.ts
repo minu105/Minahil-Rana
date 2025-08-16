@@ -2,7 +2,7 @@ import axios from "axios"
 
 // Create axios instance with base configuration
 export const api = axios.create({
-  baseURL: "http://localhost:3000/api", // Change this to your backend URL
+  baseURL: "https://minahilrana-week3-day3-backend.vercel.app/api/docs/", // Change this to your backend URL
   headers: {
     "Content-Type": "application/json",
   },
