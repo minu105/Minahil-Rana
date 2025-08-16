@@ -23,6 +23,7 @@ app.use(
         "http://127.0.0.1:3000",
         "http://127.0.0.1:3001",
         "http://127.0.0.1:5173",
+        "https://minahilrana-week3-day3-frontend.vercel.app/",
       ]
 
       console.log(`CORS: Request from origin: ${origin}`)
