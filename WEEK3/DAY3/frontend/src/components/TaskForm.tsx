@@ -56,6 +56,7 @@ export const TaskForm = ({ task, onTaskCreated, onTaskUpdated, onCancel }: TaskF
         // Update existing task
         const response = await api.put(`/tasks/${task._id}`, taskData)
         onTaskUpdated(response.data.data.task)
+        onCancel();
       } else {
         // Create new task
         const response = await api.post("/tasks", taskData)
