@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { useParams, Link, useLocation } from "react-router-dom"
 import axios from "axios"
+const normalize = (str) => str?.toLowerCase().replace(/\s+/g, "").replace(/s$/, "");
 
 const CollectionsPage = () => {
   const { category } = useParams()
@@ -29,7 +30,7 @@ const CollectionsPage = () => {
   })
   const [sortBy, setSortBy] = useState("name")
 
-  const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api"
+  const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api"
 
   const filterOptions = {
     collections: [
@@ -82,7 +83,65 @@ const CollectionsPage = () => {
   const fetchProducts = async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/products`)
-      const data = response.data?.data?.products || []
+      let data = response.data?.data?.products || []
+
+      // Normalize products to match filters
+      data = data.map((p) => {
+        // Map category into collection-style filter
+        let mappedCollection = ""
+        switch (p.category) {
+          case "black-tea":
+            mappedCollection = "Black teas"
+            break
+          case "green-tea":
+            mappedCollection = "Green teas"
+            break
+          case "white-tea":
+            mappedCollection = "White teas"
+            break
+          case "herbal-tea":
+            mappedCollection = "Herbal teas"
+            break
+          case "oolong-tea":
+            mappedCollection = "Oolong"
+            break
+          case "chai":
+            mappedCollection = "Chai"
+            break
+          default:
+            mappedCollection = p.collection || ""
+        }
+
+        // Map caffeine
+        let mappedCaffeine = ""
+        switch (p.caffeineLevel) {
+          case "none":
+            mappedCaffeine = "No Caffeine"
+            break
+          case "low":
+            mappedCaffeine = "Low Caffeine"
+            break
+          case "medium":
+            mappedCaffeine = "Medium Caffeine"
+            break
+          case "high":
+            mappedCaffeine = "High Caffeine"
+            break
+          default:
+            mappedCaffeine = ""
+        }
+
+        return {
+          ...p,
+          collection: mappedCollection,
+          caffeine: mappedCaffeine,
+          flavour: p.tags || [], // treat tags as flavours
+          qualities: p.tags || [], // reuse tags for qualities too
+          allergens: [], // none in seed, leave empty
+          organic: p.collection === "organic", // if collection is "organic", set organic true
+        }
+      })
+
       setProducts(Array.isArray(data) ? data : [])
     } catch (error) {
       console.error("Error fetching products:", error)
@@ -97,37 +156,57 @@ const CollectionsPage = () => {
     let filtered = safeProducts
 
     if (category) {
-      const categoryName = category.replace("-", " ").toUpperCase()
-      filtered = filtered.filter((product) => product.collection?.toUpperCase() === categoryName)
+      const categoryName = normalize(category.replace("-", " "))
+      filtered = filtered.filter(
+        (product) => normalize(product.collection) === categoryName
+      )
     }
 
     if (filters.collections.length > 0) {
-      filtered = filtered.filter((product) => filters.collections.includes(product.collection))
+      filtered = filtered.filter((product) =>
+        filters.collections.some((f) => normalize(product.collection) === normalize(f))
+      )
     }
 
     if (filters.origins.length > 0) {
-      filtered = filtered.filter((product) => filters.origins.includes(product.origin))
+      filtered = filtered.filter((product) =>
+        filters.origins.some((o) => normalize(product.origin) === normalize(o))
+      )
     }
 
     if (filters.flavours.length > 0) {
       filtered = filtered.filter(
-        (product) => Array.isArray(product.flavour) && product.flavour.some((f) => filters.flavours.includes(f)),
+        (product) =>
+          Array.isArray(product.flavour) &&
+          product.flavour.some((f) =>
+            filters.flavours.some((fltr) => normalize(f) === normalize(fltr))
+          )
       )
     }
 
     if (filters.qualities.length > 0) {
       filtered = filtered.filter(
-        (product) => Array.isArray(product.qualities) && product.qualities.some((q) => filters.qualities.includes(q)),
+        (product) =>
+          Array.isArray(product.qualities) &&
+          product.qualities.some((q) =>
+            filters.qualities.some((fltr) => normalize(q) === normalize(fltr))
+          )
       )
     }
 
     if (filters.cafeines.length > 0) {
-      filtered = filtered.filter((product) => filters.cafeines.includes(product.caffeine))
+      filtered = filtered.filter((product) =>
+        filters.cafeines.some((c) => normalize(product.caffeine) === normalize(c))
+      )
     }
 
     if (filters.allergens.length > 0) {
       filtered = filtered.filter(
-        (product) => Array.isArray(product.allergens) && product.allergens.some((a) => filters.allergens.includes(a)),
+        (product) =>
+          Array.isArray(product.allergens) &&
+          product.allergens.some((a) =>
+            filters.allergens.some((fltr) => normalize(a) === normalize(fltr))
+          )
       )
     }
 
@@ -177,7 +256,10 @@ const CollectionsPage = () => {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
       {/* Hero Image */}
-      <div className="h-48 sm:h-64 lg:h-[308px] xl:h-[358px] bg-cover bg-center" style={{ backgroundImage: `url('/images/BgPic.png')` }}></div>
+      <div
+        className="h-48 sm:h-64 lg:h-[308px] xl:h-[358px] bg-cover bg-center"
+        style={{ backgroundImage: `url('/images/BgPic.png')` }}
+      ></div>
 
       {/* Breadcrumb */}
       <div className="py-4 bg-white dark:bg-gray-900">
@@ -439,7 +521,7 @@ const CollectionsPage = () => {
                   <div className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-sm hover:shadow-md dark:hover:shadow-lg transition-shadow border border-gray-200 dark:border-gray-700">
                     <div className="aspect-square bg-gray-100 dark:bg-gray-700">
                       <img
-                        src={`http://localhost:3000${product.image || "/placeholder.svg"}`}
+                        src={`http://localhost:3000${product.image || "../../public/images/Blacktea.png"}`}
                         alt={product.name}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />

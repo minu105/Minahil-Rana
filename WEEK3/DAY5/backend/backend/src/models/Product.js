@@ -25,11 +25,11 @@ const productSchema = new mongoose.Schema(
     category: {
       type: String,
       required: [true, "Category is required"],
-      enum: ["black-tea", "green-tea", "herbal-tea", "oolong-tea", "white-tea", "chai"],
+      enum: ["Black teas", "Green teas", "White teas", "Chai", "Matcha", "Herbal teas", "Oolong", "Rooibos", "Teaware"],
     },
     collection: {
       type: String,
-      enum: ["premium", "classic", "organic", "seasonal"],
+      enum: ["Black teas", "Green teas", "White teas", "Chai", "Matcha", "Herbal teas", "Oolong", "Rooibos", "Teaware"],
       default: "classic",
     },
     origin: {

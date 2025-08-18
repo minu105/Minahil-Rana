@@ -135,7 +135,7 @@ const ProductPage = () => {
           {/* Product Image */}
           <div className="aspect-square bg-gray-100 dark:bg-gray-800 overflow-hidden rounded-lg">
             <img
-              src={`http://localhost:3000/images/${product.image}`}
+              src={`http://localhost:3000${product.image}`}
               alt={product.name}
               className="w-full h-full object-cover"
             />
