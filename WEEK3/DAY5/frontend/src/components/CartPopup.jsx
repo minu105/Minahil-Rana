@@ -3,6 +3,8 @@ import { Link } from "react-router-dom"
 import { useCart } from "../context/CartContext"
 import { useEffect, useRef } from "react"
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api"
+
 const CartPopup = ({ onClose }) => {
   const { cartItems, cartCount, getCartTotal, updateQuantity, removeFromCart } = useCart()
   const deliveryFee = 3.95
