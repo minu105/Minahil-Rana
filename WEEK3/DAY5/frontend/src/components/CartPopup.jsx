@@ -84,7 +84,7 @@ const CartPopup = ({ onClose }) => {
           {cartItems.map((item) => (
             <div key={item.product._id} className="flex items-start justify-between gap-3">
               <img
-                src={`http://localhost:3000${item.product.image}`}
+                src={`${API_BASE_URL}${item.product.image}`}
                 alt={item.product.name}
                 className="w-12 h-12 sm:w-16 sm:h-16 object-cover rounded"
               />
