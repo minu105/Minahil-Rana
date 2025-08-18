@@ -46,7 +46,7 @@ app.use(express.json({ limit: "10mb" }))
 app.use(express.urlencoded({ extended: true }))
 
 // Serve static images folder
-app.use("/images", express.static(path.join(__dirname, "images")))
+app.use("api/images", express.static(path.join(__dirname, "images")))
 
 // Connect to MongoDB
 connectDB()
