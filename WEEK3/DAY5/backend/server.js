@@ -62,6 +62,15 @@ app.use(
     customSiteTitle: "Tea E-commerce API Documentation",
   }),
 )
+// Serve static images also under /api/images
+app.use(
+  "/api/images",
+  express.static(path.join(__dirname, "images"), {
+    setHeaders: (res) => {
+      res.setHeader("Access-Control-Allow-Origin", "*")
+    },
+  })
+)
 
 // Routes
 app.use("/api/auth", authRoutes)
