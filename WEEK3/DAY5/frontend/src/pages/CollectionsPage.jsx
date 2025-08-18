@@ -521,7 +521,7 @@ const CollectionsPage = () => {
                   <div className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-sm hover:shadow-md dark:hover:shadow-lg transition-shadow border border-gray-200 dark:border-gray-700">
                     <div className="aspect-square bg-gray-100 dark:bg-gray-700">
                       <img
-                        src={`http://localhost:3000${product.image || "../../public/images/Blacktea.png"}`}
+                        src={`${API_BASE_URL}${product.image || "../../public/images/Blacktea.png"}`}
                         alt={product.name}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />

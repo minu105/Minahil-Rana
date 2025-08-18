@@ -84,7 +84,7 @@ const CartPage = () => {
                   className="flex flex-col sm:flex-row items-start sm:items-center py-6 gap-4"
                 >
                   <img
-                    src={`http://localhost:3000${item.product.image}`}
+                    src={`${API_BASE_URL}${item.product.image}`}
                     alt={item.product.name}
                     className="w-20 h-20 object-cover rounded-md"
                   />
