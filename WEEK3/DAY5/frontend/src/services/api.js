@@ -4,7 +4,7 @@ import axios from "axios"
 const API_BASE_URL =
   import.meta.env.VITE_API_URL || // ✅ use Vite env var if provided
   (process.env.NODE_ENV === "production"
-    ? "https://your-deployed-backend.com/api" // replace with deployed backend URL
+    ? "https://week3-day5-hackathon-backend-minahi.vercel.app/" // replace with deployed backend URL
     : "http://localhost:3000/api") // fallback for local dev
 
 const API = axios.create({
