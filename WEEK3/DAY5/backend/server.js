@@ -21,9 +21,11 @@ const PORT = process.env.PORT || 5000
 
 // ----- CORS CONFIG -----
 const allowedOrigins = process.env.CORS_ORIGINS
-  ? process.env.CORS_ORIGINS.split(",")
-  : ["http://localhost:3000 , https://minahilshabbir-week3-day5-hackathon-ochre.vercel.app"]
-
+  ? process.env.CORS_ORIGINS.split(",").map(o => o.trim())
+  : [
+      "http://localhost:3000",
+      "https://minahilshabbir-week3-day5-hackathon-ochre.vercel.app"
+    ]
 console.log("✅ Allowed CORS origins:", allowedOrigins)
 
 app.use(
