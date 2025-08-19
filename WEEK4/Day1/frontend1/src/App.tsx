@@ -16,44 +16,50 @@ export default function App() {
   const [newTask, setNewTask] = useState("");
   const [priority, setPriority] = useState<Priority>("Low");
 
-  useEffect(() => {
-    axios.get("http://localhost:5000/api/tasks").then((res) => {
-      setTasks(res.data);
-    });
-  }, []);
+useEffect(() => {
+  axios.get("https://minahil-week4-day1-backend.vercel.app/api/tasks").then((res) => {
+    setTasks(res.data);
+  });
+}, []);
 
-  const addTask = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newTask.trim()) return;
-    const res = await axios.post("http://localhost:5000/api/tasks", {
-      title: newTask,
-      priority,
-    });
+const addTask = async (e: React.FormEvent) => {
+  e.preventDefault();
+  if (!newTask.trim()) return;
+  const res = await axios.post("https://minahil-week4-day1-backend.vercel.app/api/tasks", {
+    title: newTask,
+    priority,
+  });
 
-    setTasks((prev) => [...prev, res.data]);
-    setNewTask("");
-    setPriority("Low");
-  };
+  setTasks((prev) => [...prev, res.data]);
+  setNewTask("");
+  setPriority("Low");
+};
 
-  const toggleTask = async (id: number) => {
-    const res = await axios.put(`http://localhost:5000/api/tasks/${id}/toggle`);
-    setTasks((prev) =>
-      prev.map((t) => (t.id === id ? { ...t, completed: res.data.completed } : t))
-    );
-  };
-  const changePriority = async (id: number, newPriority: Priority) => {
-    const res = await axios.put(`http://localhost:5000/api/tasks/${id}/priority`, {
-      priority: newPriority,
-    });
-    setTasks((prev) =>
-      prev.map((t) => (t.id === id ? { ...t, priority: res.data.priority } : t))
-    );
-  };
+const toggleTask = async (id: number) => {
+  const res = await axios.put(
+    `https://minahil-week4-day1-backend.vercel.app/api/tasks/${id}/toggle`
+  );
+  setTasks((prev) =>
+    prev.map((t) => (t.id === id ? { ...t, completed: res.data.completed } : t))
+  );
+};
 
-  const deleteTask = async (id: number) => {
-    await axios.delete(`http://localhost:5000/api/tasks/${id}`);
-    setTasks((prev) => prev.filter((t) => t.id !== id));
-  };
+const changePriority = async (id: number, newPriority: Priority) => {
+  const res = await axios.put(
+    `https://minahil-week4-day1-backend.vercel.app/api/tasks/${id}/priority`,
+    { priority: newPriority }
+  );
+  setTasks((prev) =>
+    prev.map((t) => (t.id === id ? { ...t, priority: res.data.priority } : t))
+  );
+};
+
+const deleteTask = async (id: number) => {
+  await axios.delete(
+    `https://minahil-week4-day1-backend.vercel.app/api/tasks/${id}`
+  );
+  setTasks((prev) => prev.filter((t) => t.id !== id));
+};
 
   const completedCount = tasks.filter((t) => t.completed).length;
   const pendingCount = tasks.length - completedCount;
