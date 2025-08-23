@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { useCart } from "../context/CartContext"
 import { useAuth } from "../context/AuthContext"
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API_BASE_URL = import.meta.env.VITE_API_URL || "https://minahil-rana.vercel.app/api";
 
 const CartPage = () => {
   const { cartItems, updateQuantity, removeFromCart, getCartTotal } = useCart()

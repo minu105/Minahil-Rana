@@ -14,7 +14,7 @@ const AddProductModal = ({ onClose, onSuccess }) => {
   });
   const [imageFile, setImageFile] = useState(null);
   const API_BASE_URL =
-    import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+    import.meta.env.VITE_API_URL || "https://minahil-rana.vercel.app/api";
 
   const handleChange = (e) => {
     const { name, value } = e.target;
