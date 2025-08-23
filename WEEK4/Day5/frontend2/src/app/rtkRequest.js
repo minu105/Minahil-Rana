@@ -24,8 +24,20 @@ const stripBase = (url) => {
 };
 
 const run = async ({ url, method = 'GET', body, headers }) => {
-  const args = { url: stripBase(url), method, body, headers };
+  const finalHeaders = new Headers(headers || {});
+
+  // Agar FormData hai → browser ko Content-Type set karne do
+  if (typeof FormData !== 'undefined' && body instanceof FormData) {
+    finalHeaders.delete("Content-Type");
+  } else if (body && typeof body === "object" && !(body instanceof FormData)) {
+    // Agar normal object hai → usse JSON me stringify karo
+    body = JSON.stringify(body);
+    finalHeaders.set("Content-Type", "application/json");
+  }
+
+  const args = { url: stripBase(url), method, body, headers: finalHeaders };
   const result = await baseQuery(args, { dispatch: () => {} }, {});
+
   if (result.error) {
     const message = result.error?.error || result.error?.data?.message || 'Request failed';
     const err = new Error(message);
