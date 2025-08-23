@@ -1,8 +1,8 @@
 "use client";
-import { useState } from "react";
-import { X, PlusCircle, Check } from "lucide-react";
+import { useState, useEffect } from "react";
+import { X, PlusCircle } from "lucide-react";
 import api from "../app/rtkRequest";
-import { useGetAvailableImagesQuery } from "../app/services/usersApi"; // 👈 ye endpoint add karna hoga
+import { useGetAvailableImagesQuery } from "../services/usersApi";
 
 const AddProductModal = ({ onClose, onSuccess }) => {
   const [formData, setFormData] = useState({
@@ -12,18 +12,32 @@ const AddProductModal = ({ onClose, onSuccess }) => {
     category: "",
     origin: "",
     stock: "",
-    image: "", // 👈 ab yahan sirf url save hoga
   });
 
-  const { data: imagesData } = useGetAvailableImagesQuery();
+  const [imageFile, setImageFile] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
 
+  // ✅ API base url
   const API_BASE_URL =
     import.meta.env.VITE_API_URL || "https://minahil-rana.vercel.app/api";
+
+  // ✅ fetch available images from backend
+  const { data: imagesData, isLoading: imagesLoading } = useGetAvailableImagesQuery();
+  const images = imagesData?.images || [];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleFileChange = (e) => {
+    setImageFile(e.target.files[0]);
+    setSelectedImage(null); // agar naya file choose kiya to gallery se clear
+  };
+
+  const handleImageSelect = (imgUrl) => {
+    setSelectedImage(imgUrl);
+    setImageFile(null); // gallery se select kiya to file clear
   };
 
   const handleSubmit = async (e) => {
@@ -45,15 +59,30 @@ const AddProductModal = ({ onClose, onSuccess }) => {
       }
     }
 
-    if (!selectedImage) {
-      alert("Please select an image");
+    if (!imageFile && !selectedImage) {
+      alert("Please select or upload an image");
       return;
     }
 
     try {
-      const payload = { ...formData, image: selectedImage };
+      if (imageFile) {
+        // agar file upload karni hai
+        const data = new FormData();
+        Object.keys(formData).forEach((key) =>
+          data.append(key, formData[key])
+        );
+        data.append("image", imageFile);
 
-      await api.post(`${API_BASE_URL}/products`, payload);
+        await api.post(`${API_BASE_URL}/products`, data, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+      } else if (selectedImage) {
+        // agar gallery se select kiya hai (full URL jaayega)
+        const payload = { ...formData, image: selectedImage };
+        await api.post(`${API_BASE_URL}/products`, payload, {
+          headers: { "Content-Type": "application/json" },
+        });
+      }
 
       onSuccess();
       onClose();
@@ -157,35 +186,45 @@ const AddProductModal = ({ onClose, onSuccess }) => {
             </div>
           </div>
 
-          {/* Image Selection from server */}
+          {/* Image Upload */}
           <div>
             <label className="block text-sm font-medium mb-1">
-              Select Product Image *
+              Product Image *
             </label>
-            <div className="grid grid-cols-3 gap-2 max-h-40 overflow-y-auto border rounded-lg p-2">
-              {imagesData?.images?.map((url) => (
-                <div
-                  key={url}
-                  onClick={() => setSelectedImage(url)}
-                  className={`relative cursor-pointer rounded-lg overflow-hidden border-2 ${
-                    selectedImage === url
-                      ? "border-green-500"
-                      : "border-transparent"
-                  }`}
-                >
-                  <img
-                    src={url}
-                    alt="option"
-                    className="w-full h-20 object-cover"
-                  />
-                  {selectedImage === url && (
-                    <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-                      <Check className="text-white w-6 h-6" />
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
+            <input
+              type="file"
+              accept=".png,.jpg,.jpeg"
+              onChange={handleFileChange}
+              className="w-full px-4 py-2 border rounded-lg bg-gray-50 dark:bg-gray-700"
+            />
+          </div>
+
+          {/* Image Gallery from backend */}
+          <div>
+            <label className="block text-sm font-medium mb-2">
+              Or select from gallery:
+            </label>
+            {imagesLoading ? (
+              <p>Loading images...</p>
+            ) : (
+              <div className="grid grid-cols-3 gap-2">
+                {images.map((img) => (
+                  <div
+                    key={img}
+                    onClick={() => handleImageSelect(img)}
+                    className={`cursor-pointer border rounded-lg overflow-hidden ${
+                      selectedImage === img ? "ring-2 ring-green-500" : ""
+                    }`}
+                  >
+                    <img
+                      src={img}
+                      alt="product"
+                      className="w-full h-24 object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Buttons */}
