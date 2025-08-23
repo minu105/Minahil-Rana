@@ -1,8 +1,7 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { X, PlusCircle } from "lucide-react";
 import api from "../app/rtkRequest";
-import { useGetAvailableImagesQuery } from "../services/usersApi";
 
 const AddProductModal = ({ onClose, onSuccess }) => {
   const [formData, setFormData] = useState({
@@ -13,17 +12,9 @@ const AddProductModal = ({ onClose, onSuccess }) => {
     origin: "",
     stock: "",
   });
-
   const [imageFile, setImageFile] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(null);
-
-  // ✅ API base url
   const API_BASE_URL =
     import.meta.env.VITE_API_URL || "https://minahil-rana.vercel.app/api";
-
-  // ✅ fetch available images from backend
-  const { data: imagesData, isLoading: imagesLoading } = useGetAvailableImagesQuery();
-  const images = imagesData?.images || [];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,12 +23,6 @@ const AddProductModal = ({ onClose, onSuccess }) => {
 
   const handleFileChange = (e) => {
     setImageFile(e.target.files[0]);
-    setSelectedImage(null); // agar naya file choose kiya to gallery se clear
-  };
-
-  const handleImageSelect = (imgUrl) => {
-    setSelectedImage(imgUrl);
-    setImageFile(null); // gallery se select kiya to file clear
   };
 
   const handleSubmit = async (e) => {
@@ -59,30 +44,21 @@ const AddProductModal = ({ onClose, onSuccess }) => {
       }
     }
 
-    if (!imageFile && !selectedImage) {
-      alert("Please select or upload an image");
+    if (!imageFile) {
+      alert("Please select an image");
       return;
     }
 
     try {
-      if (imageFile) {
-        // agar file upload karni hai
-        const data = new FormData();
-        Object.keys(formData).forEach((key) =>
-          data.append(key, formData[key])
-        );
-        data.append("image", imageFile);
+      const data = new FormData();
+      Object.keys(formData).forEach((key) =>
+        data.append(key, formData[key])
+      );
+      data.append("image", imageFile);
 
-        await api.post(`${API_BASE_URL}/products`, data, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
-      } else if (selectedImage) {
-        // agar gallery se select kiya hai (full URL jaayega)
-        const payload = { ...formData, image: selectedImage };
-        await api.post(`${API_BASE_URL}/products`, payload, {
-          headers: { "Content-Type": "application/json" },
-        });
-      }
+      await api.post(`${API_BASE_URL}/products`, data, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
       onSuccess();
       onClose();
@@ -197,34 +173,6 @@ const AddProductModal = ({ onClose, onSuccess }) => {
               onChange={handleFileChange}
               className="w-full px-4 py-2 border rounded-lg bg-gray-50 dark:bg-gray-700"
             />
-          </div>
-
-          {/* Image Gallery from backend */}
-          <div>
-            <label className="block text-sm font-medium mb-2">
-              Or select from gallery:
-            </label>
-            {imagesLoading ? (
-              <p>Loading images...</p>
-            ) : (
-              <div className="grid grid-cols-3 gap-2">
-                {images.map((img) => (
-                  <div
-                    key={img}
-                    onClick={() => handleImageSelect(img)}
-                    className={`cursor-pointer border rounded-lg overflow-hidden ${
-                      selectedImage === img ? "ring-2 ring-green-500" : ""
-                    }`}
-                  >
-                    <img
-                      src={img}
-                      alt="product"
-                      className="w-full h-24 object-cover"
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
           </div>
 
           {/* Buttons */}
