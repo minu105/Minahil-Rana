@@ -23,7 +23,7 @@ app.use("/images", express.static(path.join(__dirname, "images")));
 // Middleware
 app.use(
   cors({
-    origin: "https://minahilshabbir-week4-day5-hackathon.vercel.app", // ya specific domain likh sakte ho jaise: "https://minahilshabbir-week4-day5-hackathon.vercel.app"
+    origin: "https://minahilshabbir-week4-day5-hackathon-one.vercel.app", // ya specific domain likh sakte ho jaise: "https://minahilshabbir-week4-day5-hackathon.vercel.app"
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
