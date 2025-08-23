@@ -15,7 +15,7 @@ const options = {
     },
     servers: [
       {
-        url: "https://minahil-rana.vercel.app/api",
+        url: "https://minahil-rana.vercel.app",
         description: "Development server",
       },
     ],

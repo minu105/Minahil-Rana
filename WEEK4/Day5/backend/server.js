@@ -24,7 +24,7 @@ app.use("/images", express.static(path.join(__dirname, "images")));
 // Middleware
 app.use(
   cors({
-    origin: process.env.CORS_ORIGINS ? process.env.CORS_ORIGINS.split(",") : ["https://minahil-rana.vercel.app/api"],
+    origin: process.env.CORS_ORIGINS ? process.env.CORS_ORIGINS.split(",") : ["https://minahil-rana.vercel.app"],
     credentials: true,
   }),
 )
