@@ -24,14 +24,12 @@ app.use("/images", express.static(path.join(__dirname, "images")));
 // Middleware
 app.use(
   cors({
-    origin: process.env.CORS_ORIGINS 
-      ? process.env.CORS_ORIGINS.split(",") 
-      : ["https://minahilshabbir-week4-day5-hackathon.vercel.app"],  
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"]
+    origin: "https://minahilshabbir-week4-day5-hackathon.vercel.app", // ya specific domain likh sakte ho jaise: "https://minahilshabbir-week4-day5-hackathon.vercel.app"
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
 
 app.use(express.json({ limit: "10mb" }))
 app.use(express.urlencoded({ extended: true }))
