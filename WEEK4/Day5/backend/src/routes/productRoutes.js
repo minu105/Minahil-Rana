@@ -1,30 +1,30 @@
-const express = require("express")
-const { body, param } = require("express-validator")
-const multer = require("multer")
+const express = require("express");
+const { body, param } = require("express-validator");
+const multer = require("multer");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require("../config/cloudinary.js");
+
 const {
   getProducts,
   getProductById,
   createProduct,
   updateProduct,
   deleteProduct,
-} = require("../controllers/productController")
-const { protect, authorizeRoles } = require("../middleware/auth")
-const validateRequest = require("../middleware/validateRequest")
+} = require("../controllers/productController");
+const { protect, authorizeRoles } = require("../middleware/auth");
+const validateRequest = require("../middleware/validateRequest");
 
-const router = express.Router()
+const router = express.Router();
 
-// Configure multer storage
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "images/") // Save uploaded files to the "images" folder
+// Multer + Cloudinary storage
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "products",
+    allowed_formats: ["jpg", "jpeg", "png", "webp"],
   },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9)
-    const ext = file.originalname.split(".").pop()
-    cb(null, `${file.fieldname}-${uniqueSuffix}.${ext}`)
-  },
-})
-const upload = multer({ storage })
+});
+const upload = multer({ storage });
 
 // Validation rules
 const productValidation = [
@@ -34,9 +34,9 @@ const productValidation = [
   body("category").trim().notEmpty().withMessage("Category is required"),
   body("origin").trim().notEmpty().withMessage("Origin is required"),
   body("stock").isInt({ min: 0 }).withMessage("Stock must be a non-negative integer"),
-]
+];
 
-const idValidation = [param("id").isMongoId().withMessage("Invalid product ID")]
+const idValidation = [param("id").isMongoId().withMessage("Invalid product ID")];
 
 /**
  * @swagger
@@ -44,31 +44,8 @@ const idValidation = [param("id").isMongoId().withMessage("Invalid product ID")]
  *   get:
  *     summary: Get all products with filtering and pagination
  *     tags: [Products]
- *     parameters:
- *       - in: query
- *         name: page
- *         schema:
- *           type: integer
- *           default: 1
- *       - in: query
- *         name: limit
- *         schema:
- *           type: integer
- *           default: 12
- *       - in: query
- *         name: category
- *         schema:
- *           type: string
- *           enum: [black-tea, green-tea, herbal-tea, oolong-tea, white-tea, chai]
- *       - in: query
- *         name: search
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Products retrieved successfully
  */
-router.get("/", getProducts)
+router.get("/", getProducts);
 
 /**
  * @swagger
@@ -76,19 +53,8 @@ router.get("/", getProducts)
  *   get:
  *     summary: Get product by ID
  *     tags: [Products]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Product retrieved successfully
- *       404:
- *         description: Product not found
  */
-router.get("/:id", idValidation, validateRequest, getProductById)
+router.get("/:id", idValidation, validateRequest, getProductById);
 
 /**
  * @swagger
@@ -96,45 +62,6 @@ router.get("/:id", idValidation, validateRequest, getProductById)
  *   post:
  *     summary: Create new product (Admin or Superadmin)
  *     tags: [Products]
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         multipart/form-data:
- *           schema:
- *             type: object
- *             required:
- *               - name
- *               - description
- *               - price
- *               - image
- *               - category
- *               - origin
- *               - stock
- *             properties:
- *               name:
- *                 type: string
- *               description:
- *                 type: string
- *               price:
- *                 type: number
- *               image:
- *                 type: string
- *                 format: binary
- *               category:
- *                 type: string
- *               origin:
- *                 type: string
- *               stock:
- *                 type: integer
- *     responses:
- *       201:
- *         description: Product created successfully
- *       401:
- *         description: Unauthorized
- *       403:
- *         description: Forbidden (Insufficient privileges)
  */
 router.post(
   "/",
@@ -144,7 +71,7 @@ router.post(
   productValidation,
   validateRequest,
   createProduct
-)
+);
 
 /**
  * @swagger
@@ -152,45 +79,6 @@ router.post(
  *   put:
  *     summary: Update product (Admin or Superadmin)
  *     tags: [Products]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *     requestBody:
- *       required: true
- *       content:
- *         multipart/form-data:
- *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *               description:
- *                 type: string
- *               price:
- *                 type: number
- *               image:
- *                 type: string
- *                 format: binary
- *               category:
- *                 type: string
- *               origin:
- *                 type: string
- *               stock:
- *                 type: integer
- *     responses:
- *       200:
- *         description: Product updated successfully
- *       401:
- *         description: Unauthorized
- *       403:
- *         description: Forbidden (Insufficient privileges)
- *       404:
- *         description: Product not found
  */
 router.put(
   "/:id",
@@ -201,7 +89,7 @@ router.put(
   productValidation,
   validateRequest,
   updateProduct
-)
+);
 
 /**
  * @swagger
@@ -209,23 +97,6 @@ router.put(
  *   delete:
  *     summary: Delete product (Superadmin only)
  *     tags: [Products]
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Product deleted successfully
- *       401:
- *         description: Unauthorized
- *       403:
- *         description: Forbidden (Insufficient privileges)
- *       404:
- *         description: Product not found
  */
 router.delete(
   "/:id",
@@ -234,6 +105,6 @@ router.delete(
   idValidation,
   validateRequest,
   deleteProduct
-)
+);
 
-module.exports = router
+module.exports = router;
