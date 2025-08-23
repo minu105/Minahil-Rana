@@ -20,7 +20,7 @@ const productSchema = new mongoose.Schema(
     },
     image: {
       type: String,
-      required: [true, "Product image is required"],
+      default: null, // 🔥 ab image optional hai
     },
     category: {
       type: String,

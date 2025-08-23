@@ -1,5 +1,6 @@
 const Product = require("../models/Product")
 
+// Get all products
 const getProducts = async (req, res) => {
   try {
     const {
@@ -33,15 +34,18 @@ const getProducts = async (req, res) => {
       filter.$text = { $search: search }
     }
 
-    // Calculate pagination
+    // Pagination
     const skip = (Number(page) - 1) * Number(limit)
 
-    // Build sort object
+    // Sorting
     const sort = {}
     sort[sortBy] = sortOrder === "asc" ? 1 : -1
 
-    // Execute query
-    const products = await Product.find(filter).sort(sort).skip(skip).limit(Number(limit))
+    // Query execution
+    const products = await Product.find(filter)
+      .sort(sort)
+      .skip(skip)
+      .limit(Number(limit))
 
     const total = await Product.countDocuments(filter)
     const totalPages = Math.ceil(total / Number(limit))
@@ -68,7 +72,7 @@ const getProducts = async (req, res) => {
   }
 }
 
-// Get single product by ID - NO AUTH REQUIRED
+// Get single product by ID
 const getProductById = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id)
@@ -93,24 +97,31 @@ const getProductById = async (req, res) => {
   }
 }
 
-// Create new product (Admin only)
+// ✅ Create new product (Image optional)
 const createProduct = async (req, res) => {
   try {
     const { name, description, price, category, origin, stock } = req.body
+
+    // Agar image upload hui hai to filename set karo warna null
     const image = req.file ? `/images/${req.file.filename}` : null
 
-    if (!image) {
-      return res.status(400).json({ success: false, message: "Product image is required" })
-    }
+    const product = await Product.create({
+      name,
+      description,
+      price,
+      image, // null bhi ho sakta hai
+      category,
+      origin,
+      stock,
+    })
 
-    const product = await Product.create({ name, description, price, image, category, origin, stock })
     res.status(201).json({ success: true, data: product })
   } catch (error) {
     res.status(500).json({ success: false, message: error.message })
   }
 }
 
-// Update product (Admin only)
+// Update product
 const updateProduct = async (req, res) => {
   try {
     const existingProduct = await Product.findById(req.params.id)
@@ -122,7 +133,11 @@ const updateProduct = async (req, res) => {
       })
     }
 
-    const product = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
+    const product = await Product.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, runValidators: true }
+    )
 
     res.status(200).json({
       success: true,
@@ -139,7 +154,7 @@ const updateProduct = async (req, res) => {
   }
 }
 
-// Delete product (Admin only)
+// Delete product
 const deleteProduct = async (req, res) => {
   try {
     const product = await Product.findByIdAndDelete(req.params.id)

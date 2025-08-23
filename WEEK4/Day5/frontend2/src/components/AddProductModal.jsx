@@ -25,48 +25,47 @@ const AddProductModal = ({ onClose, onSuccess }) => {
     setImageFile(e.target.files[0]);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    // Validate required fields
-    const requiredFields = [
-      "name",
-      "description",
-      "price",
-      "category",
-      "origin",
-      "stock",
-    ];
-    for (let field of requiredFields) {
-      if (!formData[field]) {
-        alert(`Please fill in ${field}`);
-        return;
-      }
-    }
-
-    if (!imageFile) {
-      alert("Please select an image");
+  // Validate required fields (except image)
+  const requiredFields = [
+    "name",
+    "description",
+    "price",
+    "category",
+    "origin",
+    "stock",
+  ];
+  for (let field of requiredFields) {
+    if (!formData[field]) {
+      alert(`Please fill in ${field}`);
       return;
     }
+  }
 
-    try {
-      const data = new FormData();
-      Object.keys(formData).forEach((key) =>
-        data.append(key, formData[key])
-      );
+  try {
+    const data = new FormData();
+    Object.keys(formData).forEach((key) =>
+      data.append(key, formData[key])
+    );
+
+    if (imageFile) {
       data.append("image", imageFile);
-
-      await api.post(`${API_BASE_URL}/products`, data, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-
-      onSuccess();
-      onClose();
-    } catch (err) {
-      console.error(err);
-      alert("Failed to add product");
     }
-  };
+
+    await api.post(`${API_BASE_URL}/products`, data, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+
+    onSuccess();
+    onClose();
+  } catch (err) {
+    console.error(err);
+    alert("Failed to add product");
+  }
+};
+
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
