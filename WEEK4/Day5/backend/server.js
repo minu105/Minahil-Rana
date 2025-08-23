@@ -11,7 +11,6 @@ const authRoutes = require("./src/routes/authRoutes")
 const productRoutes = require("./src/routes/productRoutes")
 const cartRoutes = require("./src/routes/cartRoutes")
 const userRoutes = require("./src/routes/userRoutes")
-const utilsRoutes = require("./src/routes/utilsRoutes");
 // Load environment variables
 dotenv.config()
 
@@ -60,7 +59,6 @@ app.use("/api/auth", authRoutes)
 app.use("/api/products", productRoutes)
 app.use("/api/cart", cartRoutes)
 app.use("/api/users", userRoutes)
-app.use("/api/utils", utilsRoutes);
 // Health check endpoint
 app.get("/api/health", (req, res) => {
   res.json({
