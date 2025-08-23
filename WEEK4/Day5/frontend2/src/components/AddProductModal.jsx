@@ -1,7 +1,8 @@
 "use client";
 import { useState } from "react";
-import { X, PlusCircle } from "lucide-react";
+import { X, PlusCircle, Check } from "lucide-react";
 import api from "../app/rtkRequest";
+import { useGetAvailableImagesQuery } from "../app/services/usersApi"; // 👈 ye endpoint add karna hoga
 
 const AddProductModal = ({ onClose, onSuccess }) => {
   const [formData, setFormData] = useState({
@@ -11,18 +12,18 @@ const AddProductModal = ({ onClose, onSuccess }) => {
     category: "",
     origin: "",
     stock: "",
+    image: "", // 👈 ab yahan sirf url save hoga
   });
-  const [imageFile, setImageFile] = useState(null);
+
+  const { data: imagesData } = useGetAvailableImagesQuery();
+  const [selectedImage, setSelectedImage] = useState(null);
+
   const API_BASE_URL =
     import.meta.env.VITE_API_URL || "https://minahil-rana.vercel.app/api";
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleFileChange = (e) => {
-    setImageFile(e.target.files[0]);
   };
 
   const handleSubmit = async (e) => {
@@ -44,21 +45,15 @@ const AddProductModal = ({ onClose, onSuccess }) => {
       }
     }
 
-    if (!imageFile) {
+    if (!selectedImage) {
       alert("Please select an image");
       return;
     }
 
     try {
-      const data = new FormData();
-      Object.keys(formData).forEach((key) =>
-        data.append(key, formData[key])
-      );
-      data.append("image", imageFile);
+      const payload = { ...formData, image: selectedImage };
 
-      await api.post(`${API_BASE_URL}/products`, data, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      await api.post(`${API_BASE_URL}/products`, payload);
 
       onSuccess();
       onClose();
@@ -162,17 +157,35 @@ const AddProductModal = ({ onClose, onSuccess }) => {
             </div>
           </div>
 
-          {/* Image Upload */}
+          {/* Image Selection from server */}
           <div>
             <label className="block text-sm font-medium mb-1">
-              Product Image *
+              Select Product Image *
             </label>
-            <input
-              type="file"
-              accept=".png,.jpg,.jpeg"
-              onChange={handleFileChange}
-              className="w-full px-4 py-2 border rounded-lg bg-gray-50 dark:bg-gray-700"
-            />
+            <div className="grid grid-cols-3 gap-2 max-h-40 overflow-y-auto border rounded-lg p-2">
+              {imagesData?.images?.map((url) => (
+                <div
+                  key={url}
+                  onClick={() => setSelectedImage(url)}
+                  className={`relative cursor-pointer rounded-lg overflow-hidden border-2 ${
+                    selectedImage === url
+                      ? "border-green-500"
+                      : "border-transparent"
+                  }`}
+                >
+                  <img
+                    src={url}
+                    alt="option"
+                    className="w-full h-20 object-cover"
+                  />
+                  {selectedImage === url && (
+                    <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                      <Check className="text-white w-6 h-6" />
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Buttons */}

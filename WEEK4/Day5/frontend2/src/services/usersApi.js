@@ -46,6 +46,10 @@ export const usersApi = createApi({
       }),
       invalidatesTags: ["Users"],
     }),
+    getAvailableImages: builder.query({
+  query: () => "/utils/images",
+}),
+
   }),
 });
 
@@ -55,4 +59,6 @@ export const {
   useBlockUserMutation,
   useUnblockUserMutation,
   useUpdateRoleMutation,
+  useGetAvailableImagesQuery,
+
 } = usersApi;
