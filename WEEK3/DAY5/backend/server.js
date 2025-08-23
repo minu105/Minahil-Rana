@@ -24,7 +24,7 @@ const allowedOrigins = process.env.CORS_ORIGINS
   ? process.env.CORS_ORIGINS.split(",").map(o => o.trim())
   : [
       "http://localhost:3000",
-      "https://minahilshabbir-week3-day5-hackathon-ochre.vercel.app"
+      "https://minahilshabbir-week4-day5-hackathon-one.vercel.app"
     ]
 console.log("✅ Allowed CORS origins:", allowedOrigins)
 
