@@ -22,8 +22,6 @@ const register = async (req, res) => {
       })
     }
 
-    // Create new user as customer by default
-    // Password will be hashed automatically by the pre-save hook
     const user = new User({ name, email, password, role: "customer" })
     await user.save()
 
@@ -56,8 +54,6 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { email, password } = req.body
-
-    // Find user by email (case-insensitive)
     const user = await User.findOne({ email: new RegExp(`^${email.trim()}$`, "i") })
     if (!user) {
       return res.status(401).json({
@@ -65,16 +61,12 @@ const login = async (req, res) => {
         message: "Invalid email or password",
       })
     }
-
-    // Check if blocked
     if (user.blocked) {
       return res.status(403).json({
         success: false,
         message: "Your account is blocked",
       })
     }
-
-    // Compare password (using model method)
     const isPasswordValid = await user.comparePassword(password)
     if (!isPasswordValid) {
       return res.status(401).json({

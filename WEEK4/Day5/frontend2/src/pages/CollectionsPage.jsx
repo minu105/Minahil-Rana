@@ -102,7 +102,6 @@ const CollectionsPage = () => {
       let data = response.data?.data?.products || []
 
       data = data.map((p) => {
-      // Map category into collection-style filter
       const mappedCollection = (() => {
         switch (p.category) {
           case "black-tea": return "Black teas";
@@ -111,11 +110,10 @@ const CollectionsPage = () => {
           case "herbal-tea": return "Herbal teas";
           case "oolong-tea": return "Oolong";
           case "chai": return "Chai";
-          default: return p.collection || ""; // fallback
+          default: return p.collection || ""; 
         }
       })();
 
-      // Map caffeine
       let mappedCaffeine = ""
       switch (p.caffeineLevel) {
         case "none":

@@ -58,8 +58,6 @@ const Navbar = () => {
             <Link to="/contact" className="text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 font-medium transition-colors">
               CONTACT US
             </Link>
-
-            {/* Users link visible only to admin/superadmin */}
             {(user?.role === "admin" || user?.role === "superadmin") && (
               <Link
                 to={user.role === "superadmin" ? "/users" : "/users/customers"}

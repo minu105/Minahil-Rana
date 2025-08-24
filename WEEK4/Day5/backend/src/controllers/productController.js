@@ -34,14 +34,10 @@ const getProducts = async (req, res) => {
       filter.$text = { $search: search }
     }
 
-    // Pagination
     const skip = (Number(page) - 1) * Number(limit)
-
-    // Sorting
     const sort = {}
     sort[sortBy] = sortOrder === "asc" ? 1 : -1
 
-    // Query execution
     const products = await Product.find(filter)
       .sort(sort)
       .skip(skip)
@@ -72,7 +68,6 @@ const getProducts = async (req, res) => {
   }
 }
 
-// Get single product by ID
 const getProductById = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id)
@@ -97,19 +92,16 @@ const getProductById = async (req, res) => {
   }
 }
 
-// ✅ Create new product (Image optional)
 const createProduct = async (req, res) => {
   try {
     const { name, description, price, category, origin, stock } = req.body
-
-    // Agar image upload hui hai to filename set karo warna null
     const image = req.file ? `/images/${req.file.filename}` : null
 
     const product = await Product.create({
       name,
       description,
       price,
-      image, // null bhi ho sakta hai
+      image, 
       category,
       origin,
       stock,

@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
-import { Users, Shield } from "lucide-react" // icons ke liye
+import { Users, Shield } from "lucide-react" 
 
 const UsersLandingPage = () => {
   const { user } = useAuth()

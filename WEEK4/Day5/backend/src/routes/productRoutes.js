@@ -12,11 +12,9 @@ const { protect, authorizeRoles } = require("../middleware/auth")
 const validateRequest = require("../middleware/validateRequest")
 
 const router = express.Router()
-
-// Configure multer storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "images/") // Save uploaded files to the "images" folder
+    cb(null, "images/") 
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9)
@@ -25,8 +23,6 @@ const storage = multer.diskStorage({
   },
 })
 const upload = multer({ storage })
-
-// Validation rules
 const productValidation = [
   body("name").trim().isLength({ min: 2, max: 100 }).withMessage("Product name must be between 2 and 100 characters"),
   body("description").trim().isLength({ min: 10, max: 500 }).withMessage("Description must be between 10 and 500 characters"),

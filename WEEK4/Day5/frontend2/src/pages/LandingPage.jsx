@@ -16,11 +16,7 @@ const LandingPage = () => {
   const fetchCollections = async () => {
     try {
       const response = await api.get(`${API_BASE_URL}/products`)
-
-      // handle both array or { products: [] } response
       const products = Array.isArray(response.data) ? response.data : response.data.products || []
-
-      // Group products by collection
       const productsByCollection = products.reduce((acc, product) => {
         const collection = product.collection || "Other"
         if (!acc[collection]) {
@@ -38,7 +34,7 @@ const LandingPage = () => {
       )
     } catch (error) {
       console.error("Error fetching collections:", error)
-      setCollections([]) // avoid state crash
+      setCollections([]) 
     } finally {
       setLoading(false)
     }

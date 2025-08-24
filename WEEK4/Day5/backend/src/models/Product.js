@@ -20,7 +20,7 @@ const productSchema = new mongoose.Schema(
     },
     image: {
       type: String,
-      default: null, // 🔥 ab image optional hai
+      default: null,
     },
     category: {
       type: String,

@@ -27,8 +27,6 @@ const AddProductModal = ({ onClose, onSuccess }) => {
 
 const handleSubmit = async (e) => {
   e.preventDefault();
-
-  // Validate required fields (except image)
   const requiredFields = [
     "name",
     "description",

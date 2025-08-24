@@ -1,15 +1,12 @@
 const Cart = require("../models/Cart")
 const Product = require("../models/Product")
 
-// Get user's cart - AUTH REQUIRED
 const getCart = async (req, res) => {
   try {
     let cart = await Cart.findOne({ user: req.user._id }).populate(
       "items.product",
       "name price image stock"
     )
-
-    // agar cart na mile to naya create karo
     if (!cart) {
       cart = await Cart.create({ user: req.user._id, items: [] })
     }
@@ -27,7 +24,6 @@ const getCart = async (req, res) => {
   }
 }
 
-// Add item to cart - AUTH REQUIRED
 const addToCart = async (req, res) => {
   try {
     const { productId, quantity = 1 } = req.body
@@ -93,7 +89,6 @@ const addToCart = async (req, res) => {
   }
 }
 
-// Update cart item quantity - AUTH REQUIRED
 const updateCartItem = async (req, res) => {
   try {
     const { productId, quantity } = req.body
@@ -152,7 +147,6 @@ const updateCartItem = async (req, res) => {
   }
 }
 
-// Remove item from cart - AUTH REQUIRED
 const removeFromCart = async (req, res) => {
   try {
     const { productId } = req.params
@@ -186,7 +180,6 @@ const removeFromCart = async (req, res) => {
   }
 }
 
-// Clear entire cart - AUTH REQUIRED
 const clearCart = async (req, res) => {
   try {
     const cart = await Cart.findOne({ user: req.user._id })

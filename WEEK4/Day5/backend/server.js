@@ -19,11 +19,9 @@ const PORT = process.env.PORT || 5000
 
 const path = require("path");
 app.use("/images", express.static(path.join(__dirname, "images")));
-
-// Middleware
 app.use(
   cors({
-    origin: "https://minahilshabbir-week4-day5-hackathon-one.vercel.app", // ya specific domain likh sakte ho jaise: "https://minahilshabbir-week4-day5-hackathon.vercel.app"
+    origin: "https://minahilshabbir-week4-day5-hackathon-one.vercel.app", 
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
@@ -32,11 +30,7 @@ app.use(
 
 app.use(express.json({ limit: "10mb" }))
 app.use(express.urlencoded({ extended: true }))
-
-// Connect to MongoDB
 connectDB()
-
-// API Documentation
 app.use(
   "/api-docs",
   swaggerUi.serve,
@@ -45,7 +39,6 @@ app.use(
     customSiteTitle: "Tea E-commerce API Documentation",
   }),
 )
-// Serve static images also under /api/images
 app.use(
   "/api/images",
   express.static(path.join(__dirname, "images"), {
@@ -54,12 +47,10 @@ app.use(
     },
   })
 )
-// Routes
 app.use("/api/auth", authRoutes)
 app.use("/api/products", productRoutes)
 app.use("/api/cart", cartRoutes)
 app.use("/api/users", userRoutes)
-// Health check endpoint
 app.get("/api/health", (req, res) => {
   res.json({
     success: true,
@@ -70,7 +61,6 @@ app.get("/api/health", (req, res) => {
   })
 })
 
-// Root endpoint
 app.get("/", (req, res) => {
   res.json({
     success: true,
@@ -80,11 +70,8 @@ app.get("/", (req, res) => {
   })
 })
 
-// Global error handling middleware
 app.use((err, req, res, next) => {
   console.error("Error:", err.stack)
-
-  // Mongoose validation error
   if (err.name === "ValidationError") {
     const errors = Object.values(err.errors).map((e) => ({
       field: e.path,
@@ -97,7 +84,6 @@ app.use((err, req, res, next) => {
     })
   }
 
-  // Mongoose duplicate key error
   if (err.code === 11000) {
     const field = Object.keys(err.keyValue)[0]
     return res.status(400).json({
@@ -106,7 +92,6 @@ app.use((err, req, res, next) => {
     })
   }
 
-  // JWT errors
   if (err.name === "JsonWebTokenError") {
     return res.status(401).json({
       success: false,
@@ -128,7 +113,6 @@ app.use((err, req, res, next) => {
   })
 })
 
-// 404 handler
 app.use("*", (req, res) => {
   res.status(404).json({
     success: false,

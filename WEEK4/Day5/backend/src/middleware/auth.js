@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken")
 const User = require("../models/User")
 
-// Basic JWT authentication
 const protect = async (req, res, next) => {
   try {
     const token = req.header("Authorization")?.replace("Bearer ", "")
@@ -22,8 +21,6 @@ const protect = async (req, res, next) => {
     res.status(401).json({ success: false, message: "Token is not valid." })
   }
 }
-
-// Role-based access control middleware
 const authorizeRoles = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {

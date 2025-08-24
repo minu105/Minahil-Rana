@@ -30,7 +30,6 @@ const LoginPage = () => {
     const result = await login(formData.email, formData.password)
 
     if (result.success) {
-      // ✅ redirect back to previous page if available
       const redirectUrl = getAndClearRedirectUrl() || "/"
       navigate(redirectUrl, { replace: true })
     } else {

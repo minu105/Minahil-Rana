@@ -23,7 +23,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Enhanced animations with better performance */
 @keyframes slideIn {
   from {
     transform: translateX(120%);
@@ -54,7 +53,6 @@ body {
   animation: slideOut 0.4s ease-in forwards;
 }
 
-/* Dark mode support for scrollbars */
 ::-webkit-scrollbar {
   width: 8px;
 }

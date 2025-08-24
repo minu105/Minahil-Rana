@@ -12,8 +12,6 @@ const CartPopup = ({ onClose }) => {
   const total = subtotal + deliveryFee
 
   const popupRef = useRef(null)
-
-  // Close when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (popupRef.current && !popupRef.current.contains(event.target)) {

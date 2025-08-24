@@ -5,7 +5,6 @@ import { useParams, Link, useLocation, useNavigate } from "react-router-dom"
 import { useCart } from "../context/CartContext"
 import { useAuth } from "../context/AuthContext"
 import api from '../app/rtkRequest';
-// Notification Component
 const Notification = ({ message, onClose }) => {
   return (
     <div className="fixed top-6 right-6 z-50">
@@ -75,8 +74,6 @@ const ProductPage = () => {
     setTimeout(() => setNotification(null), 3000)
     setAddingToCart(false)
   }
-
-  // Edit handlers
   const startEdit = () => {
     setEditFormData({
       name: product.name || "",
