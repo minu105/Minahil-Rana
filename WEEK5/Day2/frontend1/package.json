@@ -1,0 +1,40 @@
+{
+  "name": "realtime-comments-frontend",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint --fix"
+  },
+  "dependencies": {
+    "axios": "^1.6.8",
+    "draft-js": "^0.11.7",
+    "draftjs-to-html": "^0.9.1",
+    "lucide-react": "^0.542.0",
+    "next": "^14.2.32",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-draft-wysiwyg": "^1.15.0",
+    "socket.io-client": "^4.7.5"
+  },
+  "devDependencies": {
+    "@types/draft-js": "^0.11.18",
+    "@types/node": "^20.12.7",
+    "@types/react": "^18.2.67",
+    "@types/react-dom": "^18.2.22",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "14.2.5",
+    "typescript": "^5.4.5"
+  },
+  "description": "This is a tiny Next.js (App Router) client to test your NestJS backend (JWT + REST + Socket.IO).",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
