@@ -4,7 +4,7 @@
  * Strip HTML tags from a string and return plain text
  * @param html - HTML string to strip tags from
  * @returns Plain text without HTML tags
- */
+ */     
 export function stripHtmlTags(html: string): string {
   if (!html) return '';
   
