@@ -1,0 +1,10 @@
+<svg width="280" height="200" viewBox="0 0 280 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="280" height="200" fill="#f1f5f9"/>
+  <path d="M60 90H220C230 90 240 95 240 105V125C240 135 230 140 220 140H60C50 140 40 135 40 125V105C40 95 50 90 60 90Z" fill="#64748b"/>
+  <circle cx="80" cy="130" r="12" fill="#374151"/>
+  <circle cx="200" cy="130" r="12" fill="#374151"/>
+  <rect x="90" y="100" width="100" height="20" rx="2" fill="#1f2937"/>
+  <circle cx="80" cy="130" r="6" fill="#9ca3af"/>
+  <circle cx="200" cy="130" r="6" fill="#9ca3af"/>
+  <text x="140" y="170" text-anchor="middle" fill="#6b7280" font-family="Arial" font-size="12">Car Image</text>
+</svg>

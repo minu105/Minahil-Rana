@@ -1,0 +1,341 @@
+{
+  "info": {
+    "name": "Car Auctions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "c3f7b8f2-8b1e-4c7b-9c2e-111111111111"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [ { "key": "token", "type": "string", "value": "{{jwt}}" } ]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:4000" },
+    { "key": "jwt", "value": "" },
+    { "key": "username", "value": "testuser_{{$randomInt}}" },
+    { "key": "auctionId", "value": "" },
+    { "key": "carId", "value": "" },
+    { "key": "notificationId", "value": "" },
+    { "key": "wishlistId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Username Available",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/api/auth/username-available?username={{username}}", "host": ["{{baseUrl}}"], "path": ["api","auth","username-available"], "query": [{"key":"username","value":"{{username}}"}] }
+          }
+        },
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/auth/register", "host": ["{{baseUrl}}"], "path": ["api","auth","register"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test User\",\n  \"username\": \"{{username}}\",\n  \"email\": \"test@example.com\",\n  \"phone\": \"+923001234567\",\n  \"password\": \"Password123!\",\n  \"confirmPassword\": \"Password123!\",\n  \"termsAccepted\": true\n}"
+            }
+          }
+          ,
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const json = pm.response.json();",
+                  "if (json && (json.access_token || json.accessToken)) { pm.collectionVariables.set('jwt', json.access_token || json.accessToken); }"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/auth/login", "host": ["{{baseUrl}}"], "path": ["api","auth","login"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"Password123!\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const json = pm.response.json();",
+                  "if (json && (json.access_token || json.accessToken)) { pm.collectionVariables.set('jwt', json.access_token || json.accessToken); }"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Me",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt}}" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/auth/me", "host": ["{{baseUrl}}"], "path": ["api","auth","me"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cars",
+      "item": [
+        {
+          "name": "List Cars",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/cars", "host": ["{{baseUrl}}"], "path": ["api","cars"] } }
+        },
+        {
+          "name": "Get Car",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/cars/{{carId}}", "host": ["{{baseUrl}}"], "path": ["api","cars","{{carId}}"] } }
+        },
+        {
+          "name": "Create Car",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/cars", "host": ["{{baseUrl}}"], "path": ["api","cars"] },
+            "body": { "mode": "raw", "raw": "{\n  \"title\": \"My Car\",\n  \"make\": \"Toyota\",\n  \"model\": \"Corolla\",\n  \"year\": 2018,\n  \"bodyType\": \"Sedan\",\n  \"mileage\": 45000\n}" }
+          }
+        },
+        {
+          "name": "Update Car",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/cars/{{carId}}", "host": ["{{baseUrl}}"], "path": ["api","cars","{{carId}}"] },
+            "body": { "mode": "raw", "raw": "{\n  \"title\": \"Updated Title\"\n}" }
+          }
+        },
+        {
+          "name": "Delete Car",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt}}" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/cars/{{carId}}", "host": ["{{baseUrl}}"], "path": ["api","cars","{{carId}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Auctions",
+      "item": [
+        {
+          "name": "List Auctions",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/auctions", "host": ["{{baseUrl}}"], "path": ["api","auctions"] } }
+        },
+        {
+          "name": "Get Auction",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/api/auctions/{{auctionId}}", "host": ["{{baseUrl}}"], "path": ["api","auctions","{{auctionId}}"] } }
+        },
+        {
+          "name": "Create Auction (existing car)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/auctions", "host": ["{{baseUrl}}"], "path": ["api","auctions"] },
+            "body": { "mode": "raw", "raw": "{\n  \"carId\": \"{{carId}}\",\n  \"startPrice\": 5000,\n  \"minIncrement\": 100,\n  \"startAt\": \"2025-09-01T10:00:00.000Z\",\n  \"endAt\": \"2025-09-02T10:00:00.000Z\"\n}" }
+          }
+        },
+        {
+          "name": "Create Auction With Car (one step)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/auctions/with-car", "host": ["{{baseUrl}}"], "path": ["api","auctions","with-car"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"My Car\",\n  \"make\": \"Toyota\",\n  \"model\": \"Corolla\",\n  \"year\": 2018,\n  \"bodyType\": \"sedan\",\n  \"mileage\": 65000,\n  \"engineSize\": \"1.6L\",\n  \"paintStatus\": \"original\",\n  \"hasGccSpecs\": true,\n  \"accidentHistory\": \"no\",\n  \"fullServiceHistory\": true,\n  \"description\": \"Clean car, one owner\",\n  \"photos\": [\n    \"https://example.com/car1.jpg\",\n    \"https://example.com/car2.jpg\"\n  ],\n  \"startPrice\": 5000,\n  \"minIncrement\": 100,\n  \"startAt\": \"2025-09-01T10:00:00.000Z\",\n  \"endAt\": \"2025-09-02T10:00:00.000Z\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Auction (seller)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/auctions/{{auctionId}}", "host": ["{{baseUrl}}"], "path": ["api","auctions","{{auctionId}}"] },
+            "body": { "mode": "raw", "raw": "{\n  \"startPrice\": 6000,\n  \"minIncrement\": 150\n}" }
+          }
+        },
+        {
+          "name": "Cancel Auction (seller)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt}}" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/auctions/{{auctionId}}/cancel", "host": ["{{baseUrl}}"], "path": ["api","auctions","{{auctionId}}","cancel"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bids",
+      "item": [
+        {
+          "name": "List Bids for Auction",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/api/auctions/{{auctionId}}/bids?page=1&limit=20", "host": ["{{baseUrl}}"], "path": ["api","auctions","{{auctionId}}","bids"], "query": [{"key":"page","value":"1"},{"key":"limit","value":"20"}] }
+          }
+        },
+        {
+          "name": "Place Bid",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/auctions/{{auctionId}}/bids", "host": ["{{baseUrl}}"], "path": ["api","auctions","{{auctionId}}","bids"] },
+            "body": { "mode": "raw", "raw": "{\n  \"amount\": 5500\n}" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Notifications",
+      "item": [
+        {
+          "name": "Get Notifications",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/api/notifications?page=1&limit=20", "host": ["{{baseUrl}}"], "path": ["api","notifications"], "query": [{"key":"page","value":"1"},{"key":"limit","value":"20"}] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const json = pm.response.json();",
+                  "if (json && Array.isArray(json.items) && json.items.length) { pm.collectionVariables.set('notificationId', json.items[0]._id); }"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Unread Notifications",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/api/notifications?unreadOnly=true", "host": ["{{baseUrl}}"], "path": ["api","notifications"], "query": [{"key":"unreadOnly","value":"true"}] }
+          }
+        },
+        {
+          "name": "Get Unread Count",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/api/notifications/unread-count", "host": ["{{baseUrl}}"], "path": ["api","notifications","unread-count"] }
+          }
+        },
+        {
+          "name": "Mark Notification Read",
+          "request": {
+            "method": "PATCH",
+            "url": { "raw": "{{baseUrl}}/api/notifications/{{notificationId}}/read", "host": ["{{baseUrl}}"], "path": ["api","notifications","{{notificationId}}","read"] }
+          }
+        },
+        {
+          "name": "Mark All Read",
+          "request": {
+            "method": "POST",
+            "url": { "raw": "{{baseUrl}}/api/notifications/mark-all-read", "host": ["{{baseUrl}}"], "path": ["api","notifications","mark-all-read"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Wishlist",
+      "item": [
+        {
+          "name": "Add by Car",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/wishlist", "host": ["{{baseUrl}}"], "path": ["api","wishlist"] },
+            "body": { "mode": "raw", "raw": "{\n  \"carId\": \"{{carId}}\"\n}" }
+          }
+        },
+        {
+          "name": "Add by Auction",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt}}" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/wishlist/by-auction/{{auctionId}}", "host": ["{{baseUrl}}"], "path": ["api","wishlist","by-auction","{{auctionId}}"] }
+          }
+        },
+        {
+          "name": "List Wishlist",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt}}" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/wishlist", "host": ["{{baseUrl}}"], "path": ["api","wishlist"] }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const json = pm.response.json();",
+                  "if (Array.isArray(json) && json.length) { pm.collectionVariables.set('wishlistId', json[0]._id); }"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete Wishlist Item",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{jwt}}" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/wishlist/{{wishlistId}}", "host": ["{{baseUrl}}"], "path": ["api","wishlist","{{wishlistId}}"] }
+          }
+        }
+      ]
+    }
+  ]
+}

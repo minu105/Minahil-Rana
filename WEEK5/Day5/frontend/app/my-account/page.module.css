@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&display=swap');
+
+.page {
+  min-height: 100vh;
+  background: #ffffff;
+  font-family: 'Josefin Sans', sans-serif;
+  overflow-x: hidden; /* page clamp */
+}
+
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, #E8F0FE 0%, #F3F7FF 100%);
+  padding: 80px 0 48px 0;
+  text-align: center;
+}
+.heroInner { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.title { font-size: 44px; color: #22306E; font-weight: 700; margin: 0 0 8px; }
+.subtitle { color: #546091; margin: 0 0 12px; }
+.breadcrumbs { color: #6B7280; font-size: 14px; }
+
+/* Layout */
+.section { padding: 32px 0 80px; background: #fff; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: 260px 1fr; gap: 24px; overflow: hidden; }
+
+/* Sidebar */
+.sidebar { background: #ffffff; border: 1px solid #E5E7EB; border-radius: 8px; padding: 12px; height: max-content; }
+.sideList { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.sideLink { position: relative; display: block; padding: 12px 14px; color: #22306E; text-decoration: none; border-radius: 6px; border: 1px solid #E5E7EB; font-weight: 600; background: #fff; }
+.sideLink:hover { background: #F5F7FF; }
+.sideLinkActive { background: #E8EEFF; border-color: #C8D5FF; }
+.sideLinkActive::after { content: ""; position: absolute; right: 6px; top: 50%; transform: translateY(-50%); width: 6px; height: 60%; background: #F4B000; border-radius: 3px; }
+
+/* Card */
+.card { background: #F3F6FF; border: 1px solid #D1D5FE; border-radius: 8px; }
+.cardHeader { background: #2E3D83; color: #fff; padding: 12px 16px; border-top-left-radius: 8px; border-top-right-radius: 8px; display: flex; align-items: center; justify-content: space-between; }
+.editBtn { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.6); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; cursor: pointer; }
+.cardBody { padding: 16px; }
+
+/* Personal info grid */
+.infoGrid { display: grid; grid-template-columns: 120px 1fr; gap: 16px; align-items: start; }
+.avatarWrap { position: relative; width: 120px; height: 120px; border-radius: 50%; overflow: hidden; border: 3px solid #FFFFFF; box-shadow: 0 2px 8px rgba(0,0,0,0.06); background: #fff; cursor: pointer; }
+.avatarOverlay { position: absolute; inset: 0; background: rgba(0,0,0,0.45); color: #fff; display: flex; align-items: center; justify-content: center; gap: 6px; font-weight: 700; opacity: 0; transition: opacity .2s ease; text-transform: uppercase; font-size: 12px; letter-spacing: .4px; }
+.avatarWrap:hover .avatarOverlay { opacity: 1; }
+.avatarWrapBtn { position: absolute; inset: 0; background: transparent; border: none; padding: 0; margin: 0; cursor: pointer; }
+
+.infoCols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.fieldRow { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.label { font-size: 14px; color: #2E3D83; font-weight: 700; }
+.value { color: #6B7280; font-size: 14px; font-weight: 600; padding: 9px 10px; background: #EAF0FF; border-radius: 6px; border: 1px solid #D7E0FF; min-width: 220px; text-align: right; flex-shrink: 0; }
+.input { height: 40px; border-radius: 6px; border: 1px solid #D1D5DB; padding: 0 10px; background: #fff; color: #111827; }
+
+.actions { margin-top: 16px; display: flex; gap: 10px; justify-content: flex-end; }
+.btn { background: #2E3D83; color: #fff; border: none; border-radius: 6px; padding: 10px 14px; font-weight: 700; cursor: pointer; }
+.btnSecondary { background: #6B7280; }
+
+@media (max-width: 992px){
+  .container { grid-template-columns: 1fr; }
+  .infoGrid { grid-template-columns: 1fr; }
+  .infoCols { grid-template-columns: 1fr; }
+  .fieldRow { gap: 12px; }
+  .value { min-width: 0; text-align: left; width: 100%; }
+  .hero { padding: 56px 0 32px; }
+  .title { font-size: 36px; }
+}

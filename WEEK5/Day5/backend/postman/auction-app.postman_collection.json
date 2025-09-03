@@ -1,0 +1,302 @@
+{
+  "info": {
+    "name": "Auction App API",
+    "_postman_id": "7f3f6f7e-9d3b-49d3-8b27-collection",
+    "description": "Postman collection for WEEK5/Day5 backend. Base URL uses {{baseUrl}} and Authorization uses Bearer {{token}}.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "url": {"raw": "{{baseUrl}}/api/auth/register", "host": ["{{baseUrl}}"], "path": ["api", "auth", "register"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test User\",\n  \"username\": \"testuser\",\n  \"email\": \"test@example.com\",\n  \"password\": \"secret123\",\n  \"confirmPassword\": \"secret123\",\n  \"phone\": \"+123456789\",\n  \"termsAccepted\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "url": {"raw": "{{baseUrl}}/api/auth/login", "host": ["{{baseUrl}}"], "path": ["api", "auth", "login"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"secret123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Me",
+          "request": {
+            "method": "GET",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token}}"}
+            ],
+            "url": {"raw": "{{baseUrl}}/api/auth/me", "host": ["{{baseUrl}}"], "path": ["api", "auth", "me"]}
+          }
+        },
+        {
+          "name": "Username available",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/username-available?username=testuser",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "username-available"],
+              "query": [{"key": "username", "value": "testuser"}]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Get Me (full)",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+            "url": {"raw": "{{baseUrl}}/api/users/me", "host": ["{{baseUrl}}"], "path": ["api", "users", "me"]}
+          }
+        },
+        {
+          "name": "Update Me",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "url": {"raw": "{{baseUrl}}/api/users/me", "host": ["{{baseUrl}}"], "path": ["api", "users", "me"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated User\",\n  \"phone\": \"+111111111\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get User by ID",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+            "url": {"raw": "{{baseUrl}}/api/users/{{userId}}", "host": ["{{baseUrl}}"], "path": ["api", "users", "{{userId}}"]}
+          }
+        },
+        {
+          "name": "Upload Avatar",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token}}"}
+            ],
+            "url": {"raw": "{{baseUrl}}/api/users/me/avatar", "host": ["{{baseUrl}}"], "path": ["api", "users", "me", "avatar"]},
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {"key": "file", "type": "file", "src": []}
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cars",
+      "item": [
+        {
+          "name": "List Cars",
+          "request": {
+            "method": "GET",
+            "url": {"raw": "{{baseUrl}}/api/cars", "host": ["{{baseUrl}}"], "path": ["api", "cars"]}
+          }
+        },
+        {
+          "name": "Get Car",
+          "request": {
+            "method": "GET",
+            "url": {"raw": "{{baseUrl}}/api/cars/{{carId}}", "host": ["{{baseUrl}}"], "path": ["api", "cars", "{{carId}}"]}
+          }
+        },
+        {
+          "name": "Create Car",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "url": {"raw": "{{baseUrl}}/api/cars", "host": ["{{baseUrl}}"], "path": ["api", "cars"]},
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Civic 2018\",\n  \"make\": \"Honda\",\n  \"model\": \"Civic\",\n  \"year\": 2018,\n  \"bodyType\": \"sedan\",\n  \"mileage\": 55000,\n  \"engineSize\": \"1.8L\",\n  \"paintStatus\": \"original\",\n  \"hasGccSpecs\": true,\n  \"accidentHistory\": \"no\",\n  \"fullServiceHistory\": true,\n  \"description\": \"Well maintained\",\n  \"photos\": [\"/uploads/sample1.jpg\"]\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Car",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "url": {"raw": "{{baseUrl}}/api/cars/{{carId}}", "host": ["{{baseUrl}}"], "path": ["api", "cars", "{{carId}}"]},
+            "body": {"mode": "raw", "raw": "{\n  \"description\": \"Updated description\"\n}"}
+          }
+        },
+        {
+          "name": "Delete Car",
+          "request": {
+            "method": "DELETE",
+            "header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+            "url": {"raw": "{{baseUrl}}/api/cars/{{carId}}", "host": ["{{baseUrl}}"], "path": ["api", "cars", "{{carId}}"]}
+          }
+        }
+      ]
+    },
+    {
+      "name": "Auctions",
+      "item": [
+        {
+          "name": "List Auctions",
+          "request": {"method": "GET", "url": {"raw": "{{baseUrl}}/api/auctions", "host": ["{{baseUrl}}"], "path": ["api", "auctions"]}}
+        },
+        {
+          "name": "Get Auction",
+          "request": {"method": "GET", "url": {"raw": "{{baseUrl}}/api/auctions/{{auctionId}}", "host": ["{{baseUrl}}"], "path": ["api", "auctions", "{{auctionId}}"]}}
+        },
+        {
+          "name": "Create Auction",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "url": {"raw": "{{baseUrl}}/api/auctions", "host": ["{{baseUrl}}"], "path": ["api", "auctions"]},
+            "body": {"mode": "raw", "raw": "{\n  \"carId\": \"{{carId}}\",\n  \"startPrice\": 5000,\n  \"minIncrement\": 100,\n  \"startAt\": \"2025-01-01T10:00:00.000Z\",\n  \"endAt\": \"2025-01-02T10:00:00.000Z\"\n}"}
+          }
+        },
+        {
+          "name": "Create Auction With Car",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "url": {"raw": "{{baseUrl}}/api/auctions/with-car", "host": ["{{baseUrl}}"], "path": ["api", "auctions", "with-car"]},
+            "body": {"mode": "raw", "raw": "{\n  \"title\": \"Civic 2018\",\n  \"make\": \"Honda\",\n  \"model\": \"Civic\",\n  \"year\": 2018,\n  \"bodyType\": \"sedan\",\n  \"mileage\": 55000,\n  \"engineSize\": \"1.8L\",\n  \"paintStatus\": \"original\",\n  \"hasGccSpecs\": true,\n  \"accidentHistory\": \"no\",\n  \"fullServiceHistory\": true,\n  \"photos\": [],\n  \"startPrice\": 5000,\n  \"minIncrement\": 100,\n  \"startAt\": \"2025-01-01T10:00:00.000Z\",\n  \"endAt\": \"2025-01-02T10:00:00.000Z\"\n}"}
+          }
+        },
+        {
+          "name": "Update Auction",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "url": {"raw": "{{baseUrl}}/api/auctions/{{auctionId}}", "host": ["{{baseUrl}}"], "path": ["api", "auctions", "{{auctionId}}"]},
+            "body": {"mode": "raw", "raw": "{\n  \"minIncrement\": 200\n}"}
+          }
+        },
+        {
+          "name": "Cancel Auction",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+            "url": {"raw": "{{baseUrl}}/api/auctions/{{auctionId}}/cancel", "host": ["{{baseUrl}}"], "path": ["api", "auctions", "{{auctionId}}", "cancel"]}
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bids",
+      "item": [
+        {
+          "name": "List Bids for Auction",
+          "request": {"method": "GET", "url": {"raw": "{{baseUrl}}/api/auctions/{{auctionId}}/bids?page=1&limit=20", "host": ["{{baseUrl}}"], "path": ["api", "auctions", "{{auctionId}}", "bids"], "query": [{"key":"page","value":"1"},{"key":"limit","value":"20"}]}}
+        },
+        {
+          "name": "Place Bid",
+          "request": {"method": "POST", "header": [{"key": "Authorization", "value": "Bearer {{token}}"},{"key":"Content-Type","value":"application/json"}], "url": {"raw": "{{baseUrl}}/api/auctions/{{auctionId}}/bids", "host": ["{{baseUrl}}"], "path": ["api", "auctions", "{{auctionId}}", "bids"]}, "body": {"mode": "raw", "raw": "{\n  \"amount\": 5200\n}"}}
+        },
+        {
+          "name": "My Bids",
+          "request": {"method": "GET", "header": [{"key": "Authorization", "value": "Bearer {{token}}"}], "url": {"raw": "{{baseUrl}}/api/bids/mine?page=1&limit=20", "host": ["{{baseUrl}}"], "path": ["api", "bids", "mine"], "query": [{"key":"page","value":"1"},{"key":"limit","value":"20"}]}}
+        }
+      ]
+    },
+    {
+      "name": "Wishlist",
+      "item": [
+        {"name": "Add to Wishlist (carId)", "request": {"method": "POST", "header": [{"key": "Authorization", "value": "Bearer {{token}}"},{"key":"Content-Type","value":"application/json"}], "url": {"raw": "{{baseUrl}}/api/wishlist", "host": ["{{baseUrl}}"], "path": ["api", "wishlist"]}, "body": {"mode": "raw", "raw": "{\n  \"carId\": \"{{carId}}\"\n}"}}},
+        {"name": "List Wishlist", "request": {"method": "GET", "header": [{"key": "Authorization", "value": "Bearer {{token}}"}], "url": {"raw": "{{baseUrl}}/api/wishlist", "host": ["{{baseUrl}}"], "path": ["api", "wishlist"]}}},
+        {"name": "Remove Wishlist Item", "request": {"method": "DELETE", "header": [{"key": "Authorization", "value": "Bearer {{token}}"}], "url": {"raw": "{{baseUrl}}/api/wishlist/{{wishlistId}}", "host": ["{{baseUrl}}"], "path": ["api", "wishlist", "{{wishlistId}}"]}}},
+        {"name": "Add by AuctionId", "request": {"method": "POST", "header": [{"key": "Authorization", "value": "Bearer {{token}}"}], "url": {"raw": "{{baseUrl}}/api/wishlist/by-auction/{{auctionId}}", "host": ["{{baseUrl}}"], "path": ["api", "wishlist", "by-auction", "{{auctionId}}"]}}}
+      ]
+    },
+    {
+      "name": "Notifications",
+      "item": [
+        {"name": "List Notifications", "request": {"method": "GET", "header": [{"key": "Authorization", "value": "Bearer {{token}}"}], "url": {"raw": "{{baseUrl}}/api/notifications?page=1&limit=20&unreadOnly=false", "host": ["{{baseUrl}}"], "path": ["api", "notifications"], "query": [{"key": "page", "value": "1"}, {"key": "limit", "value": "20"}, {"key": "unreadOnly", "value": "false"}]}}},
+        {"name": "Unread Count", "request": {"method": "GET", "header": [{"key": "Authorization", "value": "Bearer {{token}}"}], "url": {"raw": "{{baseUrl}}/api/notifications/unread-count", "host": ["{{baseUrl}}"], "path": ["api", "notifications", "unread-count"]}}},
+        {"name": "Mark Read", "request": {"method": "PATCH", "header": [{"key": "Authorization", "value": "Bearer {{token}}"}], "url": {"raw": "{{baseUrl}}/api/notifications/{{notificationId}}/read", "host": ["{{baseUrl}}"], "path": ["api", "notifications", "{{notificationId}}", "read"]}}},
+        {"name": "Mark All Read", "request": {"method": "POST", "header": [{"key": "Authorization", "value": "Bearer {{token}}"}], "url": {"raw": "{{baseUrl}}/api/notifications/mark-all-read", "host": ["{{baseUrl}}"], "path": ["api", "notifications", "mark-all-read"]}}}
+      ]
+    },
+    {
+      "name": "Uploads",
+      "item": [
+        {
+          "name": "Upload Photos (multi)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token}}"}
+            ],
+            "url": {"raw": "{{baseUrl}}/api/uploads/photos", "host": ["{{baseUrl}}"], "path": ["api", "uploads", "photos"]},
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {"key": "photos", "type": "file", "src": []},
+                {"key": "photos", "type": "file", "src": []}
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Debug & Test",
+      "item": [
+        {"name": "Debug: My Notifications", "request": {"method": "GET", "header": [{"key": "Authorization", "value": "Bearer {{token}}"}], "url": {"raw": "{{baseUrl}}/api/debug/notifications", "host": ["{{baseUrl}}"], "path": ["api", "debug", "notifications"]}}},
+        {"name": "Debug: All Notifications", "request": {"method": "GET", "header": [{"key": "Authorization", "value": "Bearer {{token}}"}], "url": {"raw": "{{baseUrl}}/api/debug/notifications/all", "host": ["{{baseUrl}}"], "path": ["api", "debug", "notifications", "all"]}}},
+        {"name": "Test: Create Notification", "request": {"method": "POST", "header": [{"key": "Authorization", "value": "Bearer {{token}}"},{"key":"Content-Type","value":"application/json"}], "url": {"raw": "{{baseUrl}}/api/test/notification", "host": ["{{baseUrl}}"], "path": ["api", "test", "notification"]}, "body": {"mode": "raw", "raw": "{\n  \"type\": \"test\",\n  \"message\": \"Hello!\"\n}"}}}
+      ]
+    }
+  ],
+  "variable": [
+    {"key": "baseUrl", "value": "http://localhost:4000"},
+    {"key": "token", "value": ""},
+    {"key": "userId", "value": ""},
+    {"key": "carId", "value": ""},
+    {"key": "auctionId", "value": ""},
+    {"key": "wishlistId", "value": ""},
+    {"key": "notificationId", "value": ""}
+  ]
+}

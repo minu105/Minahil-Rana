@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Login & Data</title>
+</head>
+<body>
+    <h1>Debug Login & Data Loading</h1>
+    
+    <div>
+        <h2>1. Test Login</h2>
+        <button onclick="testLogin()">Login</button>
+        <div id="loginResult"></div>
+    </div>
+    
+    <div>
+        <h2>2. Test Auctions (with token)</h2>
+        <button onclick="testAuctions()">Get Auctions</button>
+        <div id="auctionsResult"></div>
+    </div>
+    
+    <div>
+        <h2>3. Test Profile (with token)</h2>
+        <button onclick="testProfile()">Get Profile</button>
+        <div id="profileResult"></div>
+    </div>
+
+    <script>
+        let token = null;
+        
+        async function testLogin() {
+            const resultDiv = document.getElementById('loginResult');
+            resultDiv.innerHTML = 'Logging in...';
+            
+            try {
+                const response = await fetch('http://localhost:4000/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: 'test@example.com',
+                        password: 'Password123!'
+                    }),
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                token = data.access_token;
+                localStorage.setItem('jwt', token);
+                
+                resultDiv.innerHTML = `
+                    <h3>✅ Login Success!</h3>
+                    <p><strong>Token:</strong> ${token.substring(0, 50)}...</p>
+                    <p><strong>User:</strong> ${data.user.email}</p>
+                `;
+                
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <h3>❌ Login Failed!</h3>
+                    <p>${error.message}</p>
+                `;
+            }
+        }
+        
+        async function testAuctions() {
+            const resultDiv = document.getElementById('auctionsResult');
+            const currentToken = token || localStorage.getItem('jwt');
+            
+            if (!currentToken) {
+                resultDiv.innerHTML = '❌ No token! Login first.';
+                return;
+            }
+            
+            resultDiv.innerHTML = 'Loading auctions...';
+            
+            try {
+                const response = await fetch('http://localhost:4000/api/auctions', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${currentToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                
+                resultDiv.innerHTML = `
+                    <h3>✅ Auctions Loaded!</h3>
+                    <p><strong>Total:</strong> ${data.total}</p>
+                    <p><strong>Items:</strong> ${data.items.length}</p>
+                    <pre>${JSON.stringify(data.items[0], null, 2)}</pre>
+                `;
+                
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <h3>❌ Auctions Failed!</h3>
+                    <p>${error.message}</p>
+                `;
+            }
+        }
+        
+        async function testProfile() {
+            const resultDiv = document.getElementById('profileResult');
+            const currentToken = token || localStorage.getItem('jwt');
+            
+            if (!currentToken) {
+                resultDiv.innerHTML = '❌ No token! Login first.';
+                return;
+            }
+            
+            resultDiv.innerHTML = 'Loading profile...';
+            
+            try {
+                const response = await fetch('http://localhost:4000/api/users/me', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${currentToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                
+                resultDiv.innerHTML = `
+                    <h3>✅ Profile Loaded!</h3>
+                    <p><strong>Name:</strong> ${data.name}</p>
+                    <p><strong>Email:</strong> ${data.email}</p>
+                    <p><strong>ID:</strong> ${data._id}</p>
+                `;
+                
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <h3>❌ Profile Failed!</h3>
+                    <p>${error.message}</p>
+                `;
+            }
+        }
+        
+        // Auto-load token if exists
+        window.onload = function() {
+            const savedToken = localStorage.getItem('jwt');
+            if (savedToken) {
+                token = savedToken;
+                document.getElementById('loginResult').innerHTML = '✅ Token found in localStorage';
+            }
+        };
+    </script>
+</body>
+</html>

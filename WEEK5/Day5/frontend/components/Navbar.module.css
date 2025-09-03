@@ -1,0 +1,185 @@
+/* Topbar */
+.topbar {
+  background: #253469;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 24px;
+  font-size: 12px;
+}
+
+/* Header - Transparent for homepage */
+.header {
+  background: transparent;
+  position: absolute;
+  top: 40px;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+
+/* Header - Solid for auth pages */
+.headerSolid {
+  background: white;
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logoRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  object-fit: contain;
+}
+
+.nav {
+  display: flex;
+  gap: 32px;
+}
+
+.nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.nav a:hover {
+  color: #fbbf24;
+}
+
+/* Nav links for solid header */
+.headerSolid .nav a {
+  color: #374151;
+}
+
+.headerSolid .nav a:hover {
+  color: #2E3D83;
+}
+
+.authButtons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.signIn {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 16px;
+  transition: color 0.2s;
+}
+
+.signIn:hover {
+  color: #fbbf24;
+}
+
+/* Sign in for solid header */
+.headerSolid .signIn {
+  color: #374151;
+}
+
+.headerSolid .signIn:hover {
+  color: #2E3D83;
+}
+
+.registerNow {
+  background: #2E3D83;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.registerNow:hover {
+  background: #1e40af;
+}
+
+/* Header Icons */
+.headerIcons {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.icon {
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.icon:hover {
+  opacity: 0.7;
+}
+
+/* Notifications */
+.notifWrapper { position: relative; }
+.bellBtn { position: relative; background: transparent; border: 0; padding: 0; cursor: pointer; }
+.badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #ef4444;
+  color: white;
+  font-size: 10px;
+  line-height: 1;
+  padding: 3px 6px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+.dropdown {
+  position: absolute;
+  right: 0;
+  margin-top: 10px;
+  width: 320px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+  overflow: hidden;
+  z-index: 50;
+}
+.dropdownHeader {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 12px; background: #f9fafb; border-bottom: 1px solid #e5e7eb;
+  font-weight: 600; color: #111827;
+}
+.markAll { background: transparent; border: 0; color: #2563eb; font-size: 12px; cursor: pointer; }
+.dropdownList { max-height: 360px; overflow-y: auto; }
+.empty { padding: 16px; color: #6b7280; font-size: 14px; }
+.item { display: block; padding: 10px 12px; text-decoration: none; border-bottom: 1px solid #f3f4f6; }
+.item:hover { background: #f9fafb; }
+.unread { background: #f0f9ff; }
+.itemTitle { color: #111827; font-weight: 600; font-size: 14px; }
+.itemSub { color: #4b5563; font-size: 12px; margin-top: 2px; }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .logoRow {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .nav {
+    gap: 16px;
+  }
+}
