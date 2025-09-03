@@ -28,6 +28,21 @@ export class User {
 
   @Prop({ default: true })
   firstPurchaseEligible: boolean;
+
+  // Email verification
+  @Prop({ default: false })
+  isEmailVerified: boolean;
+
+  // OTP storage (hashed) and expiry
+  @Prop()
+  otpHash?: string;
+
+  @Prop()
+  otpExpiresAt?: Date;
+
+  // For resend throttling
+  @Prop()
+  otpLastSentAt?: Date;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

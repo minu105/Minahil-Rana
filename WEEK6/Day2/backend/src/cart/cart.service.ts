@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Cart, CartDocument, LinePaymentChoice } from './schemas/cart.schema';
@@ -13,6 +13,16 @@ export class CartService {
     @InjectModel(Product.name) private productModel: Model<ProductDocument>,
     private usersService: UsersService,
   ) {}
+
+  private resolveChoice(purchaseType: PurchaseType, chosen?: LinePaymentChoice): LinePaymentChoice {
+    if (purchaseType === PurchaseType.MONEY) return LinePaymentChoice.MONEY;
+    if (purchaseType === PurchaseType.POINTS) return LinePaymentChoice.POINTS;
+    // HYBRID
+    if (chosen !== LinePaymentChoice.MONEY && chosen !== LinePaymentChoice.POINTS) {
+      throw new BadRequestException('chosenPayment is required for HYBRID products');
+    }
+    return chosen;
+  }
 
   async getOrCreate(userId: string) {
     // Use atomic upsert to avoid race conditions that create duplicate carts
@@ -112,12 +122,16 @@ export class CartService {
 
   async addItem(userId: string, productId: string, qty = 1, chosenPayment?: LinePaymentChoice) {
     const cart = await this.getOrCreate(userId);
+    const product = await this.productModel.findById(productId).lean().exec();
+    if (!product) throw new NotFoundException('Product not found');
+    const enforced = this.resolveChoice(product.purchaseType as any, chosenPayment);
+
     const idx = cart.items.findIndex((i) => String(i.productId) === productId);
     if (idx >= 0) {
       cart.items[idx].qty += qty;
-      if (chosenPayment) cart.items[idx].chosenPayment = chosenPayment;
+      cart.items[idx].chosenPayment = enforced as any;
     } else {
-      cart.items.push({ productId: new Types.ObjectId(productId), qty, chosenPayment: chosenPayment || LinePaymentChoice.MONEY } as any);
+      cart.items.push({ productId: new Types.ObjectId(productId), qty, chosenPayment: enforced } as any);
     }
     await cart.save();
     return this.getComputed(userId);
@@ -127,8 +141,11 @@ export class CartService {
     const cart = await this.getOrCreate(userId);
     const idx = cart.items.findIndex((i) => String(i.productId) === productId);
     if (idx < 0) throw new NotFoundException('Item not in cart');
+    const product = await this.productModel.findById(productId).lean().exec();
+    if (!product) throw new NotFoundException('Product not found');
+    const enforced = this.resolveChoice(product.purchaseType as any, chosenPayment ?? cart.items[idx].chosenPayment);
     cart.items[idx].qty = qty;
-    if (chosenPayment) cart.items[idx].chosenPayment = chosenPayment;
+    cart.items[idx].chosenPayment = enforced as any;
     await cart.save();
     return this.getComputed(userId);
   }

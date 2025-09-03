@@ -67,13 +67,16 @@ export class OrdersService {
       await this.productModel.updateOne({ _id: it.productId }, { $inc: { stock: -it.qty } }).exec();
     }
 
+    const moneyPerPoint = Number(process.env.LOYALTY_MONEY_PER_POINT) || 100;
+    const earnedPoints = Math.floor((totals.total || 0) / moneyPerPoint);
+
     const order = await new this.orderModel({
       userId: uid,
       items: totals.items,
       subtotal: totals.moneySubtotal,
       discountMoney: totals.firstPurchaseDiscount,
       pointsSpent: totals.pointsSpent,
-      pointsEarned: 10,
+      pointsEarned: earnedPoints,
       total: totals.total,
       status: OrderStatus.PAID,
       paymentIntentId: payment?.intentId,
@@ -87,8 +90,10 @@ export class OrdersService {
       await this.loyalty.spend(userId, totals.pointsSpent, order.id);
       await this.usersService.adjustLoyaltyPoints(userId, -totals.pointsSpent);
     }
-    await this.loyalty.earn(userId, 10, order.id);
-    await this.usersService.adjustLoyaltyPoints(userId, 10);
+    if (earnedPoints > 0) {
+      await this.loyalty.earn(userId, earnedPoints, order.id);
+      await this.usersService.adjustLoyaltyPoints(userId, earnedPoints);
+    }
 
     // First purchase flag
     const user = await this.usersService.findById(userId);
@@ -145,13 +150,16 @@ export class OrdersService {
       await this.productModel.updateOne({ _id: it.productId }, { $inc: { stock: -it.qty } }).exec();
     }
 
+    const moneyPerPoint = Number(process.env.LOYALTY_MONEY_PER_POINT) || 100;
+    const earnedPoints = Math.floor((total || 0) / moneyPerPoint);
+
     const order = await new this.orderModel({
       userId: new Types.ObjectId(userId),
       items,
       subtotal: moneySubtotal,
       discountMoney: firstPurchaseDiscount,
       pointsSpent,
-      pointsEarned: 10,
+      pointsEarned: earnedPoints,
       total,
       status: 'PAID',
     }).save();
@@ -161,8 +169,10 @@ export class OrdersService {
       await this.loyalty.spend(userId, pointsSpent, order.id);
       await this.usersService.adjustLoyaltyPoints(userId, -pointsSpent);
     }
-    await this.loyalty.earn(userId, 10, order.id);
-    await this.usersService.adjustLoyaltyPoints(userId, 10);
+    if (earnedPoints > 0) {
+      await this.loyalty.earn(userId, earnedPoints, order.id);
+      await this.usersService.adjustLoyaltyPoints(userId, earnedPoints);
+    }
 
     // First purchase flag
     if (user?.firstPurchaseEligible) await this.usersService.setFirstPurchaseEligible(userId, false);

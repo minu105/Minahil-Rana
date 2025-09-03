@@ -33,18 +33,51 @@ export class ProductsService {
     return created.save();
   }
 
-  async list(params: { search?: string; category?: string; sort?: string; page?: number; limit?: number }) {
-    const { search, category, sort = 'new', page = 1, limit = 12 } = params;
+  async list(params: {
+    search?: string;
+    category?: string;
+    sort?: string;
+    page?: number;
+    limit?: number;
+    colors?: string[];
+    sizes?: string[];
+    styles?: string[];
+    priceMin?: number;
+    priceMax?: number;
+    inStock?: boolean;
+  }) {
+    const { search, category, sort = 'new', page = 1, limit = 12, colors, sizes, styles, priceMin, priceMax, inStock } = params;
     const filter: FilterQuery<ProductDocument> = {};
     if (search) filter.title = { $regex: search, $options: 'i' };
     if (category) filter.categories = this.toObjectIdOrThrow(category, 'category');
+
+    if (colors && colors.length) filter['variants.color'] = { $in: colors } as any;
+    if (sizes && sizes.length) filter['variants.size'] = { $in: sizes } as any;
+    if (styles && styles.length) filter['styles'] = { $in: styles } as any;
+
+    // Price filtering using derived fields for variant products
+    if (priceMin != null || priceMax != null) {
+      const min = priceMin != null ? Number(priceMin) : 0;
+      const max = priceMax != null ? Number(priceMax) : Number.MAX_SAFE_INTEGER;
+      filter.$or = [
+        { hasVariants: true, minPrice: { $lte: max }, maxPrice: { $gte: min } },
+        { hasVariants: false, basePrice: { $gte: min, $lte: max } },
+      ];
+    }
+
+    if (inStock === true) {
+      filter.$or = (filter.$or || []).concat([
+        { hasVariants: true, totalStock: { $gt: 0 } },
+        { hasVariants: false, stock: { $gt: 0 } },
+      ]);
+    }
 
     const query = this.model.find(filter);
 
     if (sort === 'new') query.sort({ createdAt: -1 });
     else if (sort === 'top-selling') query.sort({ ratingCount: -1 });
-    else if (sort === 'price-asc') query.sort({ basePrice: 1 });
-    else if (sort === 'price-desc') query.sort({ basePrice: -1 });
+    else if (sort === 'price-asc') query.sort({ minPrice: 1, basePrice: 1 });
+    else if (sort === 'price-desc') query.sort({ minPrice: -1, basePrice: -1 });
 
     const docs = await query
       .skip((page - 1) * limit)
@@ -156,6 +189,49 @@ export class ProductsService {
     const updated = await this.model.findByIdAndUpdate(id, { $inc: { stock: delta } }, { new: true }).exec();
     if (!updated) throw new NotFoundException('Product not found');
     return updated;
+  }
+
+  async updateVariants(id: string, body: { variants?: any[]; removeSkus?: string[] }) {
+    const ops: any = {};
+    if (body.removeSkus && body.removeSkus.length) {
+      ops.$pull = { variants: { sku: { $in: body.removeSkus } } };
+    }
+    if (body.variants && body.variants.length) {
+      // Upsert variants by sku: replace if exists, else push
+      const product = await this.model.findById(id).exec();
+      if (!product) throw new NotFoundException('Product not found');
+      const map = new Map<string, any>();
+      for (const v of product.variants || []) map.set(v.sku, v);
+      for (const v of body.variants) map.set(v.sku, { ...map.get(v.sku), ...v });
+      const next = Array.from(map.values());
+      const updated = await this.model
+        .findByIdAndUpdate(
+          id,
+          { $set: { variants: next } },
+          { new: true },
+        )
+        .exec();
+      if (!updated) throw new NotFoundException('Product not found');
+      return updated;
+    }
+    if (Object.keys(ops).length) {
+      const updated = await this.model.findByIdAndUpdate(id, ops, { new: true }).exec();
+      if (!updated) throw new NotFoundException('Product not found');
+      return updated;
+    }
+    const current = await this.model.findById(id).exec();
+    if (!current) throw new NotFoundException('Product not found');
+    return current;
+  }
+
+  async adjustVariantStock(id: string, sku: string, delta: number) {
+    const product = await this.model.findById(id).exec();
+    if (!product) throw new NotFoundException('Product not found');
+    const idx = (product.variants || []).findIndex((v: any) => v.sku === sku);
+    if (idx < 0) throw new NotFoundException('Variant not found');
+    product.variants[idx].stock = Math.max(0, Number(product.variants[idx].stock || 0) + Number(delta));
+    await product.save();
+    return product;
   }
 
   async newArrivals(limit = 6) {

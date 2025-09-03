@@ -40,4 +40,19 @@ export class UsersService {
   async setRole(userId: string, role: UserRole): Promise<void> {
     await this.userModel.updateOne({ _id: userId }, { $set: { role } }).exec();
   }
+
+  async setOtp(userId: string, data: { otpHash: string; otpExpiresAt: Date; otpLastSentAt: Date }): Promise<void> {
+    await this.userModel
+      .updateOne(
+        { _id: userId },
+        { $set: { otpHash: data.otpHash, otpExpiresAt: data.otpExpiresAt, otpLastSentAt: data.otpLastSentAt } },
+      )
+      .exec();
+  }
+
+  async markEmailVerified(userId: string): Promise<void> {
+    await this.userModel
+      .updateOne({ _id: userId }, { $set: { isEmailVerified: true }, $unset: { otpHash: '', otpExpiresAt: '', otpLastSentAt: '' } })
+      .exec();
+  }
 }

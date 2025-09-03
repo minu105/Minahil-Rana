@@ -27,7 +27,7 @@
           "request": {
             "method": "POST",
             "header": [{"key": "Content-Type", "value": "application/json"}],
-            "body": {"mode": "raw", "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"test@example.com\",\n  \"password\": \"secret123\"\n}"},
+            "body": {"mode": "raw", "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"test@example.com\",\n  \"password\": \"secret123\"\n}\n\n// Note: This now returns a message to verify OTP (no token)."},
             "url": {"raw": "{{baseUrl}}/auth/register", "host": ["{{baseUrl}}"], "path": ["auth","register"]}
           }
         },
@@ -52,6 +52,24 @@
               }
             }
           ]
+        },
+        {
+          "name": "POST /auth/verify-otp",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {"mode": "raw", "raw": "{\n  \"email\": \"test@example.com\",\n  \"otp\": \"123456\"\n}"},
+            "url": {"raw": "{{baseUrl}}/auth/verify-otp", "host": ["{{baseUrl}}"], "path": ["auth","verify-otp"]}
+          }
+        },
+        {
+          "name": "POST /auth/resend-otp",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {"mode": "raw", "raw": "{\n  \"email\": \"test@example.com\"\n}"},
+            "url": {"raw": "{{baseUrl}}/auth/resend-otp", "host": ["{{baseUrl}}"], "path": ["auth","resend-otp"]}
+          }
         },
         {
           "name": "GET /auth/me",
@@ -209,10 +227,67 @@
       ]
     },
     {
+      "name": "Products (Filters & Variants)",
+      "item": [
+        {
+          "name": "GET /products (filters)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/products?colors=red&colors=blue&sizes=M&sizes=L&styles=Casual&priceMin=50&priceMax=200&inStock=true&page=1&limit=12",
+              "host": ["{{baseUrl}}"],
+              "path": ["products"],
+              "query": [
+                {"key":"colors","value":"red"},
+                {"key":"colors","value":"blue"},
+                {"key":"sizes","value":"M"},
+                {"key":"sizes","value":"L"},
+                {"key":"styles","value":"Casual"},
+                {"key":"priceMin","value":"50"},
+                {"key":"priceMax","value":"200"},
+                {"key":"inStock","value":"true"},
+                {"key":"page","value":"1"},
+                {"key":"limit","value":"12"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "PATCH /products/:id/variants [ADMIN]",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"variants\": [\n    { \"sku\": \"TSHIRT-RED-M\", \"color\": \"red\", \"size\": \"M\", \"price\": 120, \"stock\": 10 },\n    { \"sku\": \"TSHIRT-RED-L\", \"color\": \"red\", \"size\": \"L\", \"price\": 120, \"stock\": 5 }\n  ]\n}"
+            },
+            "url": {"raw": "{{baseUrl}}/products/{{productId}}/variants", "host": ["{{baseUrl}}"], "path": ["products","{{productId}}","variants"]}
+          }
+        },
+        {
+          "name": "PATCH /products/:id/variants/:sku/stock [ADMIN]",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {"mode": "raw", "raw": "{\n  \"delta\": 3\n}"},
+            "url": {"raw": "{{baseUrl}}/products/{{productId}}/variants/TSHIRT-RED-M/stock", "host": ["{{baseUrl}}"], "path": ["products","{{productId}}","variants","TSHIRT-RED-M","stock"]}
+          }
+        }
+      ]
+    },
+    {
       "name": "Cart [AUTH]",
       "item": [
         {"name": "GET /cart", "request": {"method": "GET", "header": [{"key": "Authorization", "value": "Bearer {{token}}"}], "url": {"raw": "{{baseUrl}}/cart", "host": ["{{baseUrl}}"], "path": ["cart"]}}},
-        {"name": "POST /cart/items", "request": {"method": "POST", "header": [{"key": "Authorization", "value": "Bearer {{token}}"},{"key":"Content-Type","value":"application/json"}], "body": {"mode":"raw","raw":"{\n  \"productId\": \"{{productId}}\",\n  \"qty\": 1\n}"}, "url": {"raw": "{{baseUrl}}/cart/items", "host": ["{{baseUrl}}"], "path": ["cart","items"]}}},
+        {"name": "POST /cart/items (MONEY/POINTS - no chosenPayment)", "request": {"method": "POST", "header": [{"key": "Authorization", "value": "Bearer {{token}}"},{"key":"Content-Type","value":"application/json"}], "body": {"mode":"raw","raw":"{\n  \"productId\": \"{{productId}}\",\n  \"qty\": 1\n}"}, "url": {"raw": "{{baseUrl}}/cart/items", "host": ["{{baseUrl}}"], "path": ["cart","items"]}}},
+        {"name": "POST /cart/items (HYBRID - requires chosenPayment)", "request": {"method": "POST", "header": [{"key": "Authorization", "value": "Bearer {{token}}"},{"key":"Content-Type","value":"application/json"}], "body": {"mode":"raw","raw":"{\n  \"productId\": \"{{productId}}\",\n  \"qty\": 1,\n  \"chosenPayment\": \"MONEY\"\n}"}, "url": {"raw": "{{baseUrl}}/cart/items", "host": ["{{baseUrl}}"], "path": ["cart","items"]}}},
         {"name": "PATCH /cart/items/:productId", "request": {"method": "PATCH", "header": [{"key": "Authorization", "value": "Bearer {{token}}"},{"key":"Content-Type","value":"application/json"}], "body": {"mode":"raw","raw":"{\n  \"qty\": 2\n}"}, "url": {"raw": "{{baseUrl}}/cart/items/{{productId}}", "host": ["{{baseUrl}}"], "path": ["cart","items","{{productId}}"]}}},
         {"name": "DELETE /cart/items/:productId", "request": {"method": "DELETE", "header": [{"key": "Authorization", "value": "Bearer {{token}}"}], "url": {"raw": "{{baseUrl}}/cart/items/{{productId}}", "host": ["{{baseUrl}}"], "path": ["cart","items","{{productId}}"]}}},
         {"name": "DELETE /cart/clear", "request": {"method": "DELETE", "header": [{"key": "Authorization", "value": "Bearer {{token}}"}], "url": {"raw": "{{baseUrl}}/cart/clear", "host": ["{{baseUrl}}"], "path": ["cart","clear"]}}}
@@ -223,6 +298,55 @@
       "item": [
         {"name": "POST /orders/checkout", "request": {"method": "POST", "header": [{"key": "Authorization", "value": "Bearer {{token}}"}], "url": {"raw": "{{baseUrl}}/orders/checkout", "host": ["{{baseUrl}}"], "path": ["orders","checkout"]}}},
         {"name": "GET /orders", "request": {"method": "GET", "header": [{"key": "Authorization", "value": "Bearer {{token}}"}], "url": {"raw": "{{baseUrl}}/orders", "host": ["{{baseUrl}}"], "path": ["orders"]}}}
+      ]
+    },
+    {
+      "name": "Orders Admin [ADMIN]",
+      "item": [
+        {
+          "name": "GET /orders/admin",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+            "url": {
+              "raw": "{{baseUrl}}/orders/admin?status=&from=&to=&q=&page=1&limit=20",
+              "host": ["{{baseUrl}}"],
+              "path": ["orders","admin"],
+              "query": [
+                {"key":"status","value":""},
+                {"key":"from","value":""},
+                {"key":"to","value":""},
+                {"key":"q","value":""},
+                {"key":"page","value":"1"},
+                {"key":"limit","value":"20"}
+              ]
+            }
+          }
+        },
+        {
+          "name": "PATCH /orders/admin/:id/status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {"key": "Authorization", "value": "Bearer {{token}}"},
+              {"key": "Content-Type", "value": "application/json"}
+            ],
+            "body": {"mode": "raw", "raw": "{\n  \"status\": \"SHIPPED\"\n}"},
+            "url": {"raw": "{{baseUrl}}/orders/admin/{{orderId}}/status", "host": ["{{baseUrl}}"], "path": ["orders","admin","{{orderId}}","status"]}
+          }
+        },
+        {
+          "name": "GET /orders/admin/metrics/overview",
+          "request": {"method": "GET", "header": [{"key": "Authorization", "value": "Bearer {{token}}"}], "url": {"raw": "{{baseUrl}}/orders/admin/metrics/overview", "host": ["{{baseUrl}}"], "path": ["orders","admin","metrics","overview"]}}
+        },
+        {
+          "name": "GET /orders/admin/metrics/sales-series",
+          "request": {"method": "GET", "header": [{"key": "Authorization", "value": "Bearer {{token}}"}], "url": {"raw": "{{baseUrl}}/orders/admin/metrics/sales-series?from=&to=&granularity=day", "host": ["{{baseUrl}}"], "path": ["orders","admin","metrics","sales-series"], "query": [{"key":"from","value":""},{"key":"to","value":""},{"key":"granularity","value":"day"}]}}
+        },
+        {
+          "name": "GET /orders/admin/metrics/top-products",
+          "request": {"method": "GET", "header": [{"key": "Authorization", "value": "Bearer {{token}}"}], "url": {"raw": "{{baseUrl}}/orders/admin/metrics/top-products?limit=5&from=&to=", "host": ["{{baseUrl}}"], "path": ["orders","admin","metrics","top-products"], "query": [{"key":"limit","value":"5"},{"key":"from","value":""},{"key":"to","value":""}]}}
+        }
       ]
     },
     {
